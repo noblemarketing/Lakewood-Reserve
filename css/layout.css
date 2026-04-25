@@ -1,0 +1,415 @@
+body.menu-open {
+  overflow: hidden;
+}
+
+.section-inner {
+  width: min(var(--container-max), 92%);
+  margin-inline: auto;
+}
+
+main > section {
+  padding-block: var(--space-2xl);
+}
+
+main > section.hero-booking-strip {
+  padding-block: clamp(0.65rem, 2vw, 1rem);
+  background: var(--hero-booking-strip-bg);
+}
+
+@media (max-width: 767px) {
+  main > section {
+    padding-block: clamp(2.4rem, 9vw, 3.2rem);
+  }
+
+  .site-nav {
+    min-height: 84px;
+    width: min(var(--container-max), 94%);
+  }
+
+  .hero {
+    min-height: 92svh;
+    padding-top: 5.3rem;
+  }
+
+  .listing-hero {
+    min-height: 44vh;
+  }
+}
+
+.site-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 900;
+  transition: none;
+}
+
+.site-header.scrolled {
+  background: transparent;
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.site-nav {
+  width: min(var(--container-max), 95%);
+  min-height: 94px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  transition: min-height 220ms ease;
+}
+
+.site-header.scrolled .site-nav {
+  min-height: 94px;
+}
+
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  padding-top: 6rem;
+  overflow: hidden;
+}
+
+.hero-media,
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-content {
+  width: min(740px, 92%);
+  margin-inline: auto;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-content .eyebrow {
+  color: rgba(253, 250, 245, 0.92);
+  margin-bottom: var(--space-sm);
+  margin-inline: auto;
+}
+
+.hero-content h1 {
+  color: var(--color-white);
+  max-width: 16ch;
+  margin-bottom: var(--space-lg);
+  margin-inline: auto;
+  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+.availability-section {
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding-block: var(--space-xl);
+}
+
+.availability-section h2 {
+  color: var(--color-dark);
+  margin-bottom: var(--space-md);
+}
+
+.intro {
+  background: var(--color-bg);
+}
+
+.intro-grid {
+  display: grid;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.featured-cabins .section-inner {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.cabin-grid {
+  display: grid;
+  gap: var(--space-md);
+}
+
+/* Homepage "Our Tiny Homes": two-up on small screens (and stay 2-col with only two listings). */
+.featured-cabins .cabin-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.listing-hero {
+  min-height: 50vh;
+  position: relative;
+  display: grid;
+  place-items: end start;
+  isolation: isolate;
+  padding-block: var(--space-xl);
+}
+
+.listing-hero-media,
+.listing-hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.listing-hero-content {
+  z-index: 2;
+}
+
+.listing-hero-content h1 {
+  color: var(--color-white);
+}
+
+.amenities-strip {
+  background: #F6F4F1;
+  color: #2A2D2E;
+}
+
+.amenities-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.explore-teaser {
+  position: relative;
+  padding-block: 0;
+}
+
+.explore-media {
+  min-height: clamp(250px, 36vw, 420px);
+}
+
+.explore-content {
+  padding-block: var(--space-md);
+}
+
+.reviews {
+  background: var(--color-white);
+}
+
+.final-cta {
+  min-height: 55vh;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.final-cta-content {
+  text-align: center;
+  z-index: 2;
+}
+
+.memory-collage-cta {
+  position: relative;
+  min-height: clamp(300px, 44vw, 460px);
+  isolation: isolate;
+}
+
+.memory-collage-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: minmax(110px, 1fr);
+  gap: 0.42rem;
+}
+
+.memory-collage-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-collage-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(14, 17, 18, 0.62), rgba(14, 17, 18, 0.62));
+  z-index: 1;
+}
+
+.memory-collage-content {
+  position: relative;
+  z-index: 2;
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(0.65rem, 2vw, 1rem);
+}
+
+.memory-collage-content h2 {
+  color: var(--color-white);
+  font-size: clamp(1.35rem, 4.1vw, 2.15rem);
+  max-width: 28ch;
+  margin-bottom: 0;
+}
+
+.site-footer {
+  background: linear-gradient(135deg, #162E31 0%, #1D3C40 100%);
+  color: #FDFAF5;
+  padding-block: clamp(2.4rem, 6vw, 4rem);
+}
+
+.site-footer .section-inner {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  main > section {
+    padding-block: var(--space-3xl);
+  }
+
+  main > section.hero-booking-strip {
+    padding-block: clamp(0.75rem, 2vw, 1.15rem);
+  }
+
+  .intro-grid {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .cabin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .explore-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(var(--space-xl) + 1.1rem);
+    color: var(--color-white);
+  }
+
+  .site-footer .section-inner {
+    grid-template-columns: 1.35fr 1.35fr 1fr;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-nav {
+    min-height: 112px;
+  }
+
+  .cabin-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .featured-cabins .cabin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .amenities-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.detail-gallery {
+  padding-top: 7rem;
+  padding-bottom: var(--space-lg);
+}
+
+.detail-gallery-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.detail-gallery-grid img:first-child {
+  grid-column: 1 / -1;
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+.detail-gallery-grid img:not(:first-child) {
+  width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.detail-columns {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: start;
+  padding-bottom: 6rem;
+}
+
+.booking-column {
+  position: relative;
+}
+
+.booking-panel {
+  background: var(--surface-teal-glass);
+  border: 1px solid var(--border-teal-glass);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 28px rgba(22, 46, 49, 0.08);
+  padding: var(--space-md);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.mobile-booking-toggle {
+  position: fixed;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  z-index: 980;
+  min-height: 50px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: var(--btn-solid-bg);
+  color: var(--btn-solid-text);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+body.booking-expanded .booking-panel {
+  position: fixed;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 4.6rem;
+  z-index: 970;
+  max-height: 62vh;
+  overflow: auto;
+}
+
+@media (min-width: 768px) {
+  .detail-gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .detail-gallery-grid img:nth-child(2) {
+    grid-column: span 2;
+  }
+
+  .detail-gallery-grid img:nth-child(3),
+  .detail-gallery-grid img:nth-child(4),
+  .detail-gallery-grid img:nth-child(5) {
+    grid-column: span 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .detail-columns {
+    grid-template-columns: minmax(0, 1.35fr) minmax(330px, 0.65fr);
+    padding-bottom: 0;
+  }
+
+  .booking-column .booking-panel {
+    position: sticky;
+    top: 6.2rem;
+  }
+
+  .mobile-booking-toggle {
+    display: none;
+  }
+}

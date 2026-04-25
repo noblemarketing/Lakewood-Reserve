@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lakewood Reserve | Tiny Home Rentals on Raystown Lake, PA</title>
+  <meta name="description" content="Book a tiny home escape at Lakewood Reserve near Raystown Lake, Pennsylvania. Explore cabins, amenities, and direct booking availability.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
+        <picture>
+          <source srcset="assets/icons/LR-Horizontal-White.eps" type="application/postscript">
+          <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="Lakewood Reserve logo" width="1024" height="373" loading="eager">
+        </picture>
+        <img class="logo-icon" src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve icon" width="1024" height="1024" loading="eager">
+      </a>
+
+      <ul class="nav-links nav-links-desktop">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span class="hamburger-lines" aria-hidden="true"></span>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul class="nav-links nav-links-mobile">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" role="img" aria-label="Aerial view of Raystown Lake and forested cabins"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Raystown Lake, Pennsylvania</p>
+        <h1 id="hero-title">Your Escape Awaits at Raystown Lake.</h1>
+        <a class="btn btn-primary btn-availability" href="cabins.html">Check Availability</a>
+      </div>
+    </section>
+
+    <!-- Dates are forwarded as ?arrival=&departure=&guests= to cabins#availability for Lodgify once the widget script is embedded there. -->
+    <section class="hero-booking-strip" aria-label="Plan your stay">
+      <div class="hero-booking-strip-inner">
+        <form id="hero-booking-form" class="hero-booking-form" action="cabins.html" method="get">
+          <div class="hero-booking-bar">
+            <label class="hero-booking-field" for="hero-arrival">
+              <span class="hero-booking-label">Check-in</span>
+              <input class="hero-booking-input" type="date" id="hero-arrival" name="arrival" autocomplete="off">
+            </label>
+            <label class="hero-booking-field" for="hero-departure">
+              <span class="hero-booking-label">Check-out</span>
+              <input class="hero-booking-input" type="date" id="hero-departure" name="departure" autocomplete="off">
+            </label>
+            <label class="hero-booking-field hero-booking-field--guests" for="hero-guests">
+              <span class="hero-booking-label">Guests</span>
+              <select class="hero-booking-input" id="hero-guests" name="guests">
+                <option value="1">1 guest</option>
+                <option value="2" selected>2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5 guests</option>
+                <option value="6">6 guests</option>
+                <option value="7">7 guests</option>
+                <option value="8">8 guests</option>
+              </select>
+            </label>
+            <button type="submit" class="hero-booking-submit">Select a cabin</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="featured-cabins section-fade" aria-labelledby="featured-cabins-title">
+      <div class="section-inner">
+        <h2 id="featured-cabins-title">Our Tiny Homes</h2>
+
+        <div class="cabin-grid">
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/the-apex-cover.png" alt="The Apex modern A-frame cabin in the forest" width="1920" height="1080" loading="lazy">
+              <span class="guest-count-badge">Sleeps 2</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>The Apex</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">A-Frame</span>
+                <span class="amenity-pill">Forest Setting</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+              </div>
+              <a class="btn btn-secondary" href="the-apex.html">View + Book</a>
+            </div>
+          </article>
+
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/anchor-twenty-eight-cover.png" alt="Anchor Twenty Eight modern tiny home with wood and black metal siding in a pine forest at golden hour" width="1024" height="682" loading="lazy">
+              <span class="guest-count-badge">Sleeps 6</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>Anchor Twenty Eight</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">Cascade-style</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+                <span class="amenity-pill">Lake Access</span>
+              </div>
+              <a class="btn btn-secondary" href="anchor-twenty-eight.html">View + Book</a>
+            </div>
+          </article>
+        </div>
+
+        <a class="btn btn-primary" href="cabins.html">View All Cabins</a>
+      </div>
+    </section>
+
+    <section class="amenities-strip" aria-label="Highlighted amenities">
+      <div class="section-inner amenities-grid">
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s6-5.1 6-10a6 6 0 1 0-12 0c0 4.9 6 10 6 10Z"/><circle cx="12" cy="11" r="2.2"/></svg>
+          </span>
+          <h3 class="amenity-title">Lakeside Location</h3>
+          <p class="amenity-copy">Located near Raystown Lake for easy access to hiking, boating, and scenic views.</p>
+        </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M3 13h18v5H3z"/><path d="M3 18v3"/><path d="M21 18v3"/><path d="M5 13V9h6a2 2 0 0 1 2 2v2"/><path d="M13 11h4a2 2 0 0 1 2 2v0"/></svg>
+          </span>
+          <h3 class="amenity-title">Modern Comfort</h3>
+          <p class="amenity-copy">Thoughtfully designed tiny homes with upscale finishes and cozy interiors.</p>
+        </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="6" r="3"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><path d="M4 11h3"/><path d="M17 11h3"/></svg>
+          </span>
+          <h3 class="amenity-title">Welcoming Host Team</h3>
+          <p class="amenity-copy">Friendly support before and during your stay to help every visit feel effortless.</p>
+        </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 7h16"/><path d="M8 3v4"/><path d="M16 3v4"/><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 13h2"/><path d="M13 13h2"/></svg>
+          </span>
+          <h3 class="amenity-title">Best Value Offers</h3>
+          <p class="amenity-copy">Flexible stays and seasonal offers designed to give you more value per getaway.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="services-showcase section-fade" aria-labelledby="services-title">
+      <div class="services-quote-band">
+        <div class="section-inner">
+          <div class="services-quote-icon" aria-hidden="true">
+            <img src="assets/icons/oars.svg" alt="" width="120" height="120" loading="lazy">
+          </div>
+          <p class="services-quote-copy">
+            We design every stay around comfort and quiet details, from intentional interiors to meaningful local experiences that
+            help you reset.
+          </p>
+        </div>
+      </div>
+
+      <div class="services-split">
+        <div class="services-panel">
+          <h2 id="services-title">Our Mission</h2>
+          <p>
+            Our mission is to create a place where you can slow down, unplug from daily noise, and reconnect with what matters most.
+            At Lakewood Reserve, every stay is designed to encourage restful mornings, quiet evenings, and meaningful quality time with
+            the people around you.
+          </p>
+          <p class="services-meta">Guest Support / Local Recommendations / Flexible Booking</p>
+          <a class="services-link" href="contact.html">Learn More</a>
+        </div>
+        <figure class="services-image">
+          <img src="assets/images/hero/intro-cozy-cabin.png" alt="Warm and thoughtfully designed cabin living space" width="1024" height="682" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <section class="guest-groups section-fade" aria-labelledby="guest-groups-title">
+      <div class="section-inner guest-groups-inner">
+        <h2 id="guest-groups-title">For whatever stay you're looking for</h2>
+        <p class="guest-groups-subtitle">Romantic escapes, friends, family stays, and quiet solo time—all at Lakewood Reserve</p>
+        <div class="guest-groups-grid">
+          <article class="guest-group-card">
+            <div class="guest-group-media">
+              <img src="assets/images/area/couples-fireplace.png" alt="Couple enjoying a romantic evening by the fire" width="1024" height="640" loading="lazy">
+            </div>
+            <div class="guest-group-bar">
+              <h3 class="guest-group-label">Couples</h3>
+              <p class="guest-group-note">Romantic getaways</p>
+            </div>
+          </article>
+          <article class="guest-group-card">
+            <div class="guest-group-media">
+              <img src="assets/images/area/friends-campfire.png" alt="Group of friends enjoying a campfire evening at a cabin" width="1024" height="640" loading="lazy">
+            </div>
+            <div class="guest-group-bar">
+              <h3 class="guest-group-label">Friends</h3>
+              <p class="guest-group-note">Up to 6 guests</p>
+            </div>
+          </article>
+          <article class="guest-group-card">
+            <div class="guest-group-media">
+              <img src="assets/images/area/families-campfire.png" alt="Family roasting food and enjoying time around a fire" width="819" height="1229" loading="lazy">
+            </div>
+            <div class="guest-group-bar">
+              <h3 class="guest-group-label">Families</h3>
+              <p class="guest-group-note">Quality time together</p>
+            </div>
+          </article>
+          <article class="guest-group-card">
+            <div class="guest-group-media">
+              <img src="assets/images/area/solo-hiker.png" alt="Solo traveler hiking above Raystown Lake" width="1024" height="640" loading="lazy">
+            </div>
+            <div class="guest-group-bar">
+              <h3 class="guest-group-label">Solo retreat</h3>
+              <p class="guest-group-note">Reset on your terms</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="explore-teaser section-fade" aria-labelledby="explore-title">
+      <div class="explore-media">
+        <img src="assets/images/area/adobestock-630727823.jpeg" alt="Sunset over Raystown Lake with rolling hills in the distance" width="1920" height="1280" loading="lazy">
+      </div>
+      <div class="section-inner explore-content">
+        <h2 id="explore-title">Explore Raystown</h2>
+        <p>There is so much the lake has to offer. See our recommendations below.</p>
+        <a class="btn btn-primary" href="explore.html">Area Guide</a>
+      </div>
+    </section>
+
+    <section class="reviews testimonials section-fade" aria-labelledby="reviews-title">
+      <div class="section-inner testimonials-inner">
+        <header class="testimonials-head">
+          <div class="testimonials-head-text">
+            <h2 id="reviews-title" class="testimonials-title">Testimonials</h2>
+            <span class="testimonials-title-rule" aria-hidden="true"></span>
+            <p class="testimonials-sub">Don't take our word for it! Hear it from our customer.</p>
+          </div>
+          <div class="testimonials-nav" role="group" aria-label="Testimonial navigation">
+            <button class="testimonials-arrow prev" type="button" aria-label="Previous testimonials">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M14 6 8 12l6 6"/></svg>
+            </button>
+            <button class="testimonials-arrow next" type="button" aria-label="Next testimonials">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="testimonials-track" aria-live="polite">
+          <article class="review-card review-card--visible" data-review-index="0" aria-hidden="false">
+            <span class="review-card-quote-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Best weekend we've had in years.</blockquote>
+            <footer class="review-card-meta">
+              <div class="review-card-avatar" aria-hidden="true">SM</div>
+              <div class="review-card-byline">
+                <cite class="review-card-name">Sarah M.</cite>
+                <p class="review-card-loc">Philadelphia, USA</p>
+              </div>
+            </footer>
+          </article>
+
+          <article class="review-card review-card--visible" data-review-index="1" aria-hidden="false">
+            <span class="review-card-quote-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>The perfect reset. Lake mornings were unreal.</blockquote>
+            <footer class="review-card-meta">
+              <div class="review-card-avatar" aria-hidden="true">DT</div>
+              <div class="review-card-byline">
+                <cite class="review-card-name">Daniel T.</cite>
+                <p class="review-card-loc">Pittsburgh, USA</p>
+              </div>
+            </footer>
+          </article>
+
+          <article class="review-card" data-review-index="2" aria-hidden="true">
+            <span class="review-card-quote-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote>Beautiful design, spotless cabin, and peaceful nights.</blockquote>
+            <footer class="review-card-meta">
+              <div class="review-card-avatar" aria-hidden="true">MR</div>
+              <div class="review-card-byline">
+                <cite class="review-card-name">Maya R.</cite>
+                <p class="review-card-loc">Baltimore, USA</p>
+              </div>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="memory-collage-cta" aria-labelledby="memory-collage-title">
+      <div class="memory-collage-grid" aria-hidden="true">
+        <img src="assets/images/area/adobestock-135658781.jpeg" alt="" width="1920" height="1280" loading="lazy">
+        <img src="assets/images/area/adobestock-431233609.jpeg" alt="" width="1920" height="1080" loading="lazy">
+        <img src="assets/images/area/adobestock-450857228.jpeg" alt="" width="1920" height="1280" loading="lazy">
+        <img src="assets/images/area/adobestock-452068589.jpeg" alt="" width="1920" height="1280" loading="lazy">
+        <img src="assets/images/area/adobestock-630727823.jpeg" alt="" width="1920" height="1280" loading="lazy">
+        <img src="assets/images/area/memory-collage-aframe-cabin.png" alt="" width="1920" height="1080" loading="lazy">
+      </div>
+      <div class="memory-collage-overlay"></div>
+      <div class="section-inner memory-collage-content">
+        <h2 id="memory-collage-title">Make Memories That Last - Reserve Your Getaway Today!</h2>
+        <a class="btn btn-secondary memory-collage-btn" href="cabins.html">Find Your Cabin</a>
+      </div>
+    </section>
+
+    <section class="instagram-feed section-fade" aria-labelledby="instagram-feed-title">
+      <div class="section-inner">
+        <h2 id="instagram-feed-title">From Our Instagram</h2>
+        <behold-widget feed-id="TY1rYWaP7EX6tnXfbx7d"></behold-widget>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-inner footer-nav-layout">
+      <div class="footer-brand-stack">
+        <a class="footer-brand" href="index.html" aria-label="Lakewood Reserve home">
+          <img src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve mark" width="1024" height="1024" loading="lazy">
+        </a>
+        <ul class="footer-social-icons" aria-label="Social links">
+          <li>
+            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
+              <span class="sr-only">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
+              <span class="sr-only">TikTok</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav class="footer-nav-group" aria-label="Cabins links">
+        <p class="footer-nav-title">Cabins</p>
+        <a href="the-apex.html">The Apex</a>
+        <a href="anchor-twenty-eight.html">Anchor Twenty Eight</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Explore links">
+        <p class="footer-nav-title">Explore</p>
+        <a href="explore.html">Things to Do</a>
+        <a href="explore.html">Raystown Lake Guide</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Contact links">
+        <p class="footer-nav-title">Contact Us</p>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+    </div>
+    <div class="footer-legal-bar">
+      <div class="footer-legal-bar-inner">
+        <p class="footer-copyright">© 2026 Lakewood Reserve. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="Legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span class="footer-legal-sep" aria-hidden="true">·</span>
+          <a href="terms.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "Lakewood Reserve",
+      "description": "Tiny home vacation rentals near Raystown Lake, Pennsylvania.",
+      "url": "https://example.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "PA",
+        "addressCountry": "US"
+      }
+    }
+  </script>
+
+  <script src="js/hero-booking-strip.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/back-to-top.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script>
+    (() => {
+      const d = document;
+      const existing = d.querySelector('script[src="https://w.behold.so/widget.js"]');
+      if (existing) return;
+      const s = d.createElement("script");
+      s.type = "module";
+      s.src = "https://w.behold.so/widget.js";
+      d.head.append(s);
+    })();
+  </script>
+</body>
+</html>
+
+

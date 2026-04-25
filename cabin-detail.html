@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/cabin-page-scroll.js"></script>
+  <title>The Apex | Lakewood Reserve</title>
+  <meta name="description" content="View The Apex at Lakewood Reserve: modern A-frame cabin, amenities, and direct booking near Raystown Lake.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/lodgify.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body class="cabin-detail-page">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
+        <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="Lakewood Reserve logo" width="1024" height="373" loading="eager">
+      </a>
+      <ul class="nav-links nav-links-desktop">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a class="btn btn-book" href="#booking-panel">Book Now</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span class="hamburger-lines" aria-hidden="true"></span>
+      </button>
+    </nav>
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul class="nav-links nav-links-mobile">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn btn-book" href="#booking-panel">Book Now</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="listing-meta-strip" aria-label="The Apex at a glance">
+      <div class="section-inner listing-meta-strip-inner">
+        <div class="listing-meta-counts" aria-label="Home highlights">
+          <span class="listing-meta-count"><span class="listing-meta-count-num">1</span> bedroom</span>
+          <span class="listing-meta-count-sep" aria-hidden="true">·</span>
+          <span class="listing-meta-count"><span class="listing-meta-count-num">1</span> bathroom</span>
+          <span class="listing-meta-count-sep" aria-hidden="true">·</span>
+          <span class="listing-meta-count">Sleeps <span class="listing-meta-count-num">2</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-gallery">
+      <div class="section-inner detail-gallery-grid">
+        <img src="assets/images/cabins/the-apex-cover.png" alt="The Apex A-frame cabin exterior" width="1920" height="1080" loading="eager">
+        <img src="assets/images/cabins/cabin-2.jpg" alt="Cabin deck and outdoor seating" width="800" height="600" loading="lazy">
+        <img src="assets/images/cabins/cabin-3.jpg" alt="Cabin surrounded by trees" width="800" height="600" loading="lazy">
+        <img src="assets/images/hero/intro-cozy-cabin.png" alt="Cabin living space and large windows" width="1024" height="682" loading="lazy">
+        <img src="assets/images/area/adobestock-630727823.jpeg" alt="Nearby lakeside scenery at Raystown Lake" width="1920" height="1280" loading="lazy">
+      </div>
+    </section>
+
+    <section class="detail-content">
+      <div class="section-inner detail-columns">
+        <article class="cabin-info">
+          <p class="eyebrow">The Apex</p>
+          <h1>Modern A-Frame in the Woods</h1>
+          <p>★★★★★ · 12 reviews</p>
+          <p>Sleeps 2 · 1 Bed · 1 Bath</p>
+          <p>
+            Escape to your private woodland stay moments from Raystown Lake. The Apex pairs dramatic glass and black cladding with warm wood interiors,
+            plus easy access to water, trails, and stargazing.
+          </p>
+          <h3>Amenities</h3>
+          <ul>
+            <li>Lake access nearby</li>
+            <li>Private deck + fire pit</li>
+            <li>Sauna</li>
+            <li>Fully stocked kitchenette</li>
+          </ul>
+          <h3>House Rules</h3>
+          <ul>
+            <li>Check-in after 4:00 PM</li>
+            <li>No smoking indoors</li>
+            <li>Quiet hours after 10:00 PM</li>
+          </ul>
+        </article>
+
+        <aside class="booking-column">
+          <div id="booking-panel" class="booking-panel">
+            <h2>Check Availability</h2>
+            <p>Secure your stay directly with Lakewood Reserve.</p>
+
+            <div id="lodgify-booking-box">
+              <style>
+                :root {
+                  --ldg-bnb-background: #ffffff;
+                  --ldg-bnb-border-radius: 0.42em;
+                  --ldg-bnb-box-shadow: 0px 24px 54px 0px rgba(0, 0, 0, 0.1);
+                  --ldg-bnb-padding: 14px;
+                  --ldg-bnb-input-background: #ffffff;
+                  --ldg-bnb-button-border-radius: 3.58em;
+                  --ldg-bnb-color-primary: #5b7b72;
+                  --ldg-bnb-color-primary-lighter: #adbdb9;
+                  --ldg-bnb-color-primary-darker: #2e3e39;
+                  --ldg-bnb-color-primary-contrast: #ffffff;
+                  --ldg-component-calendar-cell-selection-bg-color: #5b7b72;
+                  --ldg-component-calendar-cell-selection-color: #ffffff;
+                  --ldg-component-calendar-cell-selected-bg-color: #adbdb9;
+                  --ldg-component-calendar-cell-selected-color: #ffffff;
+                  --ldg-bnb-font-family: inherit;
+                }
+                #lodgify-book-now-box {
+                  width: 100%;
+                }
+              </style>
+              <div
+                id="lodgify-book-now-box"
+                data-rental-id="16403"
+                data-website-id="629111"
+                data-slug="audrey-heller"
+                data-language-code="en"
+                data-new-tab="true"
+                data-version="stable"
+                data-has-guests-breakdown
+                data-check-in-label="Check-in"
+                data-check-out-label="Check-out"
+                data-guests-label="Guests"
+                data-guests-singular-label="{{NumberOfGuests}} guest"
+                data-guests-plural-label="{{NumberOfGuests}} guests"
+                data-location-input-label="Location"
+                data-total-price-label="Total price:"
+                data-select-dates-to-see-price-label="Select dates to see total price"
+                data-minimum-price-per-night-first-label="From"
+                data-minimum-price-per-night-second-label="per night"
+                data-book-button-label="Book Now"
+                data-guests-breakdown-label="Guests"
+                data-adults-label='{"one":"adult","other":"adults"}'
+                data-adults-description="Ages {minAge} or above"
+                data-children-label='{"one":"child","other":"children"}'
+                data-children-description="Ages {minAge}-{maxAge}"
+                data-children-not-allowed-label="Not suitable for children"
+                data-infants-label='{"one":"infant","other":"infants"}'
+                data-infants-description="Under {maxAge}"
+                data-infants-not-allowed-label="Not suitable for infants"
+                data-pets-label='{"one":"pet","other":"pets"}'
+                data-pets-not-allowed-label="Not allowed"
+                data-done-label="Done"
+              ></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <button id="mobile-booking-toggle" class="mobile-booking-toggle" type="button" aria-controls="booking-panel" aria-expanded="false">
+    Check Availability
+  </button>
+
+  <footer class="site-footer">
+    <div class="section-inner footer-nav-layout">
+      <div class="footer-brand-stack">
+        <a class="footer-brand" href="index.html" aria-label="Lakewood Reserve home">
+          <img src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve mark" width="1024" height="1024" loading="lazy">
+        </a>
+        <ul class="footer-social-icons" aria-label="Social links">
+          <li>
+            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
+              <span class="sr-only">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
+              <span class="sr-only">TikTok</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav class="footer-nav-group" aria-label="Cabins links">
+        <p class="footer-nav-title">Cabins</p>
+        <a href="the-apex.html">The Apex</a>
+        <a href="anchor-twenty-eight.html">Anchor Twenty Eight</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Explore links">
+        <p class="footer-nav-title">Explore</p>
+        <a href="explore.html">Things to Do</a>
+        <a href="explore.html">Raystown Lake Guide</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Contact links">
+        <p class="footer-nav-title">Contact Us</p>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <a class="btn btn-book footer-book-btn" href="#booking-panel">Book Now</a>
+    </div>
+    <div class="footer-legal-bar">
+      <div class="footer-legal-bar-inner">
+        <p class="footer-copyright">© 2026 Lakewood Reserve. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="Legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span class="footer-legal-sep" aria-hidden="true">·</span>
+          <a href="terms.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://app.lodgify.com/portable-book-now-box/stable/renderPortableBookNowBox.js" defer></script>
+  <script src="js/nav.js"></script>
+  <script src="js/back-to-top.js"></script>
+  <script src="js/booking-sidebar.js"></script>
+</body>
+</html>
+
+
+
+

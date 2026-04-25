@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/cabin-page-scroll.js"></script>
+  <title>The Apex | Lakewood Reserve</title>
+  <meta name="description" content="Tour The Apex at Lakewood Reserve: a modern A-frame cabin in the woods near Raystown Lake—room-by-room photo showcase.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body class="page-apex">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
+        <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="Lakewood Reserve logo" width="1024" height="373" loading="eager">
+        <img class="logo-icon" src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve icon" width="1024" height="1024" loading="eager">
+      </a>
+
+      <ul class="nav-links nav-links-desktop">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span class="hamburger-lines" aria-hidden="true"></span>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul class="nav-links nav-links-mobile">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="listing-hero apex-hero" aria-labelledby="apex-hero-title">
+      <div class="listing-hero-media"></div>
+      <div class="listing-hero-overlay"></div>
+      <div class="section-inner listing-hero-content">
+        <p class="eyebrow">Lakewood Reserve</p>
+        <h1 id="apex-hero-title">The Apex</h1>
+      </div>
+    </section>
+
+    <section class="listing-meta-strip" aria-label="The Apex at a glance">
+      <div class="section-inner listing-meta-strip-inner">
+        <div class="listing-meta-counts" aria-label="Home highlights">
+          <span class="listing-meta-count"><span class="listing-meta-count-num">1</span> bedroom</span>
+          <span class="listing-meta-count-sep" aria-hidden="true">·</span>
+          <span class="listing-meta-count"><span class="listing-meta-count-num">1</span> bathroom</span>
+          <span class="listing-meta-count-sep" aria-hidden="true">·</span>
+          <span class="listing-meta-count">Sleeps <span class="listing-meta-count-num">2</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="apex-intro section-fade">
+      <div class="section-inner">
+        <p>
+          A modern A-frame in the trees, designed for guests who want clean lines, warm wood, and big glass facing the forest—minutes from Raystown Lake.
+          Use the arrows on each gallery to browse photos by room.
+        </p>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-exterior">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-exterior">
+          <h2>Exterior &amp; arrival</h2>
+          <p>Black cladding, light wood accents, and a dramatic glass front framed by the forest.</p>
+        </header>
+        <figure class="apex-showcase-feature">
+          <img src="assets/images/cabins/the-apex-cover.png" alt="The Apex A-frame cabin exterior surrounded by green forest" width="1920" height="1080" loading="eager">
+        </figure>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-living">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-living">
+          <h2>Living</h2>
+          <p>Open living space with natural materials, soft light, and views into the trees.</p>
+        </header>
+        <div
+          class="apex-carousel"
+          data-apex-carousel="living-room"
+          data-apex-carousel-label="The Apex living room"
+        ></div>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-kitchen">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-kitchen">
+          <h2>Kitchen</h2>
+          <p>A streamlined kitchen layout for morning coffee, lake snacks, and easy dinners in.</p>
+        </header>
+        <div
+          class="apex-carousel"
+          data-apex-carousel="kitchen"
+          data-apex-carousel-label="The Apex kitchen"
+        ></div>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-bedroom">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-bedroom">
+          <h2>Bedroom</h2>
+          <p>A quiet retreat after lake days—soft light, comfortable layers, and space to truly switch off.</p>
+        </header>
+        <div
+          class="apex-carousel"
+          data-apex-carousel="bedroom"
+          data-apex-carousel-label="The Apex bedroom"
+        ></div>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-bath">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-bath">
+          <h2>Bathroom</h2>
+          <p>Clean finishes and thoughtful touches that keep the cabin feeling spa-simple, not cluttered.</p>
+        </header>
+        <div
+          class="apex-carousel"
+          data-apex-carousel="bathroom"
+          data-apex-carousel-label="The Apex bathroom"
+        ></div>
+      </div>
+    </section>
+
+    <section class="faq-section faq-section--accordion section-fade" aria-labelledby="apex-stay-details-title">
+      <div class="section-inner faq-accordion-inner">
+        <header class="faq-accordion-heading">
+          <h2 id="apex-stay-details-title">The Apex,<br>at a glance</h2>
+        </header>
+        <div class="faq-accordion-list">
+          <details class="faq-accordion-item">
+            <summary>House rules</summary>
+            <div class="faq-accordion-panel">
+              <ul>
+                <li>No smoking inside. If smoking is permitted outdoors, use designated areas and dispose of waste safely.</li>
+                <li>Quiet hours 10:00 PM–7:00 AM out of respect for neighbors and wildlife.</li>
+                <li>Maximum occupancy is two guests unless we have confirmed otherwise in writing.</li>
+                <li>No parties, events, or commercial shoots without prior approval.</li>
+                <li>Pets only when booked and confirmed on your reservation.</li>
+                <li>At checkout, follow the departure checklist in your welcome message (trash, dishes, thermostat, and doors).</li>
+              </ul>
+            </div>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>Amenities</summary>
+            <div class="faq-accordion-panel">
+              <ul>
+                <li>Full kitchen with cookware, serveware, and essentials for coffee and simple meals.</li>
+                <li>Wi‑Fi, heating and cooling, and on-demand hot water.</li>
+                <li>Fresh linens, towels, and starter toiletries.</li>
+                <li>Outdoor space for morning coffee or evening stargazing (details in your guest guide).</li>
+                <li>In-home entertainment as described in your pre-arrival notes.</li>
+              </ul>
+            </div>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>The space</summary>
+            <div class="faq-accordion-panel">
+              <p>The Apex is a one-bedroom, one-bathroom A-frame with an open main level and a wall of glass that pulls the forest into the living area. The layout is intentionally compact and calm—ideal for two guests who want an uncluttered base camp for lake days and slow evenings in.</p>
+            </div>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>The experience</summary>
+            <div class="faq-accordion-panel">
+              <p>Expect soft natural light, warm wood tones, and a stripped-back aesthetic that keeps attention on the trees outside. Mornings are for coffee on the deck or at the window; afternoons are for Raystown Lake and nearby trails; nights are for low light, a good playlist, and genuine quiet.</p>
+            </div>
+          </details>
+          <details class="faq-accordion-item">
+            <summary>Perfect for</summary>
+            <div class="faq-accordion-panel">
+              <ul>
+                <li>Couples and solo travelers who want a design-forward cabin without sacrificing comfort.</li>
+                <li>Short creative retreats, anniversaries, or a restorative long weekend.</li>
+                <li>Guests who prefer a smaller footprint, easy upkeep during the stay, and proximity to the lake.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="book" class="apex-book section-fade" aria-labelledby="apex-book-title">
+      <div class="section-inner apex-book-inner">
+        <h2 id="apex-book-title">Ready to stay?</h2>
+        <p>Check dates and complete your booking on our secure checkout.</p>
+        <div class="apex-book-actions">
+          <a class="btn btn-primary" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book The Apex</a>
+          <a class="btn btn-secondary" href="cabins.html">All cabins</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-inner footer-nav-layout">
+      <div class="footer-brand-stack">
+        <a class="footer-brand" href="index.html" aria-label="Lakewood Reserve home">
+          <img src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve mark" width="1024" height="1024" loading="lazy">
+        </a>
+        <ul class="footer-social-icons" aria-label="Social links">
+          <li>
+            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
+              <span class="sr-only">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
+              <span class="sr-only">TikTok</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav class="footer-nav-group" aria-label="Cabins links">
+        <p class="footer-nav-title">Cabins</p>
+        <a href="the-apex.html" aria-current="page">The Apex</a>
+        <a href="anchor-twenty-eight.html">Anchor Twenty Eight</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Explore links">
+        <p class="footer-nav-title">Explore</p>
+        <a href="explore.html">Things to Do</a>
+        <a href="explore.html">Raystown Lake Guide</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Contact links">
+        <p class="footer-nav-title">Contact Us</p>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+    </div>
+    <div class="footer-legal-bar">
+      <div class="footer-legal-bar-inner">
+        <p class="footer-copyright">© 2026 Lakewood Reserve. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="Legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span class="footer-legal-sep" aria-hidden="true">·</span>
+          <a href="terms.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/json" id="apex-gallery-manifest">{"kitchen":["assets/images/cabins/the-apex/kitchen/AFRAME-K-1.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-2.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-3.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-4.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-5.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-6.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-7.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-8.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-9.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-10.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-11.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-12.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-13.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-14.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-15.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-16.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-17.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-18.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-19.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-20.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-21.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-22.jpg","assets/images/cabins/the-apex/kitchen/AFRAME-K-23.jpg"],"bedroom":["assets/images/cabins/the-apex/bedroom/IMG_3762.jpg"],"living-room":["assets/images/cabins/the-apex/living-room/AFRAME-LR-1.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-2.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-3.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-4.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-5.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-6.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-7.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-8.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-9.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-10.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-11.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-12.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-13.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-14.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-15.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-16.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-17.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-18.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-19.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-20.jpg","assets/images/cabins/the-apex/living-room/AFRAME-LR-21.jpg"],"bathroom":["assets/images/cabins/the-apex/bathroom/AFRAME-BR-1.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-2.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-3.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-4.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-5.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-6.jpg","assets/images/cabins/the-apex/bathroom/AFRAME-BR-7.jpg"]}</script>
+  <script src="js/nav.js"></script>
+  <script src="js/back-to-top.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script src="js/apex-carousel.js"></script>
+</body>
+</html>

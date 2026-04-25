@@ -1,0 +1,35 @@
+/* Lodgify widget wrappers stay responsive across all devices. */
+#lodgify-search-widget,
+#lodgify-booking-box,
+#lodgify-book-now-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Baseline style safety in case Lodgify injects unscoped controls. */
+#lodgify-search-widget input,
+#lodgify-search-widget select,
+#lodgify-search-widget button,
+#lodgify-booking-box input,
+#lodgify-booking-box select,
+#lodgify-booking-box button,
+#lodgify-book-now-box input,
+#lodgify-book-now-box select,
+#lodgify-book-now-box button {
+  font-family: var(--font-body) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+@media (max-width: 767px) {
+  .booking-box-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    padding: 12px 16px;
+    background: var(--color-dark);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.2);
+  }
+}

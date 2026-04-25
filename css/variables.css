@@ -1,0 +1,64 @@
+:root {
+  --color-bg: #F5F0E8;
+  --color-dark: #1C2320;
+  --color-accent: #6B8C6E;
+  --color-accent-lt: #A3BFA6;
+  --color-stone: #C9BFB0;
+  --color-text: #2E2E2B;
+  --color-white: #FDFAF5;
+  --color-book-text: #0a2840;
+  --color-tan-highlight: #e2c99a;
+  --surface-quote-blue: #dbeaf5;
+  --border-quote-blue: rgba(110, 150, 185, 0.45);
+  --surface-teal-glass: rgba(22, 52, 56, 0.12);
+  --border-teal-glass: rgba(22, 46, 49, 0.28);
+
+  /* Solid CTAs: dark forest green fill, white caps type */
+  --btn-solid-bg: #2a4034;
+  --btn-solid-hover: #355443;
+  --btn-solid-text: #fdfaf5;
+
+  --hero-booking-strip-bg: #8e9b90;
+  --hero-booking-bar-bg: #8a9688;
+  --hero-booking-bar-border: rgba(38, 48, 40, 0.12);
+  --hero-booking-field-bg: #fdfcf9;
+  --hero-booking-cta-bg: var(--btn-solid-bg);
+  --hero-booking-cta-hover: var(--btn-solid-hover);
+  --hero-booking-cta-text: var(--btn-solid-text);
+
+  --font-display: "Raleway", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Raleway", "Helvetica Neue", Arial, sans-serif;
+  --font-label: "Raleway", "Helvetica Neue", Arial, sans-serif;
+
+  --container-max: 1200px;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 6.5rem;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 10px 30px rgba(28, 35, 32, 0.14);
+  --shadow-lift: 0 24px 45px rgba(28, 35, 32, 0.2);
+  --border-subtle: 1px solid rgba(28, 35, 32, 0.15);
+
+  /* Contact message form (reference layout) */
+  --contact-form-page-bg: #e8e4df;
+  --contact-form-panel-bg: #f5f0e6;
+  --contact-form-accent: #002b24;
+  --contact-form-muted: rgba(0, 43, 36, 0.62);
+  --contact-input-bg: #ffffff;
+  --contact-placeholder: #9a9a98;
+
+  /* FAQ accordion (contact page) */
+  --faq-section-bg: #f9f8f4;
+  --faq-accordion-border: #d9d6d0;
+  --faq-accordion-question: #4a524f;
+  --faq-accordion-heading: #1c2320;
+}

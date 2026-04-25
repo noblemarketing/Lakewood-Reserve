@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Tiny Homes | Lakewood Reserve</title>
+  <meta name="description" content="Browse all Lakewood Reserve tiny home stays near Raystown Lake.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/lodgify.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
+        <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="Lakewood Reserve logo" width="1024" height="373" loading="eager">
+        <img class="logo-icon" src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve icon" width="1024" height="1024" loading="eager">
+      </a>
+
+      <ul class="nav-links nav-links-desktop">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="sr-only">Open menu</span>
+        <span class="hamburger-lines" aria-hidden="true"></span>
+      </button>
+    </nav>
+
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul class="nav-links nav-links-mobile">
+        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="explore.html">Explore</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="listing-hero" aria-labelledby="listing-hero-title">
+      <div class="listing-hero-media"></div>
+      <div class="listing-hero-overlay"></div>
+      <div class="section-inner listing-hero-content">
+        <h1 id="listing-hero-title">Our Tiny Homes</h1>
+      </div>
+    </section>
+
+    <section id="availability" class="availability-section" aria-labelledby="availability-title">
+      <div class="section-inner">
+        <h2 id="availability-title">Search Your Stay</h2>
+
+        <div id="lodgify-search-widget">
+          <style>
+            :root {
+              --ldg-psb-background: #ffffff;
+              --ldg-psb-border-radius: 0.42em;
+              --ldg-psb-box-shadow: 0px 24px 54px 0px rgba(0, 0, 0, 0.1);
+              --ldg-psb-padding: 14px;
+              --ldg-psb-input-background: #ffffff;
+              --ldg-psb-button-border-radius: 3.58em;
+              --ldg-psb-color-primary: #5b7b72;
+              --ldg-psb-color-primary-lighter: #adbdb9;
+              --ldg-psb-color-primary-darker: #2e3e39;
+              --ldg-psb-color-primary-contrast: #ffffff;
+              --ldg-semantic-color-primary: #5b7b72;
+              --ldg-semantic-color-primary-lighter: #adbdb9;
+              --ldg-semantic-color-primary-darker: #2e3e39;
+              --ldg-semantic-color-primary-contrast: #ffffff;
+              --ldg-component-modal-z-index: 999;
+            }
+            #lodgify-search-bar {
+              width: 100%;
+            }
+          </style>
+          <div
+            id="lodgify-search-bar"
+            data-website-id="629111"
+            data-language-code="en"
+            data-checkout-page-url="https://checkout.lodgify.com/audrey-heller/en/#/16403"
+            data-dates-check-in-label="Check-in"
+            data-dates-check-out-label="Check-out"
+            data-guests-counter-label="Guests"
+            data-guests-input-singular-label="{{NumberOfGuests}} guest"
+            data-guests-input-plural-label="{{NumberOfGuests}} guests"
+            data-location-input-label="Location"
+            data-search-button-label="Search"
+            data-dates-input-min-stay-tooltip-text='{"one":"Minimum {minStay} night","other":"Minimum {minStay} nights"}'
+            data-guests-breakdown-label="Guests"
+            data-adults-label='{"one":"adult","other":"adults"}'
+            data-adults-description="Ages {minAge} or above"
+            data-children-label='{"one":"child","other":"children"}'
+            data-children-description="Ages {minAge}-{maxAge}"
+            data-children-not-allowed-label="Not suitable for children"
+            data-infants-label='{"one":"infant","other":"infants"}'
+            data-infants-description="Under {maxAge}"
+            data-infants-not-allowed-label="Not suitable for infants"
+            data-pets-label='{"one":"pet","other":"pets"}'
+            data-pets-not-allowed-label="Not allowed"
+            data-done-label="Done"
+            data-new-tab="true"
+            data-version="stable"
+            data-has-guests-breakdown
+          ></div>
+        </div>
+        <script src="https://app.lodgify.com/portable-search-bar/stable/renderPortableSearchBar.js" defer></script>
+      </div>
+    </section>
+
+    <section class="cabins-amenity-strip" aria-label="Cabin amenities">
+      <div class="section-inner cabins-amenity-row">
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 15c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></svg></span>
+          <span>Lake Access</span>
+        </p>
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c3 3 5 5 5 8a5 5 0 0 1-10 0c0-3 2-5 5-8Z"/><path d="M12 14c-.7.7-1.8 1.7-1.8 3"/></svg></span>
+          <span>Fire Pit</span>
+        </p>
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 16c4-3 7-7 8-12 1 4 2 8 5 11"/><path d="M5 18h14"/><path d="M9 10l3 2"/></svg></span>
+          <span>Paddleboards</span>
+        </p>
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 13h6L10 8l2-3"/><path d="M17 12h4l-2-3 1-2"/><path d="M10 13v6"/><path d="M19 12v7"/><path d="M4 19h18"/></svg></span>
+          <span>Private</span>
+        </p>
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 18c0-2 1.5-2.8 1.5-4.5S8 11 8 9"/><path d="M12 18c0-2 1.5-2.8 1.5-4.5S12 11 12 9"/><path d="M16 18c0-2 1.5-2.8 1.5-4.5S16 11 16 9"/></svg></span>
+          <span>Sauna</span>
+        </p>
+        <p class="cabins-amenity-pill">
+          <span class="cabins-amenity-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.9 4.1L18 9l-4.1 1.9L12 15l-1.9-4.1L6 9l4.1-1.9Z"/><path d="m18.5 14.5.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9Z"/></svg></span>
+          <span>Stargazing</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="cabins-listings section-fade" aria-labelledby="cabins-listings-title">
+      <div class="section-inner">
+        <h2 id="cabins-listings-title">Find Your Cabin</h2>
+
+        <div class="cabin-grid">
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/the-apex-cover.png" alt="The Apex modern A-frame cabin in the forest" width="1920" height="1080" loading="lazy">
+              <span class="guest-count-badge">Sleeps 2</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>The Apex</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">A-Frame</span>
+                <span class="amenity-pill">Forest Setting</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+              </div>
+              <a class="btn btn-secondary" href="the-apex.html">View + Book</a>
+            </div>
+          </article>
+
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/anchor-twenty-eight-cover.png" alt="Anchor Twenty Eight modern tiny home with wood and black metal siding in a pine forest at golden hour" width="1024" height="682" loading="lazy">
+              <span class="guest-count-badge">Sleeps 6</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>Anchor Twenty Eight</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">Cascade-style</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+                <span class="amenity-pill">Lake Access</span>
+              </div>
+              <a class="btn btn-secondary" href="anchor-twenty-eight.html">View + Book</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-inner footer-nav-layout">
+      <div class="footer-brand-stack">
+        <a class="footer-brand" href="index.html" aria-label="Lakewood Reserve home">
+          <img src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve mark" width="1024" height="1024" loading="lazy">
+        </a>
+        <ul class="footer-social-icons" aria-label="Social links">
+          <li>
+            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
+              <span class="sr-only">Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Facebook">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <span class="sr-only">Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok">
+              <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
+              <span class="sr-only">TikTok</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <nav class="footer-nav-group" aria-label="Cabins links">
+        <p class="footer-nav-title">Cabins</p>
+        <a href="the-apex.html">The Apex</a>
+        <a href="anchor-twenty-eight.html">Anchor Twenty Eight</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Explore links">
+        <p class="footer-nav-title">Explore</p>
+        <a href="explore.html">Things to Do</a>
+        <a href="explore.html">Raystown Lake Guide</a>
+      </nav>
+
+      <nav class="footer-nav-group" aria-label="Contact links">
+        <p class="footer-nav-title">Contact Us</p>
+        <a href="contact.html">Contact Us</a>
+      </nav>
+
+      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+    </div>
+    <div class="footer-legal-bar">
+      <div class="footer-legal-bar-inner">
+        <p class="footer-copyright">© 2026 Lakewood Reserve. All rights reserved.</p>
+        <nav class="footer-legal-links" aria-label="Legal">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <span class="footer-legal-sep" aria-hidden="true">·</span>
+          <a href="terms.html">Terms</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/back-to-top.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script>
+    (() => {
+      const q = new URLSearchParams(window.location.search);
+      if (!q.has("arrival") && !q.has("departure") && !q.has("guests")) return;
+      const el = document.getElementById("availability");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+
