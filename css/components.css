@@ -541,6 +541,7 @@ body.page-anchor main {
 
 body.page-apex .listing-hero.apex-hero,
 body.page-anchor .listing-hero.anchor-hero {
+  min-height: clamp(520px, 68vh, 760px);
   place-items: end center;
 }
 
@@ -564,6 +565,13 @@ body.page-apex .listing-hero-book .btn-primary,
 body.page-anchor .listing-hero-book .btn-primary {
   width: min(100%, 20rem);
   box-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 767px) {
+  body.page-apex .listing-hero.apex-hero,
+  body.page-anchor .listing-hero.anchor-hero {
+    min-height: 58vh;
+  }
 }
 
 body.page-apex .apex-showcase-room,
