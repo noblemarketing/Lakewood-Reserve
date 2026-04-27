@@ -6,12 +6,13 @@
   btn.type = "button";
   btn.className = "back-to-top";
   btn.setAttribute("aria-label", "Back to top of page");
+  btn.setAttribute("title", "Back to top");
   btn.setAttribute("aria-hidden", "true");
   btn.innerHTML =
-    '<svg class="back-to-top-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    '<svg class="back-to-top-icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/></svg>';
   document.body.appendChild(btn);
 
-  var threshold = 280;
+  var threshold = 200;
 
   function updateVisibility() {
     var show = window.scrollY > threshold;

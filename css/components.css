@@ -48,7 +48,7 @@
 .apex-hero .listing-hero-media {
   background-image:
     linear-gradient(115deg, rgba(36, 45, 41, 0.38), rgba(22, 28, 26, 0.52)),
-    url("../assets/images/cabins/the-apex-cover.png");
+    url("../assets/images/cabins/the-apex/Exterior/Photo Apr 26 2026, 2 25 54 PM.jpg");
   background-position: center;
 }
 
@@ -181,6 +181,22 @@ main > section.listing-meta-strip {
   font-size: clamp(1rem, 1.9vw, 1.12rem);
 }
 
+body.page-anchor .apex-intro p {
+  font-size: clamp(0.92rem, 1.55vw, 1.02rem);
+}
+
+@media (min-width: 768px) {
+  body.page-anchor .apex-intro .section-inner {
+    max-width: min(74ch, 82vw);
+  }
+
+  body.page-anchor .apex-intro p {
+    font-size: clamp(0.76rem, 0.95vw, 0.86rem);
+    line-height: 1.38;
+    text-wrap: balance;
+  }
+}
+
 .apex-showcase {
   padding-block: var(--space-xl);
   background: var(--color-bg);
@@ -208,6 +224,19 @@ main > section.listing-meta-strip {
   max-width: 60ch;
 }
 
+/* Kitchen tagline: one line (wider than default 60ch; scale down slightly on narrow viewports). */
+#apex-room-kitchen p {
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(0.65rem, 2.75vw, 0.92rem);
+}
+
+@media (min-width: 720px) {
+  #apex-room-kitchen p {
+    font-size: 0.92rem;
+  }
+}
+
 .apex-showcase-grid {
   display: grid;
   gap: 1rem;
@@ -222,10 +251,15 @@ main > section.listing-meta-strip {
 
 .apex-showcase figure {
   margin: 0;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
   background: var(--color-white);
+}
+
+/* Overrides figure reset so this block can center with margin-inline: auto. */
+.apex-showcase figure.apex-showcase-feature {
+  margin: var(--space-md) auto 0;
 }
 
 .apex-showcase img {
@@ -239,32 +273,31 @@ main > section.listing-meta-strip {
 /* Exterior hero image: same frame size as room carousels below, centered in the column. */
 .apex-showcase-feature {
   display: block;
-  margin: var(--space-md) auto 0;
-  width: min(1123px, 92%);
-  border-radius: var(--radius-md);
+  width: min(1320px, 98%);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  max-height: min(66.7vw, 527px);
+  max-height: min(72vw, 660px);
 }
 
 @media (min-width: 768px) {
   .apex-showcase-feature {
-    width: min(983px, 78%);
-    max-height: min(49.1vw, 491px);
+    width: min(1180px, 88%);
+    max-height: min(56vw, 620px);
   }
 }
 
 @media (min-width: 1100px) {
   .apex-showcase-feature {
-    width: min(913px, 70%);
-    max-height: 456px;
+    width: min(1100px, 82%);
+    max-height: 580px;
   }
 }
 
 .apex-showcase-feature img {
   display: block;
   width: 100%;
-  height: min(66.7vw, 527px);
+  height: min(72vw, 660px);
   aspect-ratio: unset;
   object-fit: cover;
   object-position: center center;
@@ -272,49 +305,74 @@ main > section.listing-meta-strip {
 
 @media (min-width: 768px) {
   .apex-showcase-feature img {
-    height: min(49.1vw, 491px);
+    height: min(56vw, 620px);
   }
 }
 
 @media (min-width: 1100px) {
   .apex-showcase-feature img {
-    height: 456px;
+    height: 580px;
   }
 }
 
 .apex-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: clamp(0.2rem, 1.2vw, 0.65rem);
+  row-gap: 0.75rem;
   position: relative;
   margin-top: var(--space-md);
-  max-width: min(1123px, 92%);
+  max-width: min(calc(1320px + 6.5rem), 98%);
   margin-inline: auto;
 }
 
 .apex-carousel-viewport {
+  grid-column: 2;
+  grid-row: 1;
   overflow: hidden;
-  border-radius: var(--radius-md);
+  border-radius: 0;
   background: #1a1f1e;
   box-shadow: var(--shadow-soft);
   touch-action: pan-y pinch-zoom;
-  max-height: min(66.7vw, 527px);
+  max-height: min(72vw, 660px);
+}
+
+.apex-carousel-btn--prev {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.apex-carousel-btn--next {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.apex-carousel-dots {
+  grid-column: 1 / -1;
+  grid-row: 2;
 }
 
 @media (min-width: 768px) {
   .apex-carousel {
-    max-width: min(983px, 78%);
+    max-width: min(calc(1180px + 6.5rem), 90%);
   }
 
   .apex-carousel-viewport {
-    max-height: min(49.1vw, 491px);
+    max-height: min(56vw, 620px);
   }
 }
 
 @media (min-width: 1100px) {
   .apex-carousel {
-    max-width: min(913px, 70%);
+    max-width: min(calc(1100px + 6.5rem), 84%);
   }
 
   .apex-carousel-viewport {
-    max-height: 456px;
+    max-height: 580px;
   }
 }
 
@@ -340,57 +398,50 @@ main > section.listing-meta-strip {
 .apex-carousel-slide picture img {
   display: block;
   width: 100%;
-  height: min(66.7vw, 527px);
+  height: min(72vw, 660px);
   object-fit: cover;
 }
 
 @media (min-width: 768px) {
   .apex-carousel-slide img,
   .apex-carousel-slide picture img {
-    height: min(49.1vw, 491px);
+    height: min(56vw, 620px);
   }
 }
 
 @media (min-width: 1100px) {
   .apex-carousel-slide img,
   .apex-carousel-slide picture img {
-    height: 456px;
+    height: 580px;
   }
 }
 
 .apex-carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
   z-index: 2;
   width: 2.65rem;
   height: 2.65rem;
   border-radius: 999px;
-  border: 1px solid rgba(253, 250, 245, 0.35);
-  background: rgba(22, 28, 26, 0.55);
-  color: #fdfaf5;
+  border: 1px solid rgba(42, 48, 46, 0.35);
+  background: rgba(253, 252, 249, 0.96);
+  color: #1f2422;
   display: inline-grid;
   place-items: center;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(28, 35, 32, 0.12);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .apex-carousel-btn:hover {
-  background: rgba(22, 28, 26, 0.72);
-  border-color: rgba(253, 250, 245, 0.55);
+  background: #fff;
+  border-color: rgba(42, 64, 52, 0.45);
+  box-shadow: 0 2px 8px rgba(28, 35, 32, 0.14);
 }
 
 .apex-carousel-btn:focus-visible {
-  outline: 2px solid #fdfaf5;
+  outline: 2px solid #2a4034;
   outline-offset: 2px;
-}
-
-.apex-carousel-btn--prev {
-  left: 0.45rem;
-}
-
-.apex-carousel-btn--next {
-  right: 0.45rem;
 }
 
 .apex-carousel-dots {
@@ -398,7 +449,7 @@ main > section.listing-meta-strip {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.4rem;
-  margin-top: 0.75rem;
+  margin-top: 0;
 }
 
 .apex-carousel-dot {
@@ -429,20 +480,29 @@ main > section.listing-meta-strip {
 }
 
 .apex-book {
-  background: #1f2122;
+  position: relative;
+  isolation: isolate;
+  background-color: #1a2220;
+  background-image:
+    linear-gradient(to bottom, rgba(14, 17, 18, 0.55), rgba(14, 17, 18, 0.75)),
+    url("../assets/images/area/adobestock-431233609.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-white);
   padding-block: var(--space-2xl);
   text-align: center;
 }
 
 .apex-book-inner {
-  max-width: 44ch;
+  max-width: min(62ch, 94vw);
   margin-inline: auto;
 }
 
 .apex-book-inner h2 {
   color: var(--color-white);
   margin-bottom: var(--space-sm);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
 }
 
 @media (min-width: 768px) {
@@ -456,6 +516,14 @@ main > section.listing-meta-strip {
   margin: 0 0 var(--space-md);
   color: rgba(253, 250, 245, 0.88);
   max-width: none;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
+}
+
+@media (min-width: 480px) {
+  body.page-apex .apex-book-inner > p,
+  body.page-anchor .apex-book-inner > p {
+    white-space: nowrap;
+  }
 }
 
 .apex-book-actions {
@@ -483,6 +551,21 @@ body.page-anchor .listing-hero-content {
   margin-inline: auto;
 }
 
+body.page-apex .listing-hero-book,
+body.page-anchor .listing-hero-book {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: none;
+  margin: clamp(0.85rem, 2.8vw, 1.35rem) auto 0;
+}
+
+body.page-apex .listing-hero-book .btn-primary,
+body.page-anchor .listing-hero-book .btn-primary {
+  width: min(100%, 20rem);
+  box-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
 body.page-apex .apex-showcase-room,
 body.page-anchor .apex-showcase-room {
   text-align: center;
@@ -496,55 +579,33 @@ body.page-anchor .apex-showcase-room p {
 body.page-apex .listing-meta-strip-inner,
 body.page-anchor .listing-meta-strip-inner {
   justify-content: center;
+  align-items: center;
 }
 
-@media (max-width: 639px) {
-  body.page-apex .listing-meta-strip-inner,
-  body.page-anchor .listing-meta-strip-inner {
-    align-items: center;
-  }
+body.page-apex main > section.listing-meta-strip,
+body.page-anchor main > section.listing-meta-strip {
+  text-align: center;
 }
 
-.cabin-detail-page .listing-meta-strip-inner {
+body.page-apex .listing-meta-counts,
+body.page-anchor .listing-meta-counts {
   justify-content: center;
 }
 
-@media (max-width: 639px) {
-  .cabin-detail-page .listing-meta-strip-inner {
-    align-items: center;
-  }
+.cabin-detail-page .listing-meta-strip-inner {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
 }
 
-@media (min-width: 768px) {
-  body.page-apex .apex-showcase-room,
-  body.page-anchor .apex-showcase-room {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.65rem 1rem;
-  }
+.cabin-detail-page .listing-meta-book-btn {
+  flex-shrink: 0;
+}
 
-  body.page-apex .apex-showcase-room h2,
-  body.page-anchor .apex-showcase-room h2 {
-    margin-bottom: 0;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-
-  body.page-apex .apex-showcase-room p,
-  body.page-anchor .apex-showcase-room p {
-    margin: 0;
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: none;
-    margin-inline: 0;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+body.page-apex .apex-showcase-room h2,
+body.page-anchor .apex-showcase-room h2 {
+  margin-bottom: 0.4rem;
 }
 
 body.page-apex .apex-book-actions,
@@ -556,9 +617,22 @@ body.page-anchor .apex-book-actions {
 }
 
 body.page-apex .apex-book-actions .btn-primary,
-body.page-anchor .apex-book-actions .btn-primary {
+body.page-anchor .apex-book-actions .btn-primary,
+body.page-apex .apex-book-actions .btn-secondary,
+body.page-anchor .apex-book-actions .btn-secondary {
   width: min(100%, 20rem);
   justify-content: center;
+}
+
+body.cabin-detail-page main {
+  text-align: center;
+}
+
+body.cabin-detail-page .cabin-info ul {
+  list-style-position: inside;
+  padding-left: 0;
+  max-width: 52ch;
+  margin-inline: auto;
 }
 
 .cabin-story {
@@ -625,18 +699,18 @@ body.page-anchor .apex-book-actions .btn-primary {
   text-align: center;
 }
 
+.explore-intro h2 {
+  text-align: center;
+  margin: 0 0 clamp(1.1rem, 2.8vw, 1.85rem);
+}
+
 .explore-categories {
   padding-top: var(--space-lg);
-  background: #F6F4F1;
+  background: #ffffff;
 }
 
 .explore-categories .section-inner {
   max-width: 1120px;
-}
-
-.explore-categories h2 {
-  text-align: center;
-  margin-bottom: clamp(1.3rem, 3vw, 2.2rem);
 }
 
 .explore-feature-grid {
@@ -694,36 +768,10 @@ body.page-anchor .apex-book-actions .btn-primary {
   text-align: center;
 }
 
-.explore-tips {
-  background: #EFE7DC;
-}
-
-.explore-tip-grid {
-  display: grid;
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-}
-
-.explore-tip-grid > div {
-  background: var(--surface-teal-glass);
-  border: 1px solid var(--border-teal-glass);
-  border-radius: var(--radius-md);
-  padding: clamp(1rem, 2.2vw, 1.35rem);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.explore-tip-grid ul {
-  margin-top: 0.55rem;
-  display: grid;
-  gap: 0.45rem;
-  padding-left: 1rem;
-  list-style: disc;
-}
-
 .explore-embed .section-inner > p {
-  margin-top: -0.25rem;
+  margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
+  text-align: center;
 }
 
 .canva-embed-shell {
@@ -731,7 +779,7 @@ body.page-anchor .apex-book-actions .btn-primary {
   width: 100%;
   min-height: min(82vh, 980px);
   height: calc(100vh - 9rem);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(63, 69, 81, 0.16);
   border: var(--border-subtle);
@@ -1118,14 +1166,15 @@ select.hero-booking-input {
 }
 
 .intro-image {
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
 }
 
 .intro-image img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 10;
+  min-height: min(52vw, 420px);
   object-fit: cover;
 }
 
@@ -1212,7 +1261,7 @@ select.hero-booking-input {
 .cabin-card {
   background: var(--surface-teal-glass);
   border: 1px solid var(--border-teal-glass);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   overflow: hidden;
   box-shadow: 0 10px 28px rgba(22, 46, 49, 0.08);
   backdrop-filter: blur(12px);
@@ -1229,26 +1278,26 @@ select.hero-booking-input {
   position: relative;
   width: 100%;
   margin-inline: auto;
-  aspect-ratio: 4 / 5;
-  max-height: min(30svh, 200px);
+  aspect-ratio: 16 / 11;
+  max-height: min(42svh, 320px);
   overflow: hidden;
 }
 
 @media (min-width: 480px) {
   .cabin-media {
-    max-height: min(34svh, 260px);
+    max-height: min(44svh, 380px);
   }
 }
 
 @media (min-width: 768px) {
   .cabin-media {
-    max-height: min(36svh, 300px);
+    max-height: min(46svh, 440px);
   }
 }
 
 @media (min-width: 1024px) {
   .cabin-media {
-    max-height: min(38svh, 320px);
+    max-height: min(48svh, 480px);
   }
 }
 
@@ -1452,53 +1501,6 @@ select.hero-booking-input {
   .guest-groups-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-}
-
-.cabins-amenity-strip {
-  background: linear-gradient(95deg, #172527 0%, #1D2B2C 100%);
-  padding-block: clamp(1.4rem, 3.5vw, 2.1rem);
-}
-
-.cabins-amenity-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(1.3rem, 3.4vw, 2.8rem);
-  justify-content: center;
-}
-
-.cabins-amenity-pill {
-  min-height: auto;
-  padding: 0;
-  border-radius: 0;
-  border: 0;
-  color: rgba(253, 250, 245, 0.9);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: inline-grid;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  background: transparent;
-  text-align: center;
-  min-width: 108px;
-}
-
-.cabins-amenity-icon {
-  width: 2.8rem;
-  height: 2.8rem;
-  display: inline-grid;
-  place-items: center;
-}
-
-.cabins-amenity-icon svg {
-  width: 100%;
-  height: 100%;
-  stroke: #FDFAF5;
-  fill: none;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .explore-media img {
@@ -1750,7 +1752,7 @@ select.hero-booking-input {
   position: relative;
   flex: 1 1 0;
   aspect-ratio: 4 / 5;
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   overflow: hidden;
   transition: flex 280ms ease, transform 220ms ease;
 }
@@ -1828,18 +1830,17 @@ select.hero-booking-input {
 }
 
 .footer-social-icons a {
-  width: 3.35rem;
-  height: 3.35rem;
-  display: inline-grid;
-  place-items: center;
-  border: 1px solid rgba(253, 250, 245, 0.2);
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
   color: #FDFAF5;
 }
 
 .footer-social-icons a:hover {
-  border-color: rgba(253, 250, 245, 0.55);
-  background: rgba(253, 250, 245, 0.06);
+  background: rgba(253, 250, 245, 0.08);
 }
 
 .footer-social-svg {
@@ -2043,17 +2044,49 @@ select.hero-booking-input {
   background-position: center;
 }
 
-.contact-direct-card {
-  background: var(--surface-teal-glass);
-  border: 1px solid var(--border-teal-glass);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.contact-direct {
+  position: relative;
+  isolation: isolate;
+  background-color: #1a2422;
+  background-image:
+    linear-gradient(to bottom, rgba(12, 16, 18, 0.5), rgba(12, 16, 18, 0.68)),
+    url("../assets/images/area/adobestock-630727823.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-block: var(--space-2xl);
 }
 
 .contact-direct .section-inner {
   display: grid;
   gap: var(--space-md);
+  justify-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-direct .contact-direct-card {
+  width: min(100%, 40rem);
+  margin-inline: auto;
+  padding: clamp(1.35rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2rem);
+  text-align: center;
+  background: rgba(18, 24, 23, 0.58);
+  border: 1px solid rgba(253, 250, 245, 0.16);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, 0.28);
+}
+
+.contact-direct .contact-direct-card h2 {
+  color: var(--color-white);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+}
+
+.contact-direct .contact-direct-card p {
+  color: rgba(253, 250, 245, 0.9);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+  margin-inline: auto;
 }
 
 .contact-form-section {
@@ -2223,15 +2256,6 @@ select.hero-booking-input {
   outline-offset: 3px;
 }
 
-.contact-direct-card {
-  padding: clamp(1.2rem, 2.4vw, 1.7rem);
-  text-align: center;
-}
-
-.contact-direct-card p {
-  margin-inline: auto;
-}
-
 .faq-section--accordion {
   background: var(--faq-section-bg);
 }
@@ -2364,14 +2388,61 @@ select.hero-booking-input {
   margin-top: 0.45rem;
 }
 
+body.page-apex .faq-accordion-inner,
+body.page-anchor .faq-accordion-inner {
+  justify-items: center;
+}
+
+body.page-apex .faq-accordion-heading,
+body.page-anchor .faq-accordion-heading {
+  text-align: center;
+}
+
+body.page-apex .faq-accordion-heading h2,
+body.page-anchor .faq-accordion-heading h2 {
+  text-align: center;
+}
+
+body.page-apex .faq-accordion-item summary,
+body.page-anchor .faq-accordion-item summary {
+  display: block;
+  text-align: center;
+  padding: 1.15rem 2.25rem;
+  position: relative;
+}
+
+body.page-apex .faq-accordion-item summary::after,
+body.page-anchor .faq-accordion-item summary::after {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+body.page-apex .faq-accordion-panel,
+body.page-anchor .faq-accordion-panel {
+  padding: 0 0 1.15rem 0;
+  text-align: center;
+}
+
+body.page-apex .faq-accordion-panel p,
+body.page-anchor .faq-accordion-panel p {
+  text-align: center;
+  margin-inline: auto;
+}
+
+body.page-apex .faq-accordion-panel ul,
+body.page-anchor .faq-accordion-panel ul {
+  margin-inline: auto;
+  padding-left: 0;
+  list-style-position: inside;
+  text-align: center;
+}
+
 @media (min-width: 768px) {
   .site-footer .footer-nav-layout {
     grid-template-columns: minmax(110px, 0.9fr) repeat(3, minmax(140px, 1fr)) auto;
     align-items: start;
-  }
-
-  .footer-brand-stack {
-    margin-top: -0.85rem;
   }
 
   .footer-book-btn {
@@ -2392,6 +2463,12 @@ select.hero-booking-input {
     column-gap: clamp(2rem, 5vw, 4rem);
     align-items: start;
   }
+
+  body.page-apex .faq-accordion-inner,
+  body.page-anchor .faq-accordion-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 }
 
 
@@ -2411,22 +2488,22 @@ select.hero-booking-input {
   right: max(0.75rem, env(safe-area-inset-right, 0px));
   bottom: max(0.85rem, env(safe-area-inset-bottom, 0px));
   z-index: 820;
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 3rem;
+  height: 3rem;
   padding: 0;
   margin: 0;
-  border: 1px solid rgba(28, 35, 32, 0.18);
+  border: 1px solid rgba(28, 35, 32, 0.22);
   border-radius: 999px;
-  background: rgba(253, 250, 245, 0.94);
-  color: #243032;
-  box-shadow: 0 6px 20px rgba(22, 46, 49, 0.18);
+  background: rgba(253, 250, 245, 0.97);
+  color: #1a2422;
+  box-shadow: 0 8px 24px rgba(22, 46, 49, 0.2);
   cursor: pointer;
   display: grid;
   place-items: center;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateY(10px);
+  transform: translateY(12px);
   transition:
     opacity 0.25s ease,
     visibility 0.25s ease,
@@ -2521,10 +2598,6 @@ body.menu-open .back-to-top {
   .services-split {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     min-height: clamp(360px, 46vw, 520px);
-  }
-
-  .explore-tip-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
