@@ -49,8 +49,8 @@
   --border-subtle: 1px solid rgba(28, 35, 32, 0.15);
 
   /* Contact message form (reference layout) */
-  --contact-form-page-bg: #e8e4df;
-  --contact-form-panel-bg: #f5f0e6;
+  --contact-form-page-bg: #F6F4F1;
+  --contact-form-panel-bg: #F6F4F1;
   --contact-form-accent: #002b24;
   --contact-form-muted: rgba(0, 43, 36, 0.62);
   --contact-input-bg: #ffffff;

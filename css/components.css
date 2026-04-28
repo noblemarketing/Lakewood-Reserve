@@ -782,6 +782,148 @@ body.cabin-detail-page .cabin-info ul {
   text-align: center;
 }
 
+.nearby-areas-cta {
+  background: #f6f4f1;
+}
+
+.nearby-areas-cta-inner {
+  max-width: 74ch;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.nearby-areas-cta-inner h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.nearby-areas-cta-inner p {
+  margin-inline: auto;
+}
+
+.nearby-areas-cta-inner .btn {
+  margin-top: var(--space-sm);
+}
+
+.nearby-areas-page .nearby-hero {
+  min-height: clamp(420px, 56vh, 620px);
+}
+
+.nearby-areas-page .nearby-hero .listing-hero-media {
+  background-image:
+    linear-gradient(115deg, rgba(36, 45, 41, 0.42), rgba(22, 28, 26, 0.56)),
+    url("../assets/images/area/adobestock-630727823.jpeg");
+  background-position: center;
+}
+
+.nearby-areas-page .nearby-intro .section-inner {
+  max-width: 78ch;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.nearby-areas-page .nearby-intro h2,
+.nearby-areas-page .nearby-intro p {
+  text-align: center;
+  margin-inline: auto;
+}
+
+.nearby-areas-page .nearby-grid {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr;
+}
+
+.nearby-areas-page .nearby-grid-section {
+  background: #ffffff;
+}
+
+.nearby-areas-page .nearby-card {
+  background: #fff;
+  border: 1px solid rgba(28, 35, 32, 0.1);
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  overflow: hidden;
+}
+
+.nearby-areas-page .nearby-card h3 {
+  margin-bottom: 0.4rem;
+  text-align: left;
+}
+
+.nearby-areas-page .nearby-card-frame {
+  margin: 0;
+  width: 100%;
+  height: 168px;
+  border-radius: 0;
+  overflow: hidden;
+  border: 0;
+  box-shadow: none;
+  background: #ece8e2;
+}
+
+.nearby-areas-page .nearby-card-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nearby-areas-page .nearby-card--pittsburgh .nearby-card-frame img {
+  object-position: 50% 68%;
+}
+
+.nearby-areas-page .nearby-card--virginia .nearby-card-frame img {
+  object-position: 50% 64%;
+}
+
+.nearby-areas-page .nearby-card-content {
+  padding: clamp(1.05rem, 2.1vw, 1.35rem);
+  text-align: left;
+}
+
+.nearby-areas-page .nearby-card-content p,
+.nearby-areas-page .nearby-card-content li,
+.nearby-areas-page .nearby-card-content ul {
+  text-align: left;
+}
+
+.nearby-areas-page .nearby-card .nearby-time {
+  margin: 0 0 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #5b605f;
+}
+
+.nearby-areas-page .nearby-card ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.05rem;
+}
+
+.nearby-areas-page .nearby-card li + li {
+  margin-top: 0.3rem;
+}
+
+.nearby-areas-page .nearby-cta-band {
+  background: #f6f4f1;
+}
+
+.nearby-areas-page .nearby-cta-band .section-inner {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .nearby-areas-page .nearby-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .nearby-areas-page .nearby-card-frame {
+    height: 152px;
+  }
+}
+
 .canva-embed-shell {
   position: relative;
   width: 100%;
@@ -1720,13 +1862,13 @@ select.hero-booking-input {
 
 .memory-collage-btn {
   border-color: transparent;
-  color: var(--btn-solid-text);
-  background: var(--btn-solid-bg);
+  color: #ffffff;
+  background: #8fbfd3;
 }
 
 .memory-collage-btn:hover {
-  background: var(--btn-solid-hover);
-  color: var(--btn-solid-text);
+  background: #7fb2c8;
+  color: #ffffff;
   border-color: transparent;
 }
 
@@ -2052,6 +2194,10 @@ select.hero-booking-input {
   background-position: center;
 }
 
+.contact-hero .listing-hero-content h1 {
+  font-family: "Raleway", Arial, sans-serif;
+}
+
 .contact-direct {
   position: relative;
   isolation: isolate;
@@ -2118,13 +2264,14 @@ select.hero-booking-input {
 }
 
 .contact-message-aside__title {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: "Raleway", Arial, sans-serif;
   font-size: clamp(1.65rem, 3.2vw, 2.15rem);
   font-weight: 600;
   color: var(--contact-form-accent);
   line-height: 1.2;
   margin: 0 0 var(--space-sm);
   letter-spacing: 0.02em;
+  text-align: left;
 }
 
 .contact-message-aside__lead {
@@ -2502,12 +2649,13 @@ body.page-anchor .faq-accordion-panel ul {
   margin: 0;
   border: 1px solid rgba(28, 35, 32, 0.22);
   border-radius: 999px;
-  background: rgba(253, 250, 245, 0.97);
-  color: #1a2422;
+  background: rgba(248, 246, 241, 0.98);
+  color: #123a4a;
   box-shadow: 0 8px 24px rgba(22, 46, 49, 0.2);
   cursor: pointer;
   display: grid;
   place-items: center;
+  overflow: hidden;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -2539,6 +2687,32 @@ body.page-anchor .faq-accordion-panel ul {
 
 .back-to-top-icon {
   display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.back-to-top-progress {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  pointer-events: none;
+}
+
+.back-to-top-track,
+.back-to-top-progress-stroke {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.back-to-top-track {
+  stroke: rgba(18, 58, 74, 0.2);
+  stroke-width: 2.3;
+}
+
+.back-to-top-progress-stroke {
+  stroke: #2b6f86;
+  stroke-width: 2.5;
+  transition: stroke-dashoffset 0.15s linear;
 }
 
 @media (max-width: 1023px) {
@@ -2548,7 +2722,8 @@ body.page-anchor .faq-accordion-panel ul {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .back-to-top {
+  .back-to-top,
+  .back-to-top-progress-stroke {
     transition: none;
   }
 }
