@@ -22,7 +22,7 @@ main > section.hero-booking-strip {
   }
 
   .site-nav {
-    min-height: 84px;
+    min-height: 92px;
     width: min(var(--container-max), 94%);
   }
 
@@ -136,7 +136,7 @@ main > section.hero-booking-strip {
   gap: var(--space-md);
 }
 
-/* Homepage "Our Tiny Homes": two-up on small screens (and stay 2-col with only two listings). */
+/* Homepage "Our Tiny Homes": two columns from large screens up; stack on smaller viewports */
 .featured-cabins .cabin-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 3vw, 2.25rem);
@@ -153,6 +153,17 @@ main > section.hero-booking-strip {
   width: 100%;
   margin-inline: auto;
   justify-items: stretch;
+}
+
+/* Tiny Homes page + homepage featured listings: single column on phone/tablet; two-up on large screens */
+@media (max-width: 1023px) {
+  body.page-cabins .cabins-listings .cabin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-cabins .cabin-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 body.page-cabins {

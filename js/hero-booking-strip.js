@@ -31,6 +31,6 @@
     if (d) params.set("departure", d);
     params.set("guests", guests);
     const qs = params.toString();
-    window.location.href = qs ? `cabins.html?${qs}#availability` : "cabins.html#availability";
+    window.location.href = qs ? `tinyhomes.html?${qs}#availability` : "tinyhomes.html#availability";
   });
 })();

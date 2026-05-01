@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact | Lakewood Reserve</title>
-  <meta name="description" content="Contact Lakewood Reserve with your stay details, preferred dates, and questions. Book direct or send an inquiry any time.">
+  <title>Our Tiny Homes | Lakewood Reserve</title>
+  <meta name="description" content="Browse all Lakewood Reserve tiny home stays near Raystown Lake.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/typography.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/lodgify.css">
   <link rel="icon" type="image/png" href="assets/icons/footer-mark-asset-1.png">
 </head>
-<body>
+<body class="page-cabins">
   <header class="site-header">
     <nav class="site-nav" aria-label="Primary navigation">
       <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
@@ -50,89 +51,114 @@
   </header>
 
   <main id="main-content">
-    <section class="listing-hero contact-hero" aria-labelledby="contact-hero-title">
+    <section class="listing-hero" aria-labelledby="listing-hero-title">
       <div class="listing-hero-media"></div>
       <div class="listing-hero-overlay"></div>
       <div class="section-inner listing-hero-content">
-        <p class="eyebrow">Lakewood Reserve</p>
-        <h1 id="contact-hero-title">Contact Us</h1>
+        <h1 id="listing-hero-title">Our Tiny Homes</h1>
       </div>
     </section>
 
-    <section class="contact-form-section section-fade" aria-labelledby="contact-form-heading">
+    <section id="availability" class="availability-section" aria-labelledby="availability-title">
       <div class="section-inner">
-        <div class="contact-message-panel">
-          <div class="contact-message-grid">
-            <aside class="contact-message-aside">
-              <h2 id="contact-form-heading" class="contact-message-aside__title">Send us a message</h2>
-              <p class="contact-message-aside__lead">
-                Have a question about a stay or want to reach our team? Send a note—we typically respond within one business day.
-                Include preferred dates or cabin in your message if you are planning a trip.
-              </p>
-              <p class="contact-message-aside__social-label">Follow us</p>
-              <ul class="contact-social-row" aria-label="Social media">
-                <li>
-                  <a class="contact-social-row__link" href="#" aria-label="Facebook (opens in new tab)">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                  </a>
-                </li>
-                <li>
-                  <a class="contact-social-row__link" href="#" aria-label="TikTok (opens in new tab)">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
-                  </a>
-                </li>
-                <li>
-                  <a class="contact-social-row__link" href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram (opens in new tab)">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
-                  </a>
-                </li>
-              </ul>
-            </aside>
-            <div class="contact-message-form-wrap">
-              <form class="contact-form contact-form--modern" action="mailto:hello@lakewoodreserve.com" method="post" enctype="text/plain">
-                <div class="contact-field-row contact-field-row--split">
-                  <div class="contact-field">
-                    <label for="contact-first-name">First Name</label>
-                    <input id="contact-first-name" name="first_name" type="text" autocomplete="given-name" placeholder="Your first name" required>
-                  </div>
-                  <div class="contact-field">
-                    <label for="contact-last-name">Last Name</label>
-                    <input id="contact-last-name" name="last_name" type="text" autocomplete="family-name" placeholder="Your last name" required>
-                  </div>
-                </div>
-                <div class="contact-field">
-                  <label for="contact-email">Email Address</label>
-                  <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
-                </div>
-                <div class="contact-field">
-                  <label for="contact-phone">Phone Number</label>
-                  <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Your phone number">
-                </div>
-                <div class="contact-field">
-                  <label for="guest-questions">Describe your stay or question</label>
-                  <textarea id="guest-questions" name="questions" rows="6" placeholder="Write something..." required></textarea>
-                </div>
-                <button class="contact-submit-btn" type="submit">Submit</button>
-              </form>
-            </div>
-          </div>
+        <h2 id="availability-title">Search Your Stay</h2>
+
+        <div id="lodgify-search-widget">
+          <style>
+            :root {
+              --ldg-psb-background: #ffffff;
+              --ldg-psb-border-radius: 0.42em;
+              --ldg-psb-box-shadow: 0px 24px 54px 0px rgba(0, 0, 0, 0.1);
+              --ldg-psb-padding: 14px;
+              --ldg-psb-input-background: #ffffff;
+              --ldg-psb-button-border-radius: 3.58em;
+              --ldg-psb-color-primary: #5b7b72;
+              --ldg-psb-color-primary-lighter: #adbdb9;
+              --ldg-psb-color-primary-darker: #2e3e39;
+              --ldg-psb-color-primary-contrast: #ffffff;
+              --ldg-semantic-color-primary: #5b7b72;
+              --ldg-semantic-color-primary-lighter: #adbdb9;
+              --ldg-semantic-color-primary-darker: #2e3e39;
+              --ldg-semantic-color-primary-contrast: #ffffff;
+              --ldg-component-modal-z-index: 999;
+            }
+            #lodgify-search-bar {
+              width: 100%;
+            }
+          </style>
+          <div
+            id="lodgify-search-bar"
+            data-website-id="629111"
+            data-language-code="en"
+            data-checkout-page-url="https://checkout.lodgify.com/audrey-heller/en/#/16403"
+            data-dates-check-in-label="Check-in"
+            data-dates-check-out-label="Check-out"
+            data-guests-counter-label="Guests"
+            data-guests-input-singular-label="{{NumberOfGuests}} guest"
+            data-guests-input-plural-label="{{NumberOfGuests}} guests"
+            data-location-input-label="Location"
+            data-search-button-label="Search"
+            data-dates-input-min-stay-tooltip-text='{"one":"Minimum {minStay} night","other":"Minimum {minStay} nights"}'
+            data-guests-breakdown-label="Guests"
+            data-adults-label='{"one":"adult","other":"adults"}'
+            data-adults-description="Ages {minAge} or above"
+            data-children-label='{"one":"child","other":"children"}'
+            data-children-description="Ages {minAge}-{maxAge}"
+            data-children-not-allowed-label="Not suitable for children"
+            data-infants-label='{"one":"infant","other":"infants"}'
+            data-infants-description="Under {maxAge}"
+            data-infants-not-allowed-label="Not suitable for infants"
+            data-pets-label='{"one":"pet","other":"pets"}'
+            data-pets-not-allowed-label="Not allowed"
+            data-done-label="Done"
+            data-new-tab="true"
+            data-version="stable"
+            data-has-guests-breakdown
+          ></div>
         </div>
+        <script src="https://app.lodgify.com/portable-search-bar/stable/renderPortableSearchBar.js" defer></script>
       </div>
     </section>
 
-    <section class="memory-collage-cta" aria-labelledby="memory-collage-title">
-      <div class="memory-collage-grid" aria-hidden="true">
-        <img src="assets/images/area/adobestock-135658781.jpeg" alt="" width="1920" height="1280" loading="lazy">
-        <img src="assets/images/area/adobestock-431233609.jpeg" alt="" width="1920" height="1080" loading="lazy">
-        <img src="assets/images/area/adobestock-450857228.jpeg" alt="" width="1920" height="1280" loading="lazy">
-        <img src="assets/images/area/adobestock-452068589.jpeg" alt="" width="1920" height="1280" loading="lazy">
-        <img src="assets/images/area/adobestock-630727823.jpeg" alt="" width="1920" height="1280" loading="lazy">
-        <img src="assets/images/area/memory-collage-aframe-cabin.png" alt="" width="1920" height="1080" loading="lazy">
-      </div>
-      <div class="memory-collage-overlay"></div>
-      <div class="section-inner memory-collage-content">
-        <h2 id="memory-collage-title">Make Memories That Last -<br>Reserve Your Getaway<br>Today!</h2>
-        <a class="btn btn-secondary memory-collage-btn" href="tinyhomes.html">Find Your Tiny Home</a>
+    <section class="cabins-listings section-fade" aria-label="Tiny home listings">
+      <div class="section-inner">
+        <div class="cabin-grid">
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/the-apex-cover.png" alt="The Apex modern A-frame cabin in the forest" width="1920" height="1080" loading="lazy">
+              <span class="guest-count-badge">Sleeps 4</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>The Apex</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">A-Frame</span>
+                <span class="amenity-pill">Private setting</span>
+                <span class="amenity-pill">Wood heated hot tub</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+              </div>
+              <a class="btn btn-secondary" href="the-apex.html">View + Book</a>
+            </div>
+          </article>
+
+          <article class="cabin-card">
+            <div class="cabin-media">
+              <img src="assets/images/cabins/anchor-twenty-eight-cover.png" alt="Anchor Twenty Eight modern tiny home with wood and black metal siding in a pine forest at golden hour" width="1024" height="682" loading="lazy">
+              <span class="guest-count-badge">Sleeps 6</span>
+            </div>
+            <div class="cabin-card-body">
+              <h3>Anchor Twenty Eight</h3>
+              <div class="amenity-pills">
+                <span class="amenity-pill">Cascade-style</span>
+                <span class="amenity-pill">Private setting</span>
+                <span class="amenity-pill">Spacious front porch</span>
+                <span class="amenity-pill">Sauna</span>
+                <span class="amenity-pill">Fire Pit</span>
+              </div>
+              <a class="btn btn-secondary" href="anchor-twenty-eight.html">View + Book</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   </main>
@@ -182,7 +208,7 @@
         <a href="contact.html">Contact Us</a>
       </nav>
 
-      <a class="btn btn-book footer-book-btn" href="tinyhomes.html">Book Now</a>
+      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now<span class="sr-only"> (opens in new tab)</span></a>
     </div>
     <div class="footer-legal-bar">
       <div class="footer-legal-bar-inner">
@@ -199,5 +225,13 @@
   <script src="js/nav.js"></script>
   <script src="js/back-to-top.js"></script>
   <script src="js/scroll-animations.js"></script>
+  <script>
+    (() => {
+      const q = new URLSearchParams(window.location.search);
+      if (!q.has("arrival") && !q.has("departure") && !q.has("guests")) return;
+      const el = document.getElementById("availability");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    })();
+  </script>
 </body>
 </html>

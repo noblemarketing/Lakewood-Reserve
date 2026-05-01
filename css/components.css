@@ -712,6 +712,10 @@ body.cabin-detail-page .cabin-info ul {
   margin: 0 0 clamp(1.1rem, 2.8vw, 1.85rem);
 }
 
+.explore-intro p + p {
+  margin-top: clamp(1.35rem, 3.5vw, 2.25rem);
+}
+
 .explore-categories {
   padding-top: var(--space-lg);
   background: #ffffff;
@@ -777,9 +781,12 @@ body.cabin-detail-page .cabin-info ul {
 }
 
 .explore-embed .section-inner > p {
+  max-width: none;
+  width: 100%;
   margin-top: var(--space-xl);
   margin-bottom: var(--space-md);
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .nearby-areas-cta {
@@ -1162,6 +1169,12 @@ a.btn-book:visited {
   width: 0;
   height: 0;
   object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .site-header.scrolled .site-logo .logo-full {
+    width: clamp(128px, 44vw, 200px);
+  }
 }
 
 .site-header.scrolled .btn-book {
@@ -1581,6 +1594,14 @@ select.hero-booking-input {
   letter-spacing: 0.06em;
   color: #2A2D2E;
   margin-bottom: 0.35rem;
+}
+
+@media (max-width: 767px) {
+  /* Smaller type so the headline fits on two lines on phones */
+  .guest-groups h2 {
+    font-size: clamp(1.32rem, 3.5vw, 1.75rem);
+    line-height: 1.15;
+  }
 }
 
 .guest-groups-subtitle {

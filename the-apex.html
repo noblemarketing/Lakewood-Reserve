@@ -22,17 +22,17 @@
   <header class="site-header">
     <nav class="site-nav" aria-label="Primary navigation">
       <a class="site-logo" href="index.html" aria-label="Lakewood Reserve home">
-        <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="Lakewood Reserve logo" width="1024" height="373" loading="eager">
-        <img class="logo-icon" src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve icon" width="1024" height="1024" loading="eager">
+        <img class="logo-full" src="assets/icons/logo-header-asset-2.png" alt="" width="1024" height="373" loading="eager">
+        <img class="logo-icon" src="assets/icons/logo-footer-white-icon.png" alt="" width="1024" height="1024" loading="eager">
       </a>
 
       <ul class="nav-links nav-links-desktop">
-        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="tinyhomes.html">Tiny Homes</a></li>
         <li><a href="explore.html">Explore</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
 
-      <a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+      <a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now<span class="sr-only"> (opens in new tab)</span></a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
         <span class="sr-only">Open menu</span>
@@ -42,15 +42,15 @@
 
     <div id="mobile-menu" class="mobile-menu" hidden>
       <ul class="nav-links nav-links-mobile">
-        <li><a href="cabins.html">Cabins</a></li>
+        <li><a href="tinyhomes.html">Tiny Homes</a></li>
         <li><a href="explore.html">Explore</a></li>
         <li><a href="contact.html">Contact</a></li>
-        <li><a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a></li>
+        <li><a class="btn btn-book" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now<span class="sr-only"> (opens in new tab)</span></a></li>
       </ul>
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="listing-hero apex-hero" aria-labelledby="apex-hero-title">
       <div class="listing-hero-media"></div>
       <div class="listing-hero-overlay"></div>
@@ -93,7 +93,7 @@
       <div class="section-inner">
         <header class="apex-showcase-room" id="apex-room-living">
           <h2>Living</h2>
-          <p>Open living space with natural materials, soft light, and views into the trees—plus a pull-out queen couch when you want an extra full-size bed on the main level.</p>
+          <p>Open living space with natural materials, soft light, and views into the trees. In the living area, a pull-out queen sofa opens into a full-size bed for two—handy for groups, and separate from the cabin's single dedicated bedroom.</p>
         </header>
         <div
           class="apex-carousel"
@@ -107,7 +107,7 @@
       <div class="section-inner">
         <header class="apex-showcase-room" id="apex-room-kitchen">
           <h2>Kitchen</h2>
-          <p>A streamlined kitchen layout for morning coffee, lake snacks, and easy dinners in.</p>
+          <p>Streamlined for morning coffee, lake snacks, and easy dinners in. There is no oven—when you want flame cooking, use the outdoor fire pit, which has a grate for open-fire grilling.</p>
         </header>
         <div
           class="apex-carousel"
@@ -145,6 +145,24 @@
       </div>
     </section>
 
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-hot-tub">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-hot-tub">
+          <h2>Wood-fired hot tub</h2>
+          <p>The property has a wood-fired hot tub: guests build and tend the fire themselves, and the water needs time to heat—expect a wait and treat the soak as part of the slow evening rhythm, not an on-demand spa. Your guest guide covers setup, fuel, and safety.</p>
+        </header>
+      </div>
+    </section>
+
+    <section class="apex-showcase section-fade" aria-labelledby="apex-room-sauna">
+      <div class="section-inner">
+        <header class="apex-showcase-room" id="apex-room-sauna">
+          <h2>Sauna</h2>
+          <p>A private sauna adds an easy reset between lake time and dinner—warm up, step outside to cool off under the trees, then shower in the bath. Follow posted limits and the guidance in your welcome message.</p>
+        </header>
+      </div>
+    </section>
+
     <section class="faq-section faq-section--accordion section-fade" aria-labelledby="apex-stay-details-title">
       <div class="section-inner faq-accordion-inner">
         <header class="faq-accordion-heading">
@@ -160,6 +178,7 @@
                 <li>Maximum occupancy is four guests unless we have confirmed otherwise in writing.</li>
                 <li>No parties, events, or commercial shoots without prior approval.</li>
                 <li>Pets only when booked and confirmed on your reservation.</li>
+                <li>Hot tub, sauna, and fire pit: follow posted limits, never leave young children unattended, and read the safety notes in your welcome message.</li>
                 <li>At checkout, follow the departure checklist in your welcome message (trash, dishes, thermostat, and doors).</li>
               </ul>
             </div>
@@ -168,9 +187,12 @@
             <summary>Amenities</summary>
             <div class="faq-accordion-panel">
               <ul>
-                <li>Kitchen with cookware, serveware, and essentials for coffee and simple meals.</li>
+                <li>Kitchen with cookware, serveware, and essentials for coffee and simple meals—no oven; open-flame cooking outdoors at the fire pit with a grate for grilling.</li>
                 <li>Wi‑Fi, heating and cooling, and on-demand hot water.</li>
                 <li>Fresh linens, towels, and starter toiletries.</li>
+                <li>Outdoor fire pit with a cooking grate for open-fire grilling (wood and use per guest guide).</li>
+                <li>Wood-fired hot tub: you build the fire; water takes time to heat—plan for a wait.</li>
+                <li>Private sauna.</li>
                 <li>Outdoor space for morning coffee or evening stargazing (details in your guest guide).</li>
                 <li>In-home entertainment as described in your pre-arrival notes.</li>
               </ul>
@@ -179,13 +201,13 @@
           <details class="faq-accordion-item">
             <summary>The space</summary>
             <div class="faq-accordion-panel">
-              <p>The Apex is a one-bedroom, one-bathroom A-frame with an open main level and a wall of glass that pulls the forest into the living area. The living room has a pull-out queen couch, so the home can sleep up to four between the bedroom and the main level. The layout is intentionally compact and calm—ideal for guests who want an uncluttered base camp for lake days and slow evenings in.</p>
+              <p>The Apex is a one-bedroom, one-bathroom A-frame with a multi-level layout and a wall of glass that pulls the forest into the living area. The living room has a pull-out queen sofa in that open space—not a second bedroom, but it lets the home sleep up to four when combined with the dedicated bedroom. The layout is intentionally compact and calm—ideal for guests who want an uncluttered base camp for lake days and slow evenings in.</p>
             </div>
           </details>
           <details class="faq-accordion-item">
             <summary>The experience</summary>
             <div class="faq-accordion-panel">
-              <p>Expect soft natural light, warm wood tones, and a stripped-back aesthetic that keeps attention on the trees outside. Mornings are for coffee on the deck or at the window; afternoons are for Raystown Lake and nearby trails; nights are for low light, a good playlist, and genuine quiet.</p>
+              <p>Expect soft natural light, warm wood tones, and a stripped-back aesthetic that keeps attention on the trees outside. Mornings are for coffee on the deck or at the window; afternoons are for Raystown Lake and nearby trails; nights are for cooking over the fire pit, easing into the wood-fired hot tub when the water is ready, optional sauna rounds, low light, and genuine quiet.</p>
             </div>
           </details>
           <details class="faq-accordion-item">
@@ -208,7 +230,7 @@
         <p>Check dates and complete your booking on our secure checkout.</p>
         <div class="apex-book-actions">
           <a class="btn btn-primary" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book The Apex</a>
-          <a class="btn btn-secondary" href="cabins.html">All cabins</a>
+          <a class="btn btn-secondary" href="tinyhomes.html">All Tiny Homes</a>
         </div>
       </div>
     </section>
@@ -218,23 +240,23 @@
     <div class="section-inner footer-nav-layout">
       <div class="footer-brand-stack">
         <a class="footer-brand" href="index.html" aria-label="Lakewood Reserve home">
-          <img src="assets/icons/logo-footer-white-icon.png" alt="Lakewood Reserve mark" width="1024" height="1024" loading="lazy">
+          <img src="assets/icons/logo-footer-white-icon.png" alt="" width="1024" height="1024" loading="lazy">
         </a>
         <ul class="footer-social-icons" aria-label="Social links">
           <li>
-            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram">
+            <a href="https://www.instagram.com/lakewoodreserve/" target="_blank" rel="noopener" aria-label="Instagram (opens in new tab)">
               <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.45" fill="currentColor" stroke="none"/></svg>
               <span class="sr-only">Instagram</span>
             </a>
           </li>
           <li>
-            <a href="https://www.facebook.com/people/Lakewood-Reserve/61582877206312/?sk=reels_tab" target="_blank" rel="noopener" aria-label="Facebook">
+            <a href="https://www.facebook.com/people/Lakewood-Reserve/61582877206312/?sk=reels_tab" target="_blank" rel="noopener" aria-label="Facebook (opens in new tab)">
               <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h4v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               <span class="sr-only">Facebook</span>
             </a>
           </li>
           <li>
-            <a href="https://www.tiktok.com/@lakewood.reserve?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@lakewood.reserve?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok (opens in new tab)">
               <svg class="footer-social-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><g transform="translate(12 12) scale(0.82) translate(-12 -12)"><path fill="currentColor" d="M14.5 4.5c.8 1.2 1.9 2 3.3 2.2v3a6.2 6.2 0 0 1-3.3-1v5.4a5.3 5.3 0 1 1-5.3-5.3c.3 0 .7 0 1 .1v3.1a2.2 2.2 0 1 0 1.3 2V4.5h3Z"/></g></svg>
               <span class="sr-only">TikTok</span>
             </a>
@@ -242,8 +264,8 @@
         </ul>
       </div>
 
-      <nav class="footer-nav-group" aria-label="Cabins links">
-        <p class="footer-nav-title">Cabins</p>
+      <nav class="footer-nav-group" aria-label="Tiny Homes links">
+        <p class="footer-nav-title">Tiny Homes</p>
         <a href="the-apex.html" aria-current="page">The Apex</a>
         <a href="anchor-twenty-eight.html">Anchor Twenty Eight</a>
       </nav>
@@ -259,7 +281,7 @@
         <a href="contact.html">Contact Us</a>
       </nav>
 
-      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now</a>
+      <a class="btn btn-book footer-book-btn" href="https://checkout.lodgify.com/audrey-heller/en/#/16403" target="_blank" rel="noopener noreferrer">Book Now<span class="sr-only"> (opens in new tab)</span></a>
     </div>
     <div class="footer-legal-bar">
       <div class="footer-legal-bar-inner">

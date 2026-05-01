@@ -68,7 +68,8 @@ p {
 }
 
 @media (max-width: 767px) {
+  /* Larger tap/readability target on phones; cap keeps room for Book + menu */
   .site-logo img {
-    width: clamp(100px, 30vw, 148px);
+    width: clamp(128px, 44vw, 200px);
   }
 }
