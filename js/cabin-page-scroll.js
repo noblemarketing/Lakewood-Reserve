@@ -1,5 +1,5 @@
 /**
- * Cabin listing pages: always start at the top (no hash jump, no restored scroll).
+ * Tiny home listing pages: always start at the top (no hash jump, no restored scroll).
  * In-page links to #book / #booking-panel still work after load when clicked.
  */
 (function () {

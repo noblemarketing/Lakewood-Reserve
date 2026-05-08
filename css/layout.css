@@ -142,7 +142,7 @@ main > section.hero-booking-strip {
   gap: clamp(1rem, 3vw, 2.25rem);
 }
 
-/* Cabins page listings: always two columns, centered row, wider track than default container. */
+/* Tiny homes page listings: always two columns, centered row, wider track than default container. */
 .cabins-listings .section-inner {
   width: min(1320px, 94%);
 }
