@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/variables.css">
@@ -75,89 +75,52 @@
       </div>
     </section>
 
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-exterior">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-exterior">
-          <h2>Exterior &amp; arrival</h2>
-          <p>Modern sleek A-frame with light wood accents and windows peering through to the stunning, private, wooded scenery.</p>
+    <section
+      class="apex-property-gallery section-fade"
+      aria-labelledby="apex-gallery-title"
+      data-apex-property-gallery
+    >
+      <div class="section-inner apex-property-gallery-inner">
+        <header class="apex-property-gallery-header">
+          <div class="apex-property-gallery-heading">
+            <p class="apex-property-gallery-eyebrow">Photography</p>
+            <h2 id="apex-gallery-title">The Apex</h2>
+          </div>
+          <div class="apex-gallery-tabs" role="tablist" aria-label="Photo categories"></div>
         </header>
         <div
-          class="apex-carousel"
-          data-apex-carousel="exterior"
-          data-apex-carousel-label="The Apex exterior and arrival"
-        ></div>
+          id="apex-gallery-panel"
+          class="apex-gallery-panel"
+          role="tabpanel"
+          aria-labelledby="apex-gallery-tab-exterior"
+        >
+          <div id="apex-gallery-mosaic" class="apex-gallery-mosaic"></div>
+          <p id="apex-gallery-empty" class="apex-gallery-empty" hidden>No photos in this category.</p>
+        </div>
       </div>
-    </section>
 
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-living">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-living">
-          <h2>Living</h2>
-          <p>Open living space with natural materials, soft light, and views into the trees. In the living area, a pull-out queen sofa opens into a full-size bed for two—handy for groups, and separate from the tiny home's single dedicated bedroom.</p>
-        </header>
-        <div
-          class="apex-carousel"
-          data-apex-carousel="living-room"
-          data-apex-carousel-label="The Apex living room"
-        ></div>
-      </div>
-    </section>
-
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-kitchen">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-kitchen">
-          <h2>Kitchen</h2>
-          <p>Streamlined for morning coffee, lake snacks, and easy dinners in. There is no oven—when you want flame cooking, use the outdoor fire pit, which has a grate for open-fire grilling.</p>
-        </header>
-        <div
-          class="apex-carousel"
-          data-apex-carousel="kitchen"
-          data-apex-carousel-label="The Apex kitchen"
-        ></div>
-      </div>
-    </section>
-
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-bedroom">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-bedroom">
-          <h2>Bedroom</h2>
-          <p>A quiet retreat after lake days—soft light, comfortable layers, and space to truly switch off.</p>
-        </header>
-        <div
-          class="apex-carousel"
-          data-apex-carousel="bedroom"
-          data-apex-carousel-label="The Apex bedroom"
-        ></div>
-      </div>
-    </section>
-
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-bath">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-bath">
-          <h2>Bathroom</h2>
-          <p>Clean finishes and thoughtful touches that keep the tiny home feeling spa-simple, not cluttered.</p>
-        </header>
-        <div
-          class="apex-carousel"
-          data-apex-carousel="bathroom"
-          data-apex-carousel-label="The Apex bathroom"
-        ></div>
-      </div>
-    </section>
-
-    <section class="apex-showcase section-fade" aria-labelledby="apex-room-outdoor">
-      <div class="section-inner">
-        <header class="apex-showcase-room" id="apex-room-outdoor">
-          <h2>Outdoor Space</h2>
-          <p>
-            The outdoor area is built for slow evenings: a fire pit with seating and string lights, a wood-fired hot tub you heat yourself (plan ahead—the water needs time), and a private sauna for a reset between lake time and dinner. Follow posted limits and your guest guide for setup, fuel, and safety.
-          </p>
-        </header>
-        <div
-          class="apex-carousel"
-          data-apex-carousel="outdoor"
-          data-apex-carousel-label="The Apex outdoor space"
-        ></div>
+      <div
+        id="apex-lightbox"
+        class="apex-lightbox"
+        hidden
+        role="dialog"
+        aria-modal="true"
+        aria-label="Enlarged gallery photo"
+      >
+        <div class="apex-lightbox-backdrop" tabindex="-1"></div>
+        <div class="apex-lightbox-panel">
+          <button type="button" class="apex-lightbox-close" aria-label="Close enlarged photo">
+            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+          <button type="button" class="apex-lightbox-prev" aria-label="Previous photo">
+            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M14 6 8 12l6 6"/></svg>
+          </button>
+          <img class="apex-lightbox-img" src="assets/images/cabins/the-apex-cover.png" alt="" width="1600" height="1067" decoding="async">
+          <button type="button" class="apex-lightbox-next" aria-label="Next photo">
+            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></svg>
+          </button>
+          <p class="apex-lightbox-live sr-only" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
@@ -339,6 +302,6 @@
   <script src="js/nav.js"></script>
   <script src="js/back-to-top.js"></script>
   <script src="js/scroll-animations.js"></script>
-  <script src="js/apex-carousel.js"></script>
+  <script src="js/apex-property-gallery.js"></script>
 </body>
 </html>

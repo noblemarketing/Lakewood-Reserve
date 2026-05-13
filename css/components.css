@@ -225,19 +225,6 @@ body.page-anchor .apex-intro p {
   max-width: 60ch;
 }
 
-/* Kitchen tagline: one line (wider than default 60ch; scale down slightly on narrow viewports). */
-#apex-room-kitchen p {
-  max-width: none;
-  white-space: nowrap;
-  font-size: clamp(0.65rem, 2.75vw, 0.92rem);
-}
-
-@media (min-width: 720px) {
-  #apex-room-kitchen p {
-    font-size: 0.92rem;
-  }
-}
-
 .apex-showcase-grid {
   display: grid;
   gap: 1rem;
@@ -477,6 +464,329 @@ body.page-anchor .apex-intro p {
 @media (prefers-reduced-motion: reduce) {
   .apex-carousel-track {
     transition: none;
+  }
+}
+
+/* --- The Apex: tabbed property gallery + lightbox --- */
+body.apex-lightbox-open {
+  overflow: hidden;
+}
+
+.apex-property-gallery {
+  padding-block: var(--space-2xl);
+  background: #1b2024;
+  color: #f7f5f2;
+  text-align: left;
+}
+
+.apex-property-gallery .apex-property-gallery-inner {
+  width: min(1320px, 94%);
+  margin-inline: auto;
+}
+
+.apex-property-gallery-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 1.5rem;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+
+.apex-property-gallery-heading {
+  max-width: 36ch;
+}
+
+.apex-property-gallery-eyebrow {
+  margin: 0 0 0.35rem;
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(247, 245, 242, 0.55);
+}
+
+.apex-property-gallery-heading h2 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.85rem, 4.2vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.12;
+  color: #fff;
+}
+
+.apex-gallery-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .apex-gallery-tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.35rem;
+    margin-inline: calc(-1 * max(0px, (100vw - 94vw) / 2 - 3vw));
+    padding-inline: max(3vw, (100vw - 94vw) / 2);
+    scroll-padding-inline: 3vw;
+  }
+}
+
+.apex-gallery-tab {
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(247, 245, 242, 0.82);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  padding: 0.5rem 0.72rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.apex-gallery-tab:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.apex-gallery-tab.is-active {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.apex-gallery-tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.apex-gallery-panel {
+  text-align: left;
+}
+
+.apex-gallery-mosaic {
+  min-height: 2rem;
+}
+
+.apex-gallery-mosaic-inner {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr;
+}
+
+.apex-gallery-tile--hero {
+  min-height: clamp(200px, 42vw, 360px);
+}
+
+.apex-gallery-subgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.apex-gallery-subgrid:empty {
+  display: none;
+}
+
+.apex-gallery-mosaic-inner--solo .apex-gallery-tile--hero {
+  min-height: clamp(220px, 48vw, 520px);
+  max-height: min(70vh, 640px);
+}
+
+@media (min-width: 720px) {
+  .apex-gallery-mosaic-inner:not(.apex-gallery-mosaic-inner--solo) {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: minmax(140px, 22vw) minmax(140px, 22vw);
+    max-height: min(640px, 72vh);
+  }
+
+  .apex-gallery-mosaic-inner:not(.apex-gallery-mosaic-inner--solo) .apex-gallery-tile--hero {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    min-height: 0;
+    height: 100%;
+    max-height: none;
+  }
+
+  .apex-gallery-mosaic-inner:not(.apex-gallery-mosaic-inner--solo) .apex-gallery-subgrid {
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 2;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .apex-gallery-mosaic-inner:not(.apex-gallery-mosaic-inner--solo) .apex-gallery-subgrid .apex-gallery-tile {
+    min-height: 0;
+    height: 100%;
+  }
+}
+
+.apex-gallery-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #2a3138;
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: 1px;
+}
+
+.apex-gallery-tile:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.apex-gallery-tile img {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.apex-gallery-mosaic-inner--solo .apex-gallery-tile--hero img {
+  max-height: min(70vh, 640px);
+  min-height: clamp(200px, 45vw, 520px);
+}
+
+.apex-gallery-more {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.apex-gallery-more .apex-gallery-tile--compact img {
+  min-height: 100px;
+  aspect-ratio: 4 / 3;
+}
+
+.apex-gallery-empty {
+  margin: 0;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  color: rgba(247, 245, 242, 0.6);
+  font-size: 0.95rem;
+}
+
+.apex-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.5rem, 2vw, 1.25rem);
+}
+
+.apex-lightbox[hidden] {
+  display: none !important;
+}
+
+.apex-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 8, 10, 0.9);
+  cursor: pointer;
+}
+
+.apex-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: min(96vw, 1320px);
+  min-height: min(80vh, 720px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apex-lightbox-img {
+  max-width: min(88vw, 1200px);
+  max-height: min(78vh, 800px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+}
+
+.apex-lightbox-close,
+.apex-lightbox-prev,
+.apex-lightbox-next {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(30, 35, 38, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.apex-lightbox-close:hover,
+.apex-lightbox-prev:hover,
+.apex-lightbox-next:hover {
+  background: rgba(48, 54, 58, 0.95);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.apex-lightbox-close:focus-visible,
+.apex-lightbox-prev:focus-visible,
+.apex-lightbox-next:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.apex-lightbox-close {
+  top: 0;
+  right: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0;
+}
+
+.apex-lightbox-prev,
+.apex-lightbox-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+}
+
+.apex-lightbox-prev {
+  left: clamp(0.25rem, 2vw, 1rem);
+}
+
+.apex-lightbox-next {
+  right: clamp(0.25rem, 2vw, 1rem);
+}
+
+@media (max-width: 520px) {
+  .apex-lightbox-prev {
+    left: 0.15rem;
+  }
+
+  .apex-lightbox-next {
+    right: 0.15rem;
+  }
+
+  .apex-lightbox-prev,
+  .apex-lightbox-next {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }
 
