@@ -2994,11 +2994,11 @@ select.hero-booking-input {
 .property-glance {
   background: #252a2d;
   color: rgba(245, 248, 246, 0.92);
-  text-align: left;
+  text-align: center;
 }
 
 .property-glance-inner {
-  width: min(920px, 94%);
+  width: min(1100px, 94%);
   margin-inline: auto;
 }
 
@@ -3027,31 +3027,49 @@ select.hero-booking-input {
 }
 
 .property-glance-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
   gap: 1px;
   padding: 1px;
   background: rgba(191, 227, 214, 0.14);
-}
-
-@media (min-width: 720px) {
-  .property-glance-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .property-glance-card--wide {
-    grid-column: 1 / -1;
-  }
-
-  .property-glance-card--wide .property-glance-card__summary {
-    max-width: 22rem;
-    margin-inline: auto;
-  }
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
 }
 
 .property-glance-card {
   margin: 0;
   background: #252a2d;
+  flex: 0 0 min(11.25rem, 42vw);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 900px) {
+  .property-glance-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: stretch;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
+  .property-glance-card {
+    flex: none;
+    min-width: 0;
+  }
+
+  .property-glance-card--wide {
+    grid-column: auto;
+  }
+
+  .property-glance-card--wide .property-glance-card__summary {
+    max-width: none;
+    margin-inline: 0;
+  }
 }
 
 .property-glance-card__summary {
@@ -3117,12 +3135,19 @@ select.hero-booking-input {
 
 .property-glance-card__title {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+  font-size: clamp(0.88rem, 1.65vw, 1.08rem);
   font-weight: 400;
   letter-spacing: 0.02em;
   color: rgba(232, 244, 238, 0.95);
-  max-width: 16ch;
-  line-height: 1.25;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+}
+
+@media (min-width: 900px) {
+  .property-glance-card__title {
+    white-space: nowrap;
+  }
 }
 
 .property-glance-card__body {
@@ -3139,12 +3164,12 @@ select.hero-booking-input {
   font-size: 0.88rem;
   line-height: 1.65;
   color: rgba(220, 230, 224, 0.88);
-  text-align: left;
+  text-align: center;
 }
 
 .property-glance-card__body ul {
   margin: 0;
-  padding: 0 0 0 1.15rem;
+  padding: 0;
   max-width: 52ch;
   margin-inline: auto;
   font-family: "Raleway", system-ui, sans-serif;
@@ -3152,8 +3177,8 @@ select.hero-booking-input {
   line-height: 1.6;
   color: rgba(220, 230, 224, 0.88);
   list-style: disc;
-  list-style-position: outside;
-  text-align: left;
+  list-style-position: inside;
+  text-align: center;
 }
 
 .property-glance-card__body li + li {
@@ -3162,7 +3187,7 @@ select.hero-booking-input {
 
 body.page-apex .property-glance,
 body.page-anchor .property-glance {
-  text-align: left;
+  text-align: center;
 }
 
 .section-fade {
