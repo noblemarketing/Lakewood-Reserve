@@ -92,7 +92,7 @@
           id="apex-gallery-panel"
           class="apex-gallery-panel"
           role="tabpanel"
-          aria-labelledby="apex-gallery-tab-exterior"
+          aria-labelledby="apex-gallery-tab-all"
         >
           <div id="apex-gallery-mosaic" class="apex-gallery-mosaic"></div>
           <p id="apex-gallery-empty" class="apex-gallery-empty" hidden>No photos in this category.</p>
@@ -112,27 +112,38 @@
           <button type="button" class="apex-lightbox-close" aria-label="Close enlarged photo">
             <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg>
           </button>
-          <button type="button" class="apex-lightbox-prev" aria-label="Previous photo">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M14 6 8 12l6 6"/></svg>
-          </button>
-          <img class="apex-lightbox-img" src="assets/images/cabins/the-apex-cover.png" alt="" width="1600" height="1067" decoding="async">
-          <button type="button" class="apex-lightbox-next" aria-label="Next photo">
-            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></svg>
-          </button>
+          <div class="apex-lightbox-stage">
+            <button type="button" class="apex-lightbox-prev" aria-label="Previous photo">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M14 6 8 12l6 6"/></svg>
+            </button>
+            <div class="apex-lightbox-main">
+              <img class="apex-lightbox-img" src="assets/images/cabins/the-apex-cover.png" alt="" width="1600" height="1067" decoding="async">
+            </div>
+            <button type="button" class="apex-lightbox-next" aria-label="Next photo">
+              <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="apex-lightbox-thumbs" role="group" aria-label="All photos in this category" hidden></div>
           <p class="apex-lightbox-live sr-only" aria-live="polite"></p>
         </div>
       </div>
     </section>
 
-    <section class="faq-section faq-section--accordion section-fade" aria-labelledby="apex-stay-details-title">
-      <div class="section-inner faq-accordion-inner">
-        <header class="faq-accordion-heading">
-          <h2 id="apex-stay-details-title">The Apex,<br>at a glance</h2>
+    <section class="property-glance section-fade" aria-labelledby="apex-stay-details-title">
+      <div class="section-inner property-glance-inner">
+        <header class="property-glance-header">
+          <p class="property-glance-eyebrow">At a glance</p>
+          <h2 id="apex-stay-details-title">The Apex</h2>
         </header>
-        <div class="faq-accordion-list">
-          <details class="faq-accordion-item">
-            <summary>House rules</summary>
-            <div class="faq-accordion-panel">
+        <div class="property-glance-grid">
+          <details class="property-glance-card">
+            <summary class="property-glance-card__summary">
+              <span class="property-glance-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 12h6M9 16h6"/></svg>
+              </span>
+              <span class="property-glance-card__title">House rules</span>
+            </summary>
+            <div class="property-glance-card__body">
               <ul>
                 <li>No smoking inside. If smoking is permitted outdoors, use designated areas and dispose of waste safely.</li>
                 <li>Quiet hours 10:00 PM–7:00 AM out of respect for neighbors and wildlife.</li>
@@ -144,9 +155,14 @@
               </ul>
             </div>
           </details>
-          <details class="faq-accordion-item">
-            <summary>Amenities</summary>
-            <div class="faq-accordion-panel">
+          <details class="property-glance-card">
+            <summary class="property-glance-card__summary">
+              <span class="property-glance-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+              </span>
+              <span class="property-glance-card__title">Amenities</span>
+            </summary>
+            <div class="property-glance-card__body">
               <ul>
                 <li>Kitchen with cookware, serveware, and essentials for coffee and simple meals—no oven; open-flame cooking outdoors at the fire pit with a grate for grilling.</li>
                 <li>Wi‑Fi, heating and cooling, and on-demand hot water.</li>
@@ -157,21 +173,36 @@
               </ul>
             </div>
           </details>
-          <details class="faq-accordion-item">
-            <summary>The space</summary>
-            <div class="faq-accordion-panel">
+          <details class="property-glance-card">
+            <summary class="property-glance-card__summary">
+              <span class="property-glance-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              </span>
+              <span class="property-glance-card__title">The space</span>
+            </summary>
+            <div class="property-glance-card__body">
               <p>The Apex is a one-bedroom, one-bathroom A-frame with a multi-level layout and a wall of glass that pulls the forest into the living area. The living room has a pull-out queen sofa in that open space—not a second bedroom, but it lets the home sleep up to four when combined with the dedicated bedroom. The layout is intentionally compact and calm—ideal for guests who want an uncluttered base camp for lake days and slow evenings in.</p>
             </div>
           </details>
-          <details class="faq-accordion-item">
-            <summary>The experience</summary>
-            <div class="faq-accordion-panel">
+          <details class="property-glance-card">
+            <summary class="property-glance-card__summary">
+              <span class="property-glance-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L12 4l-3 6-2-3-4 13z"/></svg>
+              </span>
+              <span class="property-glance-card__title">The experience</span>
+            </summary>
+            <div class="property-glance-card__body">
               <p>Expect soft natural light, warm wood tones, and a stripped-back aesthetic that keeps attention on the trees outside. Mornings are for coffee on the deck or at the window; afternoons are for Raystown Lake and nearby trails; nights are for time outside—fire pit meals, optional sauna rounds, and the wood-fired hot tub once the water is ready—then low light and genuine quiet.</p>
             </div>
           </details>
-          <details class="faq-accordion-item">
-            <summary>Perfect for</summary>
-            <div class="faq-accordion-panel">
+          <details class="property-glance-card property-glance-card--wide">
+            <summary class="property-glance-card__summary">
+              <span class="property-glance-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="property-glance-card__title">Perfect for</span>
+            </summary>
+            <div class="property-glance-card__body">
               <ul>
                 <li>Couples, small groups, and solo travelers who want a design-forward tiny home without sacrificing comfort.</li>
                 <li>Short creative retreats, anniversaries, or a restorative long weekend.</li>

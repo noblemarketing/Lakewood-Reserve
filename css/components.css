@@ -576,6 +576,12 @@ body.apex-lightbox-open {
   min-height: 2rem;
 }
 
+.apex-gallery-mosaic-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .apex-gallery-mosaic-inner {
   display: grid;
   gap: 0.5rem;
@@ -600,6 +606,21 @@ body.apex-lightbox-open {
 .apex-gallery-mosaic-inner--solo .apex-gallery-tile--hero {
   min-height: clamp(220px, 48vw, 520px);
   max-height: min(70vh, 640px);
+}
+
+.apex-gallery-row-full {
+  width: 100%;
+}
+
+.apex-gallery-row-full .apex-gallery-tile {
+  width: 100%;
+}
+
+.apex-gallery-row-full .apex-gallery-tile img {
+  width: 100%;
+  min-height: clamp(132px, 18vw, 220px);
+  max-height: min(28vh, 280px);
+  object-fit: cover;
 }
 
 @media (min-width: 720px) {
@@ -627,6 +648,10 @@ body.apex-lightbox-open {
   .apex-gallery-mosaic-inner:not(.apex-gallery-mosaic-inner--solo) .apex-gallery-subgrid .apex-gallery-tile {
     min-height: 0;
     height: 100%;
+  }
+
+  .apex-gallery-row-full .apex-gallery-tile img {
+    max-height: min(24vh, 260px);
   }
 }
 
@@ -661,18 +686,6 @@ body.apex-lightbox-open {
   min-height: clamp(200px, 45vw, 520px);
 }
 
-.apex-gallery-more {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(140px, 100%), 1fr));
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.apex-gallery-more .apex-gallery-tile--compact img {
-  min-height: 100px;
-  aspect-ratio: 4 / 3;
-}
-
 .apex-gallery-empty {
   margin: 0;
   padding: 2.5rem 1rem;
@@ -704,20 +717,94 @@ body.apex-lightbox-open {
 .apex-lightbox-panel {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
   width: min(96vw, 1320px);
-  min-height: min(80vh, 720px);
+  max-height: 92vh;
+  padding-top: 2.75rem;
+}
+
+.apex-lightbox-stage {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
+  width: 100%;
+  min-height: min(52vh, 560px);
+}
+
+.apex-lightbox-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 clamp(2.75rem, 8vw, 3.5rem);
 }
 
 .apex-lightbox-img {
-  max-width: min(88vw, 1200px);
-  max-height: min(78vh, 800px);
+  max-width: 100%;
+  max-height: min(58vh, 720px);
   width: auto;
   height: auto;
   object-fit: contain;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+}
+
+.apex-lightbox-thumbs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0 0.15rem;
+  width: 100%;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.apex-lightbox-thumbs[hidden] {
+  display: none !important;
+}
+
+.apex-lightbox-thumb {
+  flex: 0 0 auto;
+  width: 4.5rem;
+  height: 3rem;
+  padding: 0;
+  margin: 0;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  background: rgba(30, 35, 38, 0.95);
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.apex-lightbox-thumb:hover {
+  opacity: 1;
+}
+
+.apex-lightbox-thumb.is-active {
+  opacity: 1;
+  border-color: #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.apex-lightbox-thumb:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.apex-lightbox-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .apex-lightbox-close,
@@ -767,25 +854,26 @@ body.apex-lightbox-open {
 }
 
 .apex-lightbox-prev {
-  left: clamp(0.25rem, 2vw, 1rem);
+  left: 0;
 }
 
 .apex-lightbox-next {
-  right: clamp(0.25rem, 2vw, 1rem);
+  right: 0;
 }
 
 @media (max-width: 520px) {
-  .apex-lightbox-prev {
-    left: 0.15rem;
-  }
-
-  .apex-lightbox-next {
-    right: 0.15rem;
+  .apex-lightbox-main {
+    padding: 0 clamp(2.25rem, 6vw, 2.75rem);
   }
 
   .apex-lightbox-prev,
   .apex-lightbox-next {
     width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .apex-lightbox-thumb {
+    width: 3.75rem;
     height: 2.5rem;
   }
 }
@@ -2875,57 +2963,6 @@ select.hero-booking-input {
   margin-top: 0.45rem;
 }
 
-body.page-apex .faq-accordion-inner,
-body.page-anchor .faq-accordion-inner {
-  justify-items: center;
-}
-
-body.page-apex .faq-accordion-heading,
-body.page-anchor .faq-accordion-heading {
-  text-align: center;
-}
-
-body.page-apex .faq-accordion-heading h2,
-body.page-anchor .faq-accordion-heading h2 {
-  text-align: center;
-}
-
-body.page-apex .faq-accordion-item summary,
-body.page-anchor .faq-accordion-item summary {
-  display: block;
-  text-align: center;
-  padding: 1.15rem 2.25rem;
-  position: relative;
-}
-
-body.page-apex .faq-accordion-item summary::after,
-body.page-anchor .faq-accordion-item summary::after {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-body.page-apex .faq-accordion-panel,
-body.page-anchor .faq-accordion-panel {
-  padding: 0 0 1.15rem 0;
-  text-align: center;
-}
-
-body.page-apex .faq-accordion-panel p,
-body.page-anchor .faq-accordion-panel p {
-  text-align: center;
-  margin-inline: auto;
-}
-
-body.page-apex .faq-accordion-panel ul,
-body.page-anchor .faq-accordion-panel ul {
-  margin-inline: auto;
-  padding-left: 0;
-  list-style-position: inside;
-  text-align: center;
-}
-
 @media (min-width: 768px) {
   .site-footer .footer-nav-layout {
     grid-template-columns: minmax(110px, 0.9fr) repeat(3, minmax(140px, 1fr)) auto;
@@ -2950,14 +2987,183 @@ body.page-anchor .faq-accordion-panel ul {
     column-gap: clamp(2rem, 5vw, 4rem);
     align-items: start;
   }
+}
 
-  body.page-apex .faq-accordion-inner,
-  body.page-anchor .faq-accordion-inner {
-    grid-template-columns: 1fr;
-    justify-items: center;
+
+/* --- Tiny home listing: at-a-glance (Apex + Anchor) --- */
+.property-glance {
+  background: #252a2d;
+  color: rgba(245, 248, 246, 0.92);
+  text-align: left;
+}
+
+.property-glance-inner {
+  width: min(920px, 94%);
+  margin-inline: auto;
+}
+
+.property-glance-header {
+  text-align: center;
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.property-glance-eyebrow {
+  margin: 0 0 0.4rem;
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(191, 227, 214, 0.55);
+}
+
+.property-glance-header h2 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.85rem, 3.8vw, 2.45rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #eef4f0;
+}
+
+.property-glance-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  padding: 1px;
+  background: rgba(191, 227, 214, 0.14);
+}
+
+@media (min-width: 720px) {
+  .property-glance-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .property-glance-card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .property-glance-card--wide .property-glance-card__summary {
+    max-width: 22rem;
+    margin-inline: auto;
   }
 }
 
+.property-glance-card {
+  margin: 0;
+  background: #252a2d;
+}
+
+.property-glance-card__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: clamp(1.35rem, 3vw, 1.85rem) 1rem;
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.property-glance-card__summary::-webkit-details-marker {
+  display: none;
+}
+
+.property-glance-card__summary::marker {
+  content: "";
+}
+
+.property-glance-card__summary:hover {
+  background: rgba(35, 42, 40, 0.65);
+}
+
+.property-glance-card__summary:focus-visible {
+  outline: 2px solid #bfe3d6;
+  outline-offset: 2px;
+}
+
+.property-glance-card__summary::after {
+  content: "";
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.15rem;
+  border-right: 1.5px solid rgba(191, 227, 214, 0.55);
+  border-bottom: 1.5px solid rgba(191, 227, 214, 0.55);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease, border-color 0.2s ease;
+}
+
+.property-glance-card[open] > .property-glance-card__summary::after {
+  transform: rotate(225deg);
+  margin-top: 0.35rem;
+}
+
+.property-glance-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #bfe3d6;
+}
+
+.property-glance-card__icon svg {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.property-glance-card__title {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(0.98rem, 2.2vw, 1.12rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(232, 244, 238, 0.95);
+  max-width: 16ch;
+  line-height: 1.25;
+}
+
+.property-glance-card__body {
+  padding: 0 1.1rem 1.35rem;
+  border-top: 1px solid rgba(191, 227, 214, 0.1);
+  background: rgba(20, 24, 23, 0.35);
+}
+
+.property-glance-card__body p {
+  margin: 0;
+  max-width: 52ch;
+  margin-inline: auto;
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: rgba(220, 230, 224, 0.88);
+  text-align: left;
+}
+
+.property-glance-card__body ul {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  max-width: 52ch;
+  margin-inline: auto;
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: rgba(220, 230, 224, 0.88);
+  list-style: disc;
+  list-style-position: outside;
+  text-align: left;
+}
+
+.property-glance-card__body li + li {
+  margin-top: 0.4rem;
+}
+
+body.page-apex .property-glance,
+body.page-anchor .property-glance {
+  text-align: left;
+}
 
 .section-fade {
   opacity: 0;

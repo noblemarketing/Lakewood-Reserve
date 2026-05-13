@@ -2,6 +2,7 @@
   "use strict";
 
   var CATEGORIES = [
+    { key: "all", label: "All" },
     { key: "exterior", label: "Exterior" },
     { key: "bedroom", label: "Bedroom" },
     { key: "bathroom", label: "Bathroom" },
@@ -9,6 +10,19 @@
     { key: "kitchen", label: "Kitchen" },
     { key: "outdoor", label: "Outdoor Space" }
   ];
+
+  /** Manifest keys merged in order for the "All" tab (must match real JSON keys). */
+  var MANIFEST_KEYS_ORDER = [
+    "exterior",
+    "bedroom",
+    "bathroom",
+    "living-room",
+    "kitchen",
+    "outdoor"
+  ];
+
+  /** Max photos shown in the page mosaic (hero + 2×2 + optional full-width sixth). */
+  var MAIN_GALLERY_MAX = 6;
 
   var HEIC_FALLBACK = "assets/images/cabins/the-apex-cover.png";
 
@@ -33,9 +47,24 @@
     return String(src).toLowerCase().endsWith(".heic");
   }
 
-  function buildTileHtml(src, alt, index, total, extraClass) {
+  function mergeAllGalleryUrls(manifest) {
+    var out = [];
+    for (var i = 0; i < MANIFEST_KEYS_ORDER.length; i++) {
+      var k = MANIFEST_KEYS_ORDER[i];
+      var arr = manifest[k];
+      if (!arr || !arr.length) continue;
+      for (var j = 0; j < arr.length; j++) {
+        out.push(arr[j]);
+      }
+    }
+    return out;
+  }
+
+  function buildTileHtml(src, alt, index, totalInCategory, extraClass) {
     var cls = "apex-gallery-tile" + (extraClass ? " " + extraClass : "");
-    var label = alt + " — photo " + (index + 1) + " of " + total + ". Opens larger view.";
+    var label = alt + " — photo " + (index + 1) + " of " + totalInCategory + ". Opens larger view.";
+    var loading = index === 0 ? "eager" : "lazy";
+    var fetchPri = index === 0 ? "high" : "low";
     if (isHeic(src)) {
       return (
         '<button type="button" class="' +
@@ -52,8 +81,10 @@
         '<img src="' +
         escapeAttr(HEIC_FALLBACK) +
         '" alt="" width="1200" height="800" loading="' +
-        (index === 0 ? "eager" : "lazy") +
-        '" decoding="async">' +
+        loading +
+        '" decoding="async" fetchpriority="' +
+        fetchPri +
+        '">' +
         "</picture>" +
         "</button>"
       );
@@ -69,8 +100,43 @@
       '<img src="' +
       escapeAttr(src) +
       '" alt="" width="1200" height="800" loading="' +
-      (index === 0 ? "eager" : "lazy") +
-      '" decoding="async">' +
+      loading +
+      '" decoding="async" fetchpriority="' +
+      fetchPri +
+      '">' +
+      "</button>"
+    );
+  }
+
+  function buildLightboxThumbHtml(src, index, totalInCategory, altBase) {
+    var label = "Show photo " + (index + 1) + " of " + totalInCategory + " (" + altBase + ")";
+    if (isHeic(src)) {
+      return (
+        '<button type="button" class="apex-lightbox-thumb" data-lightbox-index="' +
+        index +
+        '" aria-label="' +
+        escapeAttr(label) +
+        '">' +
+        "<picture>" +
+        '<source type="image/heic" srcset="' +
+        escapeAttr(src) +
+        '">' +
+        '<img src="' +
+        escapeAttr(HEIC_FALLBACK) +
+        '" alt="" width="120" height="80" loading="lazy" decoding="async">' +
+        "</picture>" +
+        "</button>"
+      );
+    }
+    return (
+      '<button type="button" class="apex-lightbox-thumb" data-lightbox-index="' +
+      index +
+      '" aria-label="' +
+      escapeAttr(label) +
+      '">' +
+      '<img src="' +
+      escapeAttr(src) +
+      '" alt="" width="120" height="80" loading="lazy" decoding="async">' +
       "</button>"
     );
   }
@@ -94,6 +160,7 @@
     var lbNext = lightbox.querySelector(".apex-lightbox-next");
     var lbImg = lightbox.querySelector(".apex-lightbox-img");
     var lbLive = lightbox.querySelector(".apex-lightbox-live");
+    var lbThumbs = lightbox.querySelector(".apex-lightbox-thumbs");
 
     var activeKey = CATEGORIES[0].key;
     var activeLabel = CATEGORIES[0].label;
@@ -102,6 +169,7 @@
     var lastFocus = null;
 
     function urlsForKey(key) {
+      if (key === "all") return mergeAllGalleryUrls(manifest);
       var u = manifest[key];
       return u && u.length ? u : [];
     }
@@ -118,7 +186,23 @@
 
     var panel = document.getElementById("apex-gallery-panel");
 
+    function closeLightbox() {
+      lightbox.hidden = true;
+      document.body.classList.remove("apex-lightbox-open");
+      if (lbPrev) lbPrev.hidden = false;
+      if (lbNext) lbNext.hidden = false;
+      if (lbThumbs) {
+        lbThumbs.innerHTML = "";
+        lbThumbs.hidden = true;
+      }
+      if (lastFocus && typeof lastFocus.focus === "function") {
+        lastFocus.focus();
+      }
+    }
+
     function renderMosaic(key) {
+      if (!lightbox.hidden) closeLightbox();
+
       var label = "";
       for (var c = 0; c < CATEGORIES.length; c++) {
         if (CATEGORIES[c].key === key) {
@@ -141,27 +225,41 @@
       emptyEl.hidden = true;
       mosaicEl.hidden = false;
 
+      var total = activeUrls.length;
       var altBase = "The Apex — " + label;
-      var hero = buildTileHtml(activeUrls[0], altBase, 0, activeUrls.length, "apex-gallery-tile--hero");
-      var sub = "";
-      for (var j = 1; j < Math.min(5, activeUrls.length); j++) {
-        sub += buildTileHtml(activeUrls[j], altBase, j, activeUrls.length, "");
-      }
-      var more = "";
-      if (activeUrls.length > 5) {
-        more += '<div class="apex-gallery-more">';
-        for (var k = 5; k < activeUrls.length; k++) {
-          more += buildTileHtml(activeUrls[k], altBase, k, activeUrls.length, "apex-gallery-tile--compact");
-        }
-        more += "</div>";
-      }
+      var visible = Math.min(MAIN_GALLERY_MAX, total);
 
       if (panel) panel.setAttribute("aria-labelledby", "apex-gallery-tab-" + key);
 
+      if (visible === 1) {
+        mosaicEl.innerHTML =
+          '<div class="apex-gallery-mosaic-wrap">' +
+          '<div class="apex-gallery-mosaic-inner apex-gallery-mosaic-inner--solo">' +
+          buildTileHtml(activeUrls[0], altBase, 0, total, "apex-gallery-tile--hero") +
+          '<div class="apex-gallery-subgrid"></div></div></div>';
+        return;
+      }
+
+      var hero = buildTileHtml(activeUrls[0], altBase, 0, total, "apex-gallery-tile--hero");
+      var sub = "";
+      var subCount = Math.min(4, visible - 1);
+      for (var j = 1; j <= subCount; j++) {
+        sub += buildTileHtml(activeUrls[j], altBase, j, total, "");
+      }
+
+      var sixth = "";
+      if (visible >= 6) {
+        sixth =
+          '<div class="apex-gallery-row-full">' +
+          buildTileHtml(activeUrls[5], altBase, 5, total, "apex-gallery-tile--row") +
+          "</div>";
+      }
+
       var innerClass = "apex-gallery-mosaic-inner";
-      if (activeUrls.length === 1) innerClass += " apex-gallery-mosaic-inner--solo";
+      if (visible >= 6) innerClass += " apex-gallery-mosaic-inner--with-sixth";
 
       mosaicEl.innerHTML =
+        '<div class="apex-gallery-mosaic-wrap">' +
         '<div class="' +
         innerClass +
         '">' +
@@ -169,7 +267,46 @@
         '<div class="apex-gallery-subgrid">' +
         sub +
         "</div></div>" +
-        more;
+        sixth +
+        "</div>";
+    }
+
+    function renderLightboxThumbs() {
+      if (!lbThumbs || !activeUrls.length) return;
+      if (activeUrls.length <= 1) {
+        lbThumbs.hidden = true;
+        lbThumbs.innerHTML = "";
+        return;
+      }
+      lbThumbs.hidden = false;
+      var altBase = "The Apex — " + activeLabel;
+      var html = "";
+      for (var i = 0; i < activeUrls.length; i++) {
+        html += buildLightboxThumbHtml(activeUrls[i], i, activeUrls.length, altBase);
+      }
+      lbThumbs.innerHTML = html;
+    }
+
+    function syncLightboxThumbs() {
+      if (!lbThumbs || lbThumbs.hidden) return;
+      var thumbs = lbThumbs.querySelectorAll(".apex-lightbox-thumb");
+      var reduce =
+        typeof window.matchMedia === "function" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      for (var i = 0; i < thumbs.length; i++) {
+        var on = i === lightboxIndex;
+        thumbs[i].classList.toggle("is-active", on);
+        if (on) thumbs[i].setAttribute("aria-current", "true");
+        else thumbs[i].removeAttribute("aria-current");
+      }
+      var cur = thumbs[lightboxIndex];
+      if (cur && cur.scrollIntoView) {
+        cur.scrollIntoView({
+          block: "nearest",
+          inline: "center",
+          behavior: reduce ? "auto" : "smooth"
+        });
+      }
     }
 
     function openLightbox(index) {
@@ -180,18 +317,9 @@
       document.body.classList.add("apex-lightbox-open");
       if (lbPrev) lbPrev.hidden = activeUrls.length <= 1;
       if (lbNext) lbNext.hidden = activeUrls.length <= 1;
+      renderLightboxThumbs();
       updateLightboxImg();
       if (lbClose) lbClose.focus();
-    }
-
-    function closeLightbox() {
-      lightbox.hidden = true;
-      document.body.classList.remove("apex-lightbox-open");
-      if (lbPrev) lbPrev.hidden = false;
-      if (lbNext) lbNext.hidden = false;
-      if (lastFocus && typeof lastFocus.focus === "function") {
-        lastFocus.focus();
-      }
     }
 
     function updateLightboxImg() {
@@ -202,10 +330,12 @@
       } else {
         lbImg.src = src;
       }
+      lbImg.fetchPriority = "high";
       lbImg.alt = "The Apex — " + activeLabel + " — photo " + (lightboxIndex + 1) + " of " + activeUrls.length;
       if (lbLive) {
         lbLive.textContent = "Photo " + (lightboxIndex + 1) + " of " + activeUrls.length;
       }
+      syncLightboxThumbs();
     }
 
     function lightboxStep(delta) {
@@ -268,6 +398,17 @@
       if (isNaN(idx)) return;
       openLightbox(idx);
     });
+
+    if (lbThumbs) {
+      lbThumbs.addEventListener("click", function (e) {
+        var t = e.target.closest(".apex-lightbox-thumb");
+        if (!t || !lbThumbs.contains(t)) return;
+        var idx = parseInt(t.getAttribute("data-lightbox-index"), 10);
+        if (isNaN(idx)) return;
+        lightboxIndex = idx;
+        updateLightboxImg();
+      });
+    }
 
     if (lbBackdrop) lbBackdrop.addEventListener("click", closeLightbox);
     if (lbClose) lbClose.addEventListener("click", closeLightbox);
