@@ -21,8 +21,8 @@
     "outdoor"
   ];
 
-  /** Max photos shown in the page mosaic (hero + 2×2 + optional full-width sixth). */
-  var MAIN_GALLERY_MAX = 6;
+  /** First N grid thumbnails load eagerly (rest use native lazy loading). */
+  var GRID_EAGER_COUNT = 8;
 
   var HEIC_FALLBACK = "assets/images/cabins/the-apex-cover.png";
 
@@ -63,8 +63,8 @@
   function buildTileHtml(src, alt, index, totalInCategory, extraClass) {
     var cls = "apex-gallery-tile" + (extraClass ? " " + extraClass : "");
     var label = alt + " — photo " + (index + 1) + " of " + totalInCategory + ". Opens larger view.";
-    var loading = index === 0 ? "eager" : "lazy";
-    var fetchPri = index === 0 ? "high" : "low";
+    var loading = index < GRID_EAGER_COUNT ? "eager" : "lazy";
+    var fetchPri = index === 0 ? "high" : index < 4 ? "auto" : "low";
     if (isHeic(src)) {
       return (
         '<button type="button" class="' +
@@ -227,48 +227,14 @@
 
       var total = activeUrls.length;
       var altBase = "The Apex — " + label;
-      var visible = Math.min(MAIN_GALLERY_MAX, total);
 
       if (panel) panel.setAttribute("aria-labelledby", "apex-gallery-tab-" + key);
 
-      if (visible === 1) {
-        mosaicEl.innerHTML =
-          '<div class="apex-gallery-mosaic-wrap">' +
-          '<div class="apex-gallery-mosaic-inner apex-gallery-mosaic-inner--solo">' +
-          buildTileHtml(activeUrls[0], altBase, 0, total, "apex-gallery-tile--hero") +
-          '<div class="apex-gallery-subgrid"></div></div></div>';
-        return;
+      var tiles = "";
+      for (var i = 0; i < total; i++) {
+        tiles += buildTileHtml(activeUrls[i], altBase, i, total, "");
       }
-
-      var hero = buildTileHtml(activeUrls[0], altBase, 0, total, "apex-gallery-tile--hero");
-      var sub = "";
-      var subCount = Math.min(4, visible - 1);
-      for (var j = 1; j <= subCount; j++) {
-        sub += buildTileHtml(activeUrls[j], altBase, j, total, "");
-      }
-
-      var sixth = "";
-      if (visible >= 6) {
-        sixth =
-          '<div class="apex-gallery-row-full">' +
-          buildTileHtml(activeUrls[5], altBase, 5, total, "apex-gallery-tile--row") +
-          "</div>";
-      }
-
-      var innerClass = "apex-gallery-mosaic-inner";
-      if (visible >= 6) innerClass += " apex-gallery-mosaic-inner--with-sixth";
-
-      mosaicEl.innerHTML =
-        '<div class="apex-gallery-mosaic-wrap">' +
-        '<div class="' +
-        innerClass +
-        '">' +
-        hero +
-        '<div class="apex-gallery-subgrid">' +
-        sub +
-        "</div></div>" +
-        sixth +
-        "</div>";
+      mosaicEl.innerHTML = '<div class="apex-gallery-grid">' + tiles + "</div>";
     }
 
     function renderLightboxThumbs() {
