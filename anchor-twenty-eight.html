@@ -193,15 +193,41 @@
           <p class="property-glance-eyebrow">At a glance</p>
           <h2 id="anchor-stay-details-title">Anchor Twenty Eight</h2>
         </header>
-        <div class="property-glance-grid">
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
+        <div class="property-glance-accordion" data-property-glance>
+          <div class="property-glance-tablist" role="tablist" aria-label="Anchor Twenty Eight details">
+            <button type="button" class="property-glance-tab is-active" role="tab" id="anchor-glance-tab-rules" data-property-glance-tab aria-selected="true" aria-controls="anchor-glance-panel-rules">
+              <span class="property-glance-tab__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 12h6M9 16h6"/></svg>
               </span>
-              <span class="property-glance-card__title">House rules</span>
-            </summary>
-            <div class="property-glance-card__body">
+              <span class="property-glance-tab__title">House rules</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="anchor-glance-tab-amenities" data-property-glance-tab aria-selected="false" aria-controls="anchor-glance-panel-amenities" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+              </span>
+              <span class="property-glance-tab__title">Amenities</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="anchor-glance-tab-space" data-property-glance-tab aria-selected="false" aria-controls="anchor-glance-panel-space" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              </span>
+              <span class="property-glance-tab__title">The space</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="anchor-glance-tab-experience" data-property-glance-tab aria-selected="false" aria-controls="anchor-glance-panel-experience" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L12 4l-3 6-2-3-4 13z"/></svg>
+              </span>
+              <span class="property-glance-tab__title">The experience</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="anchor-glance-tab-perfect" data-property-glance-tab aria-selected="false" aria-controls="anchor-glance-panel-perfect" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="property-glance-tab__title">Perfect for</span>
+            </button>
+          </div>
+          <div class="property-glance-panels">
+            <div id="anchor-glance-panel-rules" class="property-glance-panel is-active" role="tabpanel" aria-labelledby="anchor-glance-tab-rules" data-property-glance-panel>
               <ul>
                 <li>No smoking inside. If smoking is permitted outdoors, use designated areas and dispose of waste safely.</li>
                 <li>Quiet hours 10:00 PM–7:00 AM out of respect for neighbors and wildlife.</li>
@@ -213,15 +239,7 @@
                 <li>At checkout, follow the departure checklist in your welcome message (trash, dishes, thermostat, and doors).</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
-              </span>
-              <span class="property-glance-card__title">Amenities</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="anchor-glance-panel-amenities" class="property-glance-panel" role="tabpanel" aria-labelledby="anchor-glance-tab-amenities" data-property-glance-panel hidden>
               <ul>
                 <li>Kitchen with cookware, serveware, and space for group meals.</li>
                 <li>Wi‑Fi, heating and cooling, and on-demand hot water.</li>
@@ -230,52 +248,28 @@
                 <li>Quick access to the lake and trail network from the property.</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-              </span>
-              <span class="property-glance-card__title">The space</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="anchor-glance-panel-space" class="property-glance-panel" role="tabpanel" aria-labelledby="anchor-glance-tab-space" data-property-glance-panel hidden>
               <ul>
                 <li>Cascade-style tiny home with steps to a loft area and sleeping zones for a small group.</li>
                 <li>Common areas stay bright and social; sleeping nooks feel intentional rather than improvised.</li>
                 <li>Designed so you can spread out during the day and tuck in comfortably at night.</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L12 4l-3 6-2-3-4 13z"/></svg>
-              </span>
-              <span class="property-glance-card__title">The experience</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="anchor-glance-panel-experience" class="property-glance-panel" role="tabpanel" aria-labelledby="anchor-glance-tab-experience" data-property-glance-panel hidden>
               <ul>
                 <li>Shared breakfasts at the table, lake time when the weather cooperates, and slow evenings around the fire or in the sauna.</li>
                 <li>Stairs, views, and indoor–outdoor flow for guests who like a bit of adventure in the layout.</li>
                 <li>Modern finishes and reliable comforts throughout—without losing the treehouse feel.</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card property-glance-card--wide" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </span>
-              <span class="property-glance-card__title">Perfect for</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="anchor-glance-panel-perfect" class="property-glance-panel" role="tabpanel" aria-labelledby="anchor-glance-tab-perfect" data-property-glance-panel hidden>
               <ul>
                 <li>Families and friend groups who want room for up to six guests.</li>
                 <li>Multi-day lake trips where sauna evenings and fire pit time are part of the plan.</li>
                 <li>Guests who enjoy a unique floor plan and do not mind navigating steps to the loft area.</li>
               </ul>
             </div>
-          </details>
+          </div>
         </div>
       </div>
     </section>
@@ -393,5 +387,6 @@
   <script src="js/back-to-top.js"></script>
   <script src="js/scroll-animations.js"></script>
   <script src="js/apex-carousel.js"></script>
+  <script src="js/property-glance.js"></script>
 </body>
 </html>

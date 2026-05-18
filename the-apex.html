@@ -167,15 +167,41 @@
           <p class="property-glance-eyebrow">At a glance</p>
           <h2 id="apex-stay-details-title">The Apex</h2>
         </header>
-        <div class="property-glance-grid">
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
+        <div class="property-glance-accordion" data-property-glance>
+          <div class="property-glance-tablist" role="tablist" aria-label="The Apex details">
+            <button type="button" class="property-glance-tab is-active" role="tab" id="apex-glance-tab-rules" data-property-glance-tab aria-selected="true" aria-controls="apex-glance-panel-rules">
+              <span class="property-glance-tab__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 12h6M9 16h6"/></svg>
               </span>
-              <span class="property-glance-card__title">House rules</span>
-            </summary>
-            <div class="property-glance-card__body">
+              <span class="property-glance-tab__title">House rules</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="apex-glance-tab-amenities" data-property-glance-tab aria-selected="false" aria-controls="apex-glance-panel-amenities" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+              </span>
+              <span class="property-glance-tab__title">Amenities</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="apex-glance-tab-space" data-property-glance-tab aria-selected="false" aria-controls="apex-glance-panel-space" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              </span>
+              <span class="property-glance-tab__title">The space</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="apex-glance-tab-experience" data-property-glance-tab aria-selected="false" aria-controls="apex-glance-panel-experience" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L12 4l-3 6-2-3-4 13z"/></svg>
+              </span>
+              <span class="property-glance-tab__title">The experience</span>
+            </button>
+            <button type="button" class="property-glance-tab" role="tab" id="apex-glance-tab-perfect" data-property-glance-tab aria-selected="false" aria-controls="apex-glance-panel-perfect" tabindex="-1">
+              <span class="property-glance-tab__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
+              <span class="property-glance-tab__title">Perfect for</span>
+            </button>
+          </div>
+          <div class="property-glance-panels">
+            <div id="apex-glance-panel-rules" class="property-glance-panel is-active" role="tabpanel" aria-labelledby="apex-glance-tab-rules" data-property-glance-panel>
               <ul>
                 <li>No smoking inside. If smoking is permitted outdoors, use designated areas and dispose of waste safely.</li>
                 <li>Quiet hours 10:00 PM–7:00 AM out of respect for neighbors and wildlife.</li>
@@ -186,15 +212,7 @@
                 <li>At checkout, follow the departure checklist in your welcome message (trash, dishes, thermostat, and doors).</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
-              </span>
-              <span class="property-glance-card__title">Amenities</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="apex-glance-panel-amenities" class="property-glance-panel" role="tabpanel" aria-labelledby="apex-glance-tab-amenities" data-property-glance-panel hidden>
               <ul>
                 <li>Kitchen with cookware, serveware, and essentials for coffee and simple meals—no oven; open-flame cooking outdoors at the fire pit with a grate for grilling.</li>
                 <li>Wi‑Fi, heating and cooling, and on-demand hot water.</li>
@@ -204,44 +222,20 @@
                 <li>In-home entertainment as described in your pre-arrival notes.</li>
               </ul>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-              </span>
-              <span class="property-glance-card__title">The space</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="apex-glance-panel-space" class="property-glance-panel" role="tabpanel" aria-labelledby="apex-glance-tab-space" data-property-glance-panel hidden>
               <p>The Apex is a one-bedroom, one-bathroom A-frame with a multi-level layout and a wall of glass that pulls the forest into the living area. The living room has a pull-out queen sofa in that open space—not a second bedroom, but it lets the home sleep up to four when combined with the dedicated bedroom. The layout is intentionally compact and calm—ideal for guests who want an uncluttered base camp for lake days and slow evenings in.</p>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18L12 4l-3 6-2-3-4 13z"/></svg>
-              </span>
-              <span class="property-glance-card__title">The experience</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="apex-glance-panel-experience" class="property-glance-panel" role="tabpanel" aria-labelledby="apex-glance-tab-experience" data-property-glance-panel hidden>
               <p>Expect soft natural light, warm wood tones, and a stripped-back aesthetic that keeps attention on the trees outside. Mornings are for coffee on the deck or at the window; afternoons are for Raystown Lake and nearby trails; nights are for time outside—fire pit meals, optional sauna rounds, and the wood-fired hot tub once the water is ready—then low light and genuine quiet.</p>
             </div>
-          </details>
-          <details class="property-glance-card" name="property-glance">
-            <summary class="property-glance-card__summary">
-              <span class="property-glance-card__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </span>
-              <span class="property-glance-card__title">Perfect for</span>
-            </summary>
-            <div class="property-glance-card__body">
+            <div id="apex-glance-panel-perfect" class="property-glance-panel" role="tabpanel" aria-labelledby="apex-glance-tab-perfect" data-property-glance-panel hidden>
               <ul>
                 <li>Couples, small groups, and solo travelers who want a design-forward tiny home without sacrificing comfort.</li>
                 <li>Short creative retreats, anniversaries, or a restorative long weekend.</li>
                 <li>Guests who prefer a smaller footprint, easy upkeep during the stay, and proximity to the lake.</li>
               </ul>
             </div>
-          </details>
+          </div>
         </div>
       </div>
     </section>
@@ -365,5 +359,6 @@
   <script src="js/back-to-top.js"></script>
   <script src="js/scroll-animations.js"></script>
   <script src="js/apex-carousel.js"></script>
+  <script src="js/property-glance.js"></script>
 </body>
 </html>
