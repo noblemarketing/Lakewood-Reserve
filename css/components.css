@@ -2992,7 +2992,7 @@ select.hero-booking-input {
 
 /* --- Tiny home listing: at-a-glance (Apex + Anchor) — FAQ-style two-column card --- */
 .property-glance {
-  --pg-accent: #e85d04;
+  --pg-accent: var(--color-accent-blue);
   --pg-card: #faf8f4;
   --pg-muted: #7a7a78;
   --pg-heading: #2e2e2b;
