@@ -2990,31 +2990,38 @@ select.hero-booking-input {
 }
 
 
-/* --- Tiny home listing: at-a-glance (Apex + Anchor) --- */
+/* --- Tiny home listing: at-a-glance (Apex + Anchor) — FAQ-style two-column card --- */
 .property-glance {
-  background: #252a2d;
-  color: rgba(245, 248, 246, 0.92);
-  text-align: center;
+  --pg-accent: #e85d04;
+  --pg-card: #faf8f4;
+  --pg-muted: #7a7a78;
+  --pg-heading: #2e2e2b;
+  background: var(--color-bg);
+  color: var(--pg-heading);
+  text-align: left;
+  padding: clamp(2.75rem, 7vw, 4.5rem) 0;
 }
 
 .property-glance-inner {
-  width: min(1200px, 96%);
+  width: min(1100px, 92%);
   margin-inline: auto;
 }
 
 .property-glance-header {
   text-align: center;
-  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
 }
 
 .property-glance-eyebrow {
-  margin: 0 0 0.4rem;
+  display: block;
+  margin: 0 0 0.5rem;
   font-family: "Raleway", system-ui, sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(191, 227, 214, 0.55);
+  text-align: center;
+  color: var(--color-accent);
 }
 
 .property-glance-header h2 {
@@ -3023,136 +3030,96 @@ select.hero-booking-input {
   font-size: clamp(1.85rem, 3.8vw, 2.45rem);
   font-weight: 400;
   line-height: 1.15;
-  color: #eef4f0;
+  color: var(--pg-heading);
 }
 
-/* Row of five tabs + full-width panel below (wireframe layout) */
+.property-glance-card {
+  background: var(--pg-card);
+  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 3rem);
+  box-sizing: border-box;
+}
+
 .property-glance-accordion {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  padding: 1px;
-  background: rgba(191, 227, 214, 0.14);
+  display: grid;
+  grid-template-columns: minmax(10.5rem, 30%) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .property-glance-accordion {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.property-glance-nav__label {
+  display: none;
 }
 
 .property-glance-tablist {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 1px;
-}
-
-@media (max-width: 899px) {
-  .property-glance-tablist {
-    grid-template-columns: repeat(5, minmax(9.5rem, 1fr));
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-  }
-
-  .property-glance-tab {
-    scroll-snap-align: start;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
 }
 
 .property-glance-tab {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
+  display: block;
+  width: 100%;
   margin: 0;
-  padding: clamp(1.35rem, 3vw, 1.85rem) 0.65rem;
+  padding: 0.6rem 1.15rem;
   border: none;
-  background: #252a2d;
-  color: inherit;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pg-muted);
   font: inherit;
   cursor: pointer;
-  text-align: center;
+  text-align: left;
   transition: background 0.2s ease, color 0.2s ease;
   box-sizing: border-box;
-  min-height: 100%;
 }
 
-.property-glance-tab:hover {
-  background: rgba(35, 42, 40, 0.65);
+.property-glance-tab:hover:not(.is-active) {
+  color: var(--pg-heading);
 }
 
 .property-glance-tab:focus-visible {
-  outline: 2px solid #bfe3d6;
+  outline: 2px solid var(--pg-accent);
   outline-offset: 2px;
-  z-index: 1;
 }
 
 .property-glance-tab.is-active {
-  background: rgba(35, 42, 40, 0.85);
-}
-
-.property-glance-tab.is-active::after {
-  content: "";
-  display: block;
-  width: 0.5rem;
-  height: 0.5rem;
-  margin-top: 0.1rem;
-  border-right: 1.5px solid rgba(191, 227, 214, 0.55);
-  border-bottom: 1.5px solid rgba(191, 227, 214, 0.55);
-  transform: rotate(225deg);
-}
-
-.property-glance-tab:not(.is-active)::after {
-  content: "";
-  display: block;
-  width: 0.5rem;
-  height: 0.5rem;
-  margin-top: 0.1rem;
-  border-right: 1.5px solid rgba(191, 227, 214, 0.55);
-  border-bottom: 1.5px solid rgba(191, 227, 214, 0.55);
-  transform: rotate(45deg);
+  background: var(--pg-accent);
+  color: #fff;
 }
 
 .property-glance-tab__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  color: #bfe3d6;
-}
-
-.property-glance-tab__icon svg {
-  width: 1.85rem;
-  height: 1.85rem;
+  display: none;
 }
 
 .property-glance-tab__title {
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
-  font-size: clamp(0.82rem, 1.5vw, 1.05rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: rgba(232, 244, 238, 0.95);
-  line-height: 1.2;
-  text-align: center;
-}
-
-@media (min-width: 900px) {
-  .property-glance-tab__title {
-    white-space: nowrap;
-  }
+  font-family: "Raleway", system-ui, sans-serif;
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: inherit;
 }
 
 .property-glance-panels {
-  width: 100%;
-  background: #252a2d;
+  min-height: 8rem;
 }
 
 .property-glance-panel {
   display: none;
   width: 100%;
-  padding: clamp(2rem, 5vw, 3.25rem) clamp(1.5rem, 6vw, 4rem);
-  border-top: 1px solid rgba(191, 227, 214, 0.14);
-  background: rgba(18, 22, 21, 0.55);
+  padding: 0;
+  background: transparent;
   box-sizing: border-box;
-  text-align: center;
+  text-align: left;
 }
 
 .property-glance-panel.is-active {
@@ -3163,42 +3130,68 @@ select.hero-booking-input {
   display: none !important;
 }
 
+.property-glance-panel__title {
+  margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--pg-heading);
+}
+
 .property-glance-panel p {
   margin: 0;
-  width: 100%;
+  max-width: 42rem;
   font-family: "Raleway", system-ui, sans-serif;
-  font-size: clamp(0.88rem, 1.6vw, 0.95rem);
-  line-height: 1.7;
-  color: rgba(220, 230, 224, 0.88);
-  text-align: center;
+  font-size: clamp(0.9rem, 1.5vw, 0.98rem);
+  line-height: 1.75;
+  color: var(--pg-muted);
+  text-align: left;
 }
 
 .property-glance-panel ul {
   margin: 0;
   padding: 0;
-  width: 100%;
+  max-width: 42rem;
   font-family: "Raleway", system-ui, sans-serif;
-  font-size: clamp(0.88rem, 1.6vw, 0.95rem);
-  line-height: 1.65;
-  color: rgba(220, 230, 224, 0.88);
+  font-size: clamp(0.9rem, 1.5vw, 0.98rem);
+  line-height: 1.75;
+  color: var(--pg-muted);
   list-style: none;
-  text-align: center;
+  text-align: left;
 }
 
 .property-glance-panel li {
-  text-align: center;
-  padding-inline: clamp(0.25rem, 2vw, 1rem);
+  text-align: left;
+  padding: 0;
 }
 
 .property-glance-panel li + li {
-  margin-top: 0.65rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(191, 227, 214, 0.08);
+  margin-top: 0.85rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+.property-glance-panel[id$="-panel-space"],
+.property-glance-panel[id$="-panel-experience"] {
+  text-align: center;
+}
+
+.property-glance-panel[id$="-panel-space"] .property-glance-panel__title,
+.property-glance-panel[id$="-panel-experience"] .property-glance-panel__title,
+.property-glance-panel[id$="-panel-space"] p,
+.property-glance-panel[id$="-panel-experience"] p,
+.property-glance-panel[id$="-panel-space"] ul,
+.property-glance-panel[id$="-panel-experience"] ul,
+.property-glance-panel[id$="-panel-space"] li,
+.property-glance-panel[id$="-panel-experience"] li {
+  text-align: center;
+  margin-inline: auto;
 }
 
 body.page-apex .property-glance,
 body.page-anchor .property-glance {
-  text-align: center;
+  text-align: left;
 }
 
 .section-fade {
