@@ -2996,6 +2996,7 @@ select.hero-booking-input {
   --pg-card: #faf8f4;
   --pg-muted: #7a7a78;
   --pg-heading: #2e2e2b;
+  font-family: "Raleway", system-ui, sans-serif;
   background: var(--color-bg);
   color: var(--pg-heading);
   text-align: left;
@@ -3026,9 +3027,9 @@ select.hero-booking-input {
 
 .property-glance-header h2 {
   margin: 0;
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: "Raleway", system-ui, sans-serif;
   font-size: clamp(1.85rem, 3.8vw, 2.45rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.15;
   color: var(--pg-heading);
 }
@@ -3132,9 +3133,9 @@ select.hero-booking-input {
 
 .property-glance-panel__title {
   margin: 0 0 clamp(1rem, 2.5vw, 1.35rem);
-  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-family: "Raleway", system-ui, sans-serif;
   font-size: clamp(1.65rem, 3.2vw, 2.1rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--pg-heading);
 }
