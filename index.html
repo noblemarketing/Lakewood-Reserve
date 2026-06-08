@@ -172,48 +172,34 @@
           <h3 class="amenity-title">Space for Intention</h3>
           <p class="amenity-copy">Thoughtfully designed stays that make room to slow down, reconnect, and be fully present together.</p>
         </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M5 20V8l7-4 7 4v12"/><path d="M9 20v-6h6v6"/><path d="M11 9v3"/><path d="M13 9v3"/><path d="M15 9v3"/></svg>
+          </span>
+          <h3 class="amenity-title">Private Sauna</h3>
+          <p class="amenity-copy">Your own sauna on property—a reset between lake days and slow evenings under the trees.</p>
+        </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 14c0 3 3.5 5 8 5s8-2 8-5"/><path d="M4 14V12a8 8 0 0 1 16 0v2"/><path d="M8 8c.5-1.5 1.5-2.5 2-3"/><path d="M14 8c-.5-1.5-1.5-2.5-2-3"/></svg>
+          </span>
+          <h3 class="amenity-title">Wood-Fired Hot Tub</h3>
+          <p class="amenity-copy">Heat it yourself for a rustic soak under the stars—plan ahead so the water has time to warm.</p>
+        </article>
+        <article class="amenity-item">
+          <span class="amenity-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 22c4-2.5 6-5.5 6-9a6 6 0 0 0-12 0c0 3.5 2 6.5 6 9Z"/><path d="M12 13c1.2-1.5 2-3 2-4.5a2.5 2.5 0 0 0-5 0c0 1.5.8 3 2 4.5Z"/></svg>
+          </span>
+          <h3 class="amenity-title">Fire Pit</h3>
+          <p class="amenity-copy">Gather around the fire with seating and string lights—open-flame grilling with a cooking grate.</p>
+        </article>
       </div>
     </section>
 
-    <section class="guest-reviews section-fade" aria-labelledby="guest-reviews-title">
+    <section class="guest-reviews section-fade" aria-labelledby="guest-reviews-title" data-guest-reviews>
       <div class="section-inner guest-reviews-inner">
         <h2 id="guest-reviews-title">What guests are saying</h2>
-
-        <ul class="guest-reviews-list">
-          <li>
-            <article class="guest-review">
-              <header class="guest-review-header">
-                <img
-                  class="guest-review-avatar"
-                  src="/assets/images/reviews/andrew-avatar.png"
-                  alt=""
-                  width="48"
-                  height="48"
-                  loading="lazy"
-                >
-                <div class="guest-review-identity">
-                  <cite class="guest-review-name">Andrew</cite>
-                  <p class="guest-review-location">Coatesville, Pennsylvania</p>
-                </div>
-              </header>
-
-              <div class="guest-review-rating" aria-label="Rated 5 out of 5">
-                <span class="guest-review-stars" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z"/></svg>
-                  <svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z"/></svg>
-                  <svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z"/></svg>
-                  <svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z"/></svg>
-                  <svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z"/></svg>
-                </span>
-                <span class="guest-review-meta">1 week ago · Stayed one night · The Apex</span>
-              </div>
-
-              <blockquote class="guest-review-text">
-                <p>Me and my wife loved our stay at the Apex! We would definitely recommend it to anyone. Great communication, true to the description in the listing, excellent living space, and attention to detail. The wood fired hot tub was definitely a highlight!</p>
-              </blockquote>
-            </article>
-          </li>
-        </ul>
+        <ul class="guest-reviews-list" data-guest-reviews-list></ul>
       </div>
     </section>
 
@@ -406,6 +392,7 @@
   <script src="/js/nav.js"></script>
   <script src="/js/back-to-top.js"></script>
   <script src="/js/scroll-animations.js"></script>
+  <script src="/js/guest-reviews.js"></script>
   <script>
     (() => {
       const d = document;

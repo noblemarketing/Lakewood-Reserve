@@ -2117,19 +2117,7 @@ select.hero-booking-input {
 }
 
 .guest-review-header {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
   margin-bottom: 0.65rem;
-}
-
-.guest-review-avatar {
-  flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .guest-review-identity {
