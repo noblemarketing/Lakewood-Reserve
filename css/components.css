@@ -3276,23 +3276,6 @@ select.hero-booking-input {
   border-top: none;
 }
 
-.property-glance-panel[id$="-panel-space"],
-.property-glance-panel[id$="-panel-experience"] {
-  text-align: center;
-}
-
-.property-glance-panel[id$="-panel-space"] .property-glance-panel__title,
-.property-glance-panel[id$="-panel-experience"] .property-glance-panel__title,
-.property-glance-panel[id$="-panel-space"] p,
-.property-glance-panel[id$="-panel-experience"] p,
-.property-glance-panel[id$="-panel-space"] ul,
-.property-glance-panel[id$="-panel-experience"] ul,
-.property-glance-panel[id$="-panel-space"] li,
-.property-glance-panel[id$="-panel-experience"] li {
-  text-align: center;
-  margin-inline: auto;
-}
-
 body.page-apex .property-glance,
 body.page-anchor .property-glance {
   text-align: left;
