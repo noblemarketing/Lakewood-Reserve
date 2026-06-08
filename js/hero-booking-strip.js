@@ -1,4 +1,4 @@
-(() => {
+﻿(() => {
   const form = document.querySelector("#hero-booking-form");
   if (!form) return;
 
@@ -31,6 +31,6 @@
     if (d) params.set("departure", d);
     params.set("guests", guests);
     const qs = params.toString();
-    window.location.href = qs ? `tinyhomes.html?${qs}#availability` : "tinyhomes.html#availability";
+    window.location.href = qs ? `/tinyhomes?${qs}#availability` : "/tinyhomes#availability";
   });
 })();

@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
 
   var CATEGORIES = [
@@ -24,7 +24,7 @@
   /** Max photos shown in the page mosaic (hero + 2×2 + optional full-width sixth). */
   var MAIN_GALLERY_MAX = 6;
 
-  var HEIC_FALLBACK = "assets/images/cabins/the-apex-cover.png";
+  var HEIC_FALLBACK = "/assets/images/cabins/the-apex-cover.png";
 
   function readManifest() {
     var el = document.getElementById("apex-gallery-manifest");
