@@ -225,6 +225,11 @@ body.page-explore {
   background: var(--color-white);
 }
 
+.guest-reviews {
+  background: var(--color-white);
+  color: #2A2D2E;
+}
+
 .final-cta {
   min-height: 55vh;
   position: relative;

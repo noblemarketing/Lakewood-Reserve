@@ -2094,6 +2094,115 @@ select.hero-booking-input {
   margin-top: 1.15rem;
 }
 
+.guest-reviews-inner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.guest-reviews-inner h2 {
+  text-align: left;
+  margin: 0;
+}
+
+.guest-reviews-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.guest-review {
+  max-width: min(42rem, 100%);
+}
+
+.guest-review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.65rem;
+}
+
+.guest-review-avatar {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.guest-review-identity {
+  display: grid;
+  gap: 0.1rem;
+  text-align: left;
+}
+
+.guest-review-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: normal;
+  color: #1C2320;
+}
+
+.guest-review-location {
+  margin: 0;
+  max-width: none;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #6A6F70;
+}
+
+.guest-review-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.guest-review-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.08rem;
+}
+
+.guest-review-stars svg {
+  width: 0.72rem;
+  height: 0.72rem;
+  fill: #1C2320;
+}
+
+.guest-review-meta {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #6A6F70;
+}
+
+.guest-review-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.guest-review-text p {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.5vw, 1.02rem);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #2A2D2E;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .guest-reviews-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .testimonials-inner {
   display: grid;
   gap: clamp(2rem, 4vw, 3rem);
