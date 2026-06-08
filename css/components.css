@@ -898,6 +898,12 @@ body.apex-lightbox-open {
   margin-inline: auto;
 }
 
+.apex-book-widget {
+  width: min(100%, 26rem);
+  margin: 0 auto var(--space-md);
+  text-align: left;
+}
+
 .apex-book-inner h2 {
   color: var(--color-white);
   margin-bottom: var(--space-sm);

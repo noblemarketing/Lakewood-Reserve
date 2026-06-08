@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/typography.css">
   <link rel="stylesheet" href="/css/layout.css">
   <link rel="stylesheet" href="/css/components.css?v=17">
+  <link rel="stylesheet" href="/css/lodgify.css">
   <link rel="icon" type="image/png" href="/assets/icons/footer-mark-asset-1.png">
 </head>
 <body class="page-apex">
@@ -257,8 +258,66 @@
       <div class="section-inner apex-book-inner">
         <h2 id="apex-book-title">Ready to stay?</h2>
         <p>Check dates and complete your booking on our secure checkout.</p>
+
+        <div id="lodgify-booking-box" class="apex-book-widget">
+          <style>
+            :root {
+              --ldg-bnb-background: #ffffff;
+              --ldg-bnb-border-radius: 0.42em;
+              --ldg-bnb-box-shadow: 0px 24px 54px 0px rgba(0, 0, 0, 0.1);
+              --ldg-bnb-padding: 14px;
+              --ldg-bnb-input-background: #ffffff;
+              --ldg-bnb-button-border-radius: 3.58em;
+              --ldg-bnb-color-primary: #768f8a;
+              --ldg-bnb-color-primary-lighter: #bbc7c5;
+              --ldg-bnb-color-primary-darker: #3b4845;
+              --ldg-bnb-color-primary-contrast: #000000;
+              --ldg-component-calendar-cell-selection-bg-color: #768f8a;
+              --ldg-component-calendar-cell-selection-color: #000000;
+              --ldg-component-calendar-cell-selected-bg-color: #bbc7c5;
+              --ldg-component-calendar-cell-selected-color: #000000;
+              --ldg-bnb-font-family: inherit;
+            }
+            #lodgify-book-now-box {
+              width: 100%;
+            }
+          </style>
+          <div
+            id="lodgify-book-now-box"
+            data-rental-id="806402"
+            data-website-id="629111"
+            data-slug="lakewoodreserve"
+            data-language-code="en"
+            data-new-tab="true"
+            data-version="stable"
+            data-has-guests-breakdown
+            data-check-in-label="Check-in"
+            data-check-out-label="Check-out"
+            data-guests-label="Guests"
+            data-guests-singular-label="{{NumberOfGuests}} guest"
+            data-guests-plural-label="{{NumberOfGuests}} guests"
+            data-location-input-label="Location"
+            data-total-price-label="Total price:"
+            data-select-dates-to-see-price-label="Select dates to see total price"
+            data-minimum-price-per-night-first-label="From"
+            data-minimum-price-per-night-second-label="per night"
+            data-book-button-label="Book Now"
+            data-guests-breakdown-label="Guests"
+            data-adults-label='{"one":"adult","other":"adults"}'
+            data-adults-description="Ages {minAge} or above"
+            data-children-label='{"one":"child","other":"children"}'
+            data-children-description="Ages {minAge}-{maxAge}"
+            data-children-not-allowed-label="Not suitable for children"
+            data-infants-label='{"one":"infant","other":"infants"}'
+            data-infants-description="Under {maxAge}"
+            data-infants-not-allowed-label="Not suitable for infants"
+            data-pets-label='{"one":"pet","other":"pets"}'
+            data-pets-not-allowed-label="Not allowed"
+            data-done-label="Done"
+          ></div>
+        </div>
+
         <div class="apex-book-actions">
-          <a class="btn btn-primary" href="https://lakewoodreserve.lodgify.com/en/the-apex-at-raystown-lake-lakewood-reserve-modern-tiny-home" target="_blank" rel="noopener noreferrer">Book The Apex</a>
           <a class="btn btn-secondary" href="/tinyhomes/">All Tiny Homes</a>
         </div>
       </div>
@@ -379,6 +438,7 @@
   ]
 }
 </script>
+  <script src="https://app.lodgify.com/book-now-box/stable/renderBookNowBox.js" defer></script>
   <script src="/js/nav.js"></script>
   <script src="/js/back-to-top.js"></script>
   <script src="/js/scroll-animations.js"></script>
