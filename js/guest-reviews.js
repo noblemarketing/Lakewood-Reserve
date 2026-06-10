@@ -54,22 +54,25 @@
     return parts.filter(Boolean).join(" · ");
   }
 
+  function renderLocation(review) {
+    if (!review.location) return "";
+    return (
+      '<p class="guest-review-location">' + escapeHtml(review.location) + "</p>"
+    );
+  }
+
   function renderReview(review, propertyFilter) {
     var rating = Math.max(0, Math.min(5, review.rating || 5));
     return (
       "<li>" +
-      '<article class="guest-review">' +
-      '<header class="guest-review-header">' +
-      '<div class="guest-review-identity">' +
+      '<details class="guest-review">' +
+      '<summary class="guest-review-summary">' +
+      '<span class="guest-review-summary-main">' +
       '<cite class="guest-review-name">' +
       escapeHtml(review.name) +
       "</cite>" +
-      '<p class="guest-review-location">' +
-      escapeHtml(review.location) +
-      "</p>" +
-      "</div>" +
-      "</header>" +
-      '<div class="guest-review-rating" aria-label="Rated ' +
+      renderLocation(review) +
+      '<span class="guest-review-rating" aria-label="Rated ' +
       rating +
       ' out of 5">' +
       '<span class="guest-review-stars" aria-hidden="true">' +
@@ -78,15 +81,31 @@
       '<span class="guest-review-meta">' +
       escapeHtml(renderMeta(review, propertyFilter)) +
       "</span>" +
-      "</div>" +
+      "</span>" +
+      "</span>" +
+      "</summary>" +
+      '<div class="guest-review-panel">' +
       '<blockquote class="guest-review-text">' +
       "<p>" +
       escapeHtml(review.text) +
       "</p>" +
       "</blockquote>" +
-      "</article>" +
+      "</div>" +
+      "</details>" +
       "</li>"
     );
+  }
+
+  function initAccordion(section) {
+    var items = section.querySelectorAll(".guest-review");
+    items.forEach(function (item) {
+      item.addEventListener("toggle", function () {
+        if (!item.open) return;
+        items.forEach(function (other) {
+          if (other !== item) other.open = false;
+        });
+      });
+    });
   }
 
   function initSection(section) {
@@ -107,6 +126,8 @@
     list.innerHTML = reviews.map(function (review) {
       return renderReview(review, propertyFilter);
     }).join("");
+
+    initAccordion(section);
   }
 
   document.querySelectorAll("[data-guest-reviews]").forEach(initSection);

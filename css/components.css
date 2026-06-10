@@ -2115,21 +2115,70 @@ select.hero-booking-input {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: clamp(1.75rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 2vw, 1.35rem);
+  width: 100%;
 }
 
 .guest-review {
-  max-width: min(42rem, 100%);
+  border: 1px solid #d9d6d0;
+  border-radius: var(--radius-md);
+  background: #fff;
 }
 
-.guest-review-header {
-  margin-bottom: 0.65rem;
-}
-
-.guest-review-identity {
-  display: grid;
-  gap: 0.1rem;
+.guest-review-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2vw, 1.2rem);
+  list-style: none;
+  cursor: pointer;
   text-align: left;
+  transition: color 0.15s ease;
+}
+
+.guest-review-summary::-webkit-details-marker {
+  display: none;
+}
+
+.guest-review-summary::marker {
+  content: "";
+}
+
+.guest-review-summary::after {
+  content: "+";
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1;
+  color: #1C2320;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.guest-review[open] .guest-review-summary::after {
+  content: "\2212";
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+.guest-review-summary:hover {
+  color: #1C2320;
+}
+
+.guest-review-summary:focus-visible {
+  outline: 2px solid rgba(28, 35, 32, 0.35);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.guest-review-summary-main {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
 }
 
 .guest-review-name {
@@ -2153,7 +2202,6 @@ select.hero-booking-input {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem 0.75rem;
-  margin-bottom: 0.85rem;
 }
 
 .guest-review-stars {
@@ -2172,6 +2220,10 @@ select.hero-booking-input {
   font-size: 0.82rem;
   font-weight: 400;
   color: #6A6F70;
+}
+
+.guest-review-panel {
+  padding: 0 clamp(1rem, 2vw, 1.2rem) clamp(1rem, 2vw, 1.2rem);
 }
 
 .guest-review-text {
@@ -2193,7 +2245,8 @@ select.hero-booking-input {
 
 @media (min-width: 768px) {
   .guest-reviews-list {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.15rem, 2vw, 1.5rem);
   }
 }
 
