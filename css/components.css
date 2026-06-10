@@ -2235,6 +2235,14 @@ select.hero-booking-input {
   color: #1C2320;
 }
 
+.guest-review-card-property {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: #6A6F70;
+}
+
 .guest-reviews-btn {
   position: relative;
   z-index: 2;

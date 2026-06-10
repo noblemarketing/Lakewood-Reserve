@@ -28,14 +28,14 @@
         "Our stay at The Apex was wonderful from beginning to end. What a gem in the heart of the Raystown region! The design and amenities clearly show intention and thought and we left incredibly rested and refreshed. We loved how nature and beauty surrounded you, both indoors and outdoors. We also enjoyed the short walk to the lake, paddleboarding, and hiking on a nearby trail. We are already looking forward to a return trip.",
     },
     {
-      property: "apex",
-      propertyLabel: "The Apex",
+      property: "cascade",
+      propertyLabel: "The Cascade",
       name: "Audrey",
       location: "",
       rating: 5,
       dateLabel: "Recent stay",
       text:
-        "The amenities here are incredible, and we loved how private the whole experience felt. From the thoughtful details inside to the outdoor spaces, everything was set up for a peaceful, restorative stay. We felt completely tucked away and could truly unwind.",
+        "The amenities at The Cascade are incredible, and we loved how private the whole experience felt. From the thoughtful details inside to the outdoor spaces, everything was set up for a peaceful, restorative stay. We felt completely tucked away and could truly unwind.",
     },
   ];
 
@@ -65,9 +65,15 @@
     return trimmed ? trimmed.charAt(0).toUpperCase() : "?";
   }
 
-  function renderReviewCard(review, index) {
+  function renderReviewCard(review, index, showPropertyLabel) {
     var rating = 5;
     var avatarColor = AVATAR_COLORS[index % AVATAR_COLORS.length];
+    var propertyHtml =
+      showPropertyLabel && review.propertyLabel
+        ? '<p class="guest-review-card-property">' +
+          escapeHtml(review.propertyLabel) +
+          "</p>"
+        : "";
     return (
       '<li class="guest-reviews-slide" role="group" aria-roledescription="slide">' +
       '<article class="guest-review-card">' +
@@ -90,6 +96,7 @@
       '<cite class="guest-review-card-name">' +
       escapeHtml(review.name) +
       "</cite>" +
+      propertyHtml +
       "</footer>" +
       "</article>" +
       "</li>"
@@ -237,10 +244,10 @@
     refresh();
   }
 
-  function buildCarousel(reviews) {
+  function buildCarousel(reviews, showPropertyLabel) {
     var slidesHtml = reviews
       .map(function (review, index) {
-        return renderReviewCard(review, index);
+        return renderReviewCard(review, index, showPropertyLabel);
       })
       .join("");
 
@@ -296,7 +303,7 @@
       return;
     }
 
-    mount.innerHTML = buildCarousel(reviews);
+    mount.innerHTML = buildCarousel(reviews, !propertyFilter);
     initCarousel(mount.querySelector(".guest-reviews-carousel"), reviews);
   }
 
