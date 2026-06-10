@@ -2306,11 +2306,11 @@ select.hero-booking-input {
 
 @media (min-width: 768px) {
   .guest-reviews-slide {
-    flex: 0 0 50%;
+    flex: 0 0 33.333%;
   }
 
   .guest-reviews-carousel {
-    max-width: min(1080px, 100%);
+    max-width: min(1280px, 100%);
   }
 }
 

@@ -97,7 +97,7 @@
   }
 
   function getSlidesPerView() {
-    return DESKTOP_QUERY.matches ? 2 : 1;
+    return DESKTOP_QUERY.matches ? 3 : 1;
   }
 
   function initCarousel(root, reviews) {
