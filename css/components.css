@@ -2106,7 +2106,7 @@ select.hero-booking-input {
 }
 
 .guest-reviews-inner h2 {
-  text-align: left;
+  text-align: center;
   margin: 0;
 }
 
@@ -2116,10 +2116,12 @@ select.hero-booking-input {
   padding: 0;
   display: grid;
   gap: clamp(1.75rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .guest-review {
-  max-width: min(42rem, 100%);
+  max-width: none;
+  text-align: left;
 }
 
 .guest-review-header {
@@ -2193,7 +2195,7 @@ select.hero-booking-input {
 
 @media (min-width: 768px) {
   .guest-reviews-list {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
