@@ -9,11 +9,21 @@
       property: "apex",
       propertyLabel: "The Apex",
       name: "Andrew",
-      location: "Coatesville, Pennsylvania",
+      location: "",
       rating: 5,
       dateLabel: "1 week ago",
       text:
         "Me and my wife loved our stay at the Apex! We would definitely recommend it to anyone. Great communication, true to the description in the listing, excellent living space, and attention to detail. The wood fired hot tub was definitely a highlight!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Jessica",
+      location: "",
+      rating: 5,
+      dateLabel: "Recent stay",
+      text:
+        "Our stay at The Apex was wonderful from beginning to end. What a gem in the heart of the Raystown region! The design and amenities clearly show intention and thought and we left incredibly rested and refreshed. We loved how nature and beauty surrounded you, both indoors and outdoors. We also enjoyed the short walk to the lake, paddleboarding, and hiking on a nearby trail. We are already looking forward to a return trip.",
     },
   ];
 
