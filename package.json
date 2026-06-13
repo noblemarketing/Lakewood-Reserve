@@ -3,14 +3,12 @@
   "private": true,
   "description": "Lakewood Reserve static site with Netlify serverless rental checkout",
   "scripts": {
-    "dev": "netlify dev",
+    "build": "npm install --omit=dev",
+    "dev": "npx netlify dev",
     "stripe:listen": "stripe listen --forward-to http://localhost:8888/api/webhook"
   },
   "dependencies": {
     "stripe": "^17.7.0",
     "twilio": "^5.5.2"
-  },
-  "devDependencies": {
-    "netlify-cli": "^22.2.2"
   }
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-const { getPublicCatalog } = require("../../rental/rental-config");
+const { getPublicCatalog } = require("./lib/rental-config");
 
 exports.handler = async function () {
   return {

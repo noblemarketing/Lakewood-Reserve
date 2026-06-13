@@ -2,8 +2,8 @@
 
 const Stripe = require("stripe");
 const twilio = require("twilio");
-const { getShedCode } = require("../../rental/rental-config");
-const { hasHandled, markHandled } = require("../../rental/handled-sessions");
+const { getShedCode } = require("./lib/rental-config");
+const { hasHandled, markHandled } = require("./lib/handled-sessions");
 
 function jsonResponse(statusCode, body) {
   return {

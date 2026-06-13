@@ -5,7 +5,7 @@ const {
   getPropertyById,
   getUnitPriceCents,
   getDurationLabel,
-} = require("../../rental/rental-config");
+} = require("./lib/rental-config");
 
 function jsonResponse(statusCode, body) {
   return {
