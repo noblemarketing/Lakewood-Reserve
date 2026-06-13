@@ -5,8 +5,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  # Example env file uses fake placeholders only; omit from secret scanning
-  SECRETS_SCAN_OMIT_PATHS = ".env.local.example"
+  # Example env file uses fake placeholders only; omit kayak code from secret scanning (also appears in Raystown Guide.pdf)
+  SECRETS_SCAN_OMIT_PATHS = ".env.local.example,Raystown Guide.pdf"
+  SECRETS_SCAN_OMIT_KEYS = "KAYAKKEYCODE"
 
 [functions]
   directory = "netlify/functions"
