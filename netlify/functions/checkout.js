@@ -85,6 +85,13 @@ exports.handler = async function (event) {
     validatedItems.push(valid);
   }
 
+  const propertyIds = validatedItems.map(function (item) {
+    return item.propertyId;
+  });
+  if (new Set(propertyIds).size > 1) {
+    return jsonResponse(400, { error: "All items must be for the same property" });
+  }
+
   const lineItems = validatedItems.map(function (item) {
     return {
       quantity: item.quantity,

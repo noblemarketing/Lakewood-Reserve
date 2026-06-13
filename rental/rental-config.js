@@ -15,7 +15,7 @@ const DURATIONS = [
 const PROPERTIES = [
   {
     id: "anchor-28",
-    name: "Anchor 28",
+    name: "Anchor Twenty Eight",
     equipment: {
       id: "kayaks",
       label: "Kayaks",

@@ -1,8 +1,14 @@
 (function () {
   "use strict";
 
+  var PROPERTY_IMAGES = {
+    "anchor-28": "/assets/images/cabins/anchor-twenty-eight-cover.png",
+    apex: "/assets/images/cabins/the-apex-cover.png",
+  };
+
   var catalog = null;
-  var propertyCards = {};
+  var selectedPropertyId = null;
+  var activeCard = null;
 
   function formatMoney(cents) {
     return new Intl.NumberFormat("en-US", {
@@ -15,71 +21,162 @@
     return document.getElementById(id);
   }
 
-  function buildQuantityOptions(maxQuantity) {
-    var html = "";
-    for (var i = 0; i <= maxQuantity; i += 1) {
-      html +=
-        '<option value="' +
-        i +
-        '">' +
-        (i === 0 ? "None" : i + (i === 1 ? " item" : " items")) +
-        "</option>";
-    }
-    return html;
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
-  function buildDurationOptions(durations, prices) {
-    return durations
-      .map(function (duration) {
-        var price = prices[duration.id];
+  function getProperty(propertyId) {
+    return catalog.properties.find(function (p) {
+      return p.id === propertyId;
+    });
+  }
+
+  function setActiveStep(step) {
+    byId("rent-steps").querySelectorAll(".rent-steps__item").forEach(function (item) {
+      item.classList.toggle("rent-steps__item--current", item.getAttribute("data-rent-step") === step);
+    });
+  }
+
+  function renderStayOptions() {
+    return catalog.properties
+      .map(function (property) {
+        var imageSrc =
+          PROPERTY_IMAGES[property.id] || "/assets/images/cabins/the-apex-cover.png";
+        var inputId = "rent-stay-" + property.id;
         return (
-          '<option value="' +
-          duration.id +
+          '<label class="rent-stay-option" for="' +
+          inputId +
           '">' +
-          duration.label +
-          " — " +
-          formatMoney(price) +
-          " each</option>"
+          '<input type="radio" name="rent-stay" id="' +
+          inputId +
+          '" value="' +
+          property.id +
+          '" class="rent-stay-option__input">' +
+          '<span class="rent-stay-option__card">' +
+          '<span class="rent-stay-option__media">' +
+          '<img src="' +
+          imageSrc +
+          '" alt="" width="1024" height="682" loading="lazy">' +
+          "</span>" +
+          '<span class="rent-stay-option__body">' +
+          '<span class="rent-stay-option__name">' +
+          escapeHtml(property.name) +
+          "</span>" +
+          '<span class="rent-stay-option__gear">Includes ' +
+          escapeHtml(property.equipment.label.toLowerCase()) +
+          "</span>" +
+          "</span>" +
+          "</span>" +
+          "</label>"
         );
       })
       .join("");
   }
 
-  function renderPropertyCard(property, durations) {
+  function buildDurationOptions(property) {
+    return catalog.durations
+      .map(function (duration, index) {
+        var price = property.equipment.prices[duration.id];
+        var inputId = "rent-duration-" + property.id + "-" + duration.id;
+        return (
+          '<label class="rent-duration-option">' +
+          '<input type="radio" name="rent-duration-' +
+          property.id +
+          '" id="' +
+          inputId +
+          '" value="' +
+          duration.id +
+          '" data-rent-duration' +
+          (index === 0 ? " checked" : "") +
+          ">" +
+          '<span class="rent-duration-option__label">' +
+          escapeHtml(duration.label) +
+          "</span>" +
+          '<span class="rent-duration-option__price">' +
+          formatMoney(price) +
+          " each</span>" +
+          "</label>"
+        );
+      })
+      .join("");
+  }
+
+  function renderEquipmentCard(property) {
+    var imageSrc =
+      PROPERTY_IMAGES[property.id] || "/assets/images/cabins/the-apex-cover.png";
+
     return (
-      '<article class="rent-property-card" data-property-id="' +
+      '<article class="rent-product-card" data-property-id="' +
       property.id +
       '">' +
+      '<div class="rent-product-card__media">' +
+      '<img src="' +
+      imageSrc +
+      '" alt="' +
+      escapeHtml(property.equipment.label + " at " + property.name) +
+      '" width="1024" height="682" loading="lazy">' +
+      "</div>" +
+      '<div class="rent-product-card__body">' +
+      '<header class="rent-product-card__header">' +
+      '<p class="rent-product-card__property">' +
+      escapeHtml(property.name) +
+      "</p>" +
       "<h2>" +
-      property.name +
-      " — " +
-      property.equipment.label +
+      escapeHtml(property.equipment.label) +
       "</h2>" +
-      '<div class="rent-fields">' +
-      '<div class="rent-field">' +
-      '<label for="rent-qty-' +
-      property.id +
-      '">Quantity</label>' +
-      '<select id="rent-qty-' +
-      property.id +
-      '" data-rent-qty>' +
-      buildQuantityOptions(property.equipment.maxQuantity) +
-      "</select>" +
+      '<p class="rent-product-card__desc">Available for guests staying at ' +
+      escapeHtml(property.name) +
+      " only.</p>" +
+      "</header>" +
+      '<fieldset class="rent-duration-picker">' +
+      '<legend class="rent-field-label">Rental duration</legend>' +
+      '<div class="rent-duration-options">' +
+      buildDurationOptions(property) +
       "</div>" +
-      '<div class="rent-field">' +
-      '<label for="rent-duration-' +
+      "</fieldset>" +
+      '<div class="rent-qty-row">' +
+      '<span class="rent-field-label" id="rent-qty-label-' +
       property.id +
-      '">Rental duration</label>' +
-      '<select id="rent-duration-' +
+      '">Quantity</span>' +
+      '<div class="rent-qty-stepper" role="group" aria-labelledby="rent-qty-label-' +
       property.id +
-      '" data-rent-duration>' +
-      buildDurationOptions(durations, property.equipment.prices) +
-      "</select>" +
+      '">' +
+      '<button type="button" class="rent-qty-btn" data-rent-qty-dec aria-label="Decrease quantity">−</button>' +
+      '<span class="rent-qty-value" data-rent-qty-display aria-live="polite">0</span>' +
+      '<button type="button" class="rent-qty-btn" data-rent-qty-inc aria-label="Increase quantity">+</button>' +
+      '<input type="hidden" data-rent-qty value="0">' +
       "</div>" +
       "</div>" +
-      '<p class="rent-line-total" data-rent-line-total>$0.00</p>' +
+      '<p class="rent-line-total" data-rent-line-total hidden><span>Subtotal</span> <strong>$0.00</strong></p>' +
+      "</div>" +
       "</article>"
     );
+  }
+
+  function getSelectedDurationId() {
+    if (!activeCard) return "";
+    var selected = activeCard.root.querySelector("[data-rent-duration]:checked");
+    return selected ? selected.value : "";
+  }
+
+  function getQuantity() {
+    if (!activeCard) return 0;
+    return parseInt(activeCard.qtyInput.value, 10) || 0;
+  }
+
+  function setQuantity(nextQty, maxQuantity) {
+    if (!activeCard) return 0;
+    var qty = Math.max(0, Math.min(maxQuantity, nextQty));
+    activeCard.qtyInput.value = String(qty);
+    activeCard.qtyDisplay.textContent = String(qty);
+    activeCard.decBtn.disabled = qty <= 0;
+    activeCard.incBtn.disabled = qty >= maxQuantity;
+    activeCard.root.classList.toggle("rent-product-card--selected", qty > 0);
+    return qty;
   }
 
   function getLineTotal(property, qty, durationId) {
@@ -88,53 +185,181 @@
     return unit ? unit * qty : 0;
   }
 
+  function getDurationLabel(durationId) {
+    var match = catalog.durations.find(function (d) {
+      return d.id === durationId;
+    });
+    return match ? match.label : durationId;
+  }
+
+  function updateOrderLines(orderLines) {
+    var listEl = byId("rent-order-lines");
+    var emptyEl = byId("rent-order-empty");
+
+    if (!selectedPropertyId) {
+      emptyEl.textContent = "Choose your stay and add gear to continue.";
+      listEl.hidden = true;
+      listEl.innerHTML = "";
+      emptyEl.hidden = false;
+      return;
+    }
+
+    if (!orderLines.length) {
+      emptyEl.textContent = "Add gear for your stay to continue.";
+      listEl.hidden = true;
+      listEl.innerHTML = "";
+      emptyEl.hidden = false;
+      return;
+    }
+
+    emptyEl.hidden = true;
+    listEl.hidden = false;
+    listEl.innerHTML = orderLines
+      .map(function (line) {
+        return (
+          "<li>" +
+          '<span class="rent-order-lines__item">' +
+          "<strong>" +
+          escapeHtml(line.propertyName) +
+          "</strong> · " +
+          escapeHtml(line.equipmentLabel) +
+          "<br>" +
+          escapeHtml(String(line.quantity)) +
+          " × " +
+          escapeHtml(line.durationLabel) +
+          "</span>" +
+          '<span class="rent-order-lines__price">' +
+          formatMoney(line.total) +
+          "</span>" +
+          "</li>"
+        );
+      })
+      .join("");
+  }
+
   function updateTotals() {
     if (!catalog) return;
 
     var grandTotal = 0;
-    var selectedCount = 0;
+    var orderLines = [];
 
-    catalog.properties.forEach(function (property) {
-      var card = propertyCards[property.id];
-      if (!card) return;
-
-      var qty = parseInt(card.qtySelect.value, 10) || 0;
-      var durationId = card.durationSelect.value;
+    if (selectedPropertyId && activeCard) {
+      var property = getProperty(selectedPropertyId);
+      var qty = getQuantity();
+      var durationId = getSelectedDurationId();
       var lineTotal = getLineTotal(property, qty, durationId);
 
-      card.lineTotalEl.textContent = qty > 0 ? formatMoney(lineTotal) : "$0.00";
-      grandTotal += lineTotal;
-      if (qty > 0) selectedCount += 1;
-    });
+      if (qty > 0) {
+        activeCard.lineTotalEl.hidden = false;
+        activeCard.lineTotalEl.querySelector("strong").textContent = formatMoney(lineTotal);
+        orderLines.push({
+          propertyName: property.name,
+          equipmentLabel: property.equipment.label,
+          quantity: qty,
+          durationLabel: getDurationLabel(durationId),
+          total: lineTotal,
+        });
+        grandTotal = lineTotal;
+      } else {
+        activeCard.lineTotalEl.hidden = true;
+      }
+    }
 
     byId("rent-grand-total").textContent = formatMoney(grandTotal);
-    byId("rent-now-btn").disabled = grandTotal <= 0;
+    byId("rent-now-btn").disabled = !selectedPropertyId || grandTotal <= 0;
     byId("rent-error").hidden = true;
+    updateOrderLines(orderLines);
+  }
+
+  function bindEquipmentEvents(property) {
+    var root = byId("rent-property-grid").querySelector('[data-property-id="' + property.id + '"]');
+    activeCard = {
+      root: root,
+      qtyInput: root.querySelector("[data-rent-qty]"),
+      qtyDisplay: root.querySelector("[data-rent-qty-display]"),
+      decBtn: root.querySelector("[data-rent-qty-dec]"),
+      incBtn: root.querySelector("[data-rent-qty-inc]"),
+      lineTotalEl: root.querySelector("[data-rent-line-total]"),
+    };
+
+    var maxQty = property.equipment.maxQuantity;
+    setQuantity(0, maxQty);
+
+    activeCard.decBtn.addEventListener("click", function () {
+      setQuantity(getQuantity() - 1, maxQty);
+      updateTotals();
+    });
+
+    activeCard.incBtn.addEventListener("click", function () {
+      setQuantity(getQuantity() + 1, maxQty);
+      updateTotals();
+    });
+
+    root.querySelectorAll("[data-rent-duration]").forEach(function (input) {
+      input.addEventListener("change", updateTotals);
+    });
+  }
+
+  function showEquipmentSection(propertyId) {
+    var property = getProperty(propertyId);
+    if (!property) return;
+
+    selectedPropertyId = propertyId;
+    byId("rent-stay-form").hidden = true;
+    byId("rent-equipment-section").hidden = false;
+    byId("rent-selected-stay-name").textContent = property.name;
+    byId("rent-property-grid").innerHTML = renderEquipmentCard(property);
+    bindEquipmentEvents(property);
+    setActiveStep("gear");
+    updateTotals();
+  }
+
+  function resetToStaySelection() {
+    selectedPropertyId = null;
+    activeCard = null;
+    byId("rent-equipment-section").hidden = true;
+    byId("rent-property-grid").innerHTML = "";
+    byId("rent-stay-form").hidden = false;
+    byId("rent-stay-form").querySelectorAll('input[name="rent-stay"]').forEach(function (input) {
+      input.checked = false;
+    });
+    byId("rent-stay-continue").disabled = true;
+    setActiveStep("stay");
+    updateTotals();
+  }
+
+  function bindStayForm() {
+    var form = byId("rent-stay-form");
+    var continueBtn = byId("rent-stay-continue");
+
+    form.addEventListener("change", function (e) {
+      if (e.target.name === "rent-stay") {
+        continueBtn.disabled = false;
+      }
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var selected = form.querySelector('input[name="rent-stay"]:checked');
+      if (!selected) return;
+      showEquipmentSection(selected.value);
+    });
+
+    byId("rent-change-stay").addEventListener("click", resetToStaySelection);
+    byId("rent-now-btn").addEventListener("click", startCheckout);
   }
 
   function collectItems() {
-    var items = [];
-    catalog.properties.forEach(function (property) {
-      var card = propertyCards[property.id];
-      var qty = parseInt(card.qtySelect.value, 10) || 0;
-      if (qty < 1) return;
-      items.push({
-        propertyId: property.id,
-        durationId: card.durationSelect.value,
+    if (!selectedPropertyId || !activeCard) return [];
+    var qty = getQuantity();
+    if (qty < 1) return [];
+    return [
+      {
+        propertyId: selectedPropertyId,
+        durationId: getSelectedDurationId(),
         quantity: qty,
-      });
-    });
-    return items;
-  }
-
-  function bindEvents() {
-    catalog.properties.forEach(function (property) {
-      var card = propertyCards[property.id];
-      card.qtySelect.addEventListener("change", updateTotals);
-      card.durationSelect.addEventListener("change", updateTotals);
-    });
-
-    byId("rent-now-btn").addEventListener("click", startCheckout);
+      },
+    ];
   }
 
   async function startCheckout() {
@@ -151,6 +376,7 @@
     btn.disabled = true;
     btn.textContent = "Redirecting…";
     errorEl.hidden = true;
+    setActiveStep("pay");
 
     try {
       var response = await fetch("/api/checkout", {
@@ -169,34 +395,19 @@
       errorEl.textContent = err.message || "Unable to start checkout. Please try again.";
       errorEl.hidden = false;
       btn.disabled = false;
-      btn.textContent = "Rent now";
+      btn.textContent = "Continue to payment";
+      setActiveStep("gear");
       updateTotals();
     }
   }
 
   function initCatalog(data) {
     catalog = data;
-    var grid = byId("rent-property-grid");
-    grid.innerHTML = data.properties
-      .map(function (property) {
-        return renderPropertyCard(property, data.durations);
-      })
-      .join("");
-
-    data.properties.forEach(function (property) {
-      propertyCards[property.id] = {
-        qtySelect: grid.querySelector('#rent-qty-' + property.id),
-        durationSelect: grid.querySelector('#rent-duration-' + property.id),
-        lineTotalEl: grid.querySelector(
-          '[data-property-id="' + property.id + '"] [data-rent-line-total]'
-        ),
-      };
-    });
-
+    byId("rent-stay-options").innerHTML = renderStayOptions();
     byId("rent-loading").hidden = true;
-    grid.hidden = false;
+    byId("rent-stay-form").hidden = false;
     byId("rent-summary").hidden = false;
-    bindEvents();
+    bindStayForm();
     updateTotals();
   }
 
