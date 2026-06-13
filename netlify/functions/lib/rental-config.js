@@ -47,7 +47,7 @@ function getShedCode() {
 }
 
 function getKayakLockCode() {
-  const code = process.env.KAYAK_LOCK_CODE;
+  const code = process.env.KAYAK_LOCK_CODE || process.env.KAYAKKEYCODE;
   if (!code || !String(code).trim()) {
     throw new Error("KAYAK_LOCK_CODE environment variable is not configured");
   }
