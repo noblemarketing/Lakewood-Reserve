@@ -5,7 +5,7 @@
  * Update WAIVER_VERSION whenever the text below changes.
  */
 
-const WAIVER_VERSION = "2026-06-10";
+const WAIVER_VERSION = "2026-06-13";
 
 const WAIVER_TITLE = "Equipment Rental Release, Waiver, and Assumption of Risk";
 
@@ -61,7 +61,7 @@ const WAIVER_SECTIONS = [
   {
     heading: "8. Rental period and access",
     paragraphs: [
-      "Your rental period is the duration selected at checkout. Access to the Equipment is provided via a one-time shed code sent by text message after verified payment. The code must not be shared with non-guests or persons not covered by this Agreement. Unauthorized access may result in additional charges and termination of rental privileges.",
+      "Your rental period is the duration selected at checkout. After verified payment, your equipment access code is shown on the confirmation page. The code must not be shared with non-guests or persons not covered by this Agreement. Unauthorized access may result in additional charges and termination of rental privileges.",
     ],
   },
   {

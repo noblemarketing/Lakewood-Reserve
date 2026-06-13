@@ -804,12 +804,70 @@
 }
 
 .rent-success-panel p {
-  margin: 0 auto;
-  max-width: 30ch;
+  margin: 0 auto 1rem;
+  max-width: 36ch;
   font-size: 0.98rem;
   line-height: 1.65;
   color: var(--contact-form-muted);
   text-align: center;
+}
+
+.rent-success-access {
+  display: grid;
+  gap: 1rem;
+  margin: 0 auto 1.25rem;
+  max-width: 100%;
+  text-align: left;
+}
+
+.rent-success-property {
+  margin: 0 auto;
+  max-width: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.rent-access-code-card {
+  padding: 1.15rem 1.25rem;
+  border: 1px solid #ddd8cf;
+  border-radius: var(--radius-md);
+  background: #faf8f4;
+  text-align: center;
+}
+
+.rent-access-code-label {
+  margin: 0 0 0.35rem;
+  max-width: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6a6f70;
+}
+
+.rent-access-code-value {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-dark);
+}
+
+.rent-success-instructions {
+  max-width: 42ch;
+  font-size: 0.92rem;
+  color: var(--color-text);
+}
+
+.rent-success-private {
+  max-width: 42ch;
+  font-size: 0.8rem;
+  color: #6a6f70;
 }
 
 .rent-success-panel .btn {

@@ -17,11 +17,21 @@ function jsonResponse(statusCode, body) {
 }
 
 function getSiteUrl() {
-  const url = process.env.SITE_URL || process.env.URL;
-  if (!url) {
-    throw new Error("SITE_URL environment variable is not configured");
+  const configured = String(process.env.SITE_URL || "").trim().replace(/\/$/, "");
+  const netlifyUrl = String(process.env.URL || "").trim().replace(/\/$/, "");
+  const isLocalhost = /localhost|127\.0\.0\.1/i.test(configured);
+
+  // On production deploys, ignore localhost SITE_URL so Stripe redirects stay on Netlify.
+  if (configured && !(process.env.CONTEXT === "production" && isLocalhost)) {
+    return configured;
   }
-  return url.replace(/\/$/, "");
+  if (netlifyUrl) {
+    return netlifyUrl;
+  }
+  if (configured) {
+    return configured;
+  }
+  throw new Error("SITE_URL environment variable is not configured");
 }
 
 function validateCartItem(item) {
@@ -145,7 +155,6 @@ exports.handler = async function (event) {
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items: lineItems,
-      phone_number_collection: { enabled: true },
       success_url: siteUrl + "/rent/success/?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: siteUrl + "/rent/",
       metadata: {

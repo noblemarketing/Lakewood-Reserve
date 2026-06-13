@@ -46,6 +46,48 @@ function getShedCode() {
   return String(code).trim();
 }
 
+function getKayakLockCode() {
+  const code = process.env.KAYAK_LOCK_CODE;
+  if (!code || !String(code).trim()) {
+    throw new Error("KAYAK_LOCK_CODE environment variable is not configured");
+  }
+  return String(code).trim();
+}
+
+/** Access details after verified payment — property-specific codes from env only. */
+function buildRentalAccessDetails(cart) {
+  if (!Array.isArray(cart) || !cart.length) {
+    throw new Error("Rental cart metadata is missing");
+  }
+
+  const propertyId = String(cart[0].property_id || "").trim();
+  const propertyName = cart[0].property_name || "Lakewood Reserve";
+  const equipmentLabel = cart[0].equipment_label || "Equipment";
+
+  if (propertyId === "anchor-28") {
+    return {
+      propertyName: propertyName,
+      equipmentLabel: equipmentLabel,
+      codeLabel: "Kayak lock code",
+      accessCode: getKayakLockCode(),
+      instructions:
+        "The kayaks are at a separate storage area (not the equipment shed). Please lock up when you're done.",
+    };
+  }
+
+  if (propertyId === "apex") {
+    return {
+      propertyName: propertyName,
+      equipmentLabel: equipmentLabel,
+      codeLabel: "Shed code",
+      accessCode: getShedCode(),
+      instructions: "Please lock up the equipment shed when you're done.",
+    };
+  }
+
+  throw new Error("Unknown rental property: " + propertyId);
+}
+
 function getDurationLabel(durationId) {
   const match = DURATIONS.find(function (d) {
     return d.id === durationId;
@@ -90,6 +132,8 @@ module.exports = {
   DURATIONS,
   PROPERTIES,
   getShedCode,
+  getKayakLockCode,
+  buildRentalAccessDetails,
   getDurationLabel,
   getPropertyById,
   getUnitPriceCents,

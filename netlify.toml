@@ -30,3 +30,8 @@
   from = "/api/rental-catalog"
   to = "/.netlify/functions/rental-catalog"
   status = 200
+
+[[redirects]]
+  from = "/api/rental-session"
+  to = "/.netlify/functions/rental-session"
+  status = 200
