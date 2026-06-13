@@ -27,7 +27,16 @@
       data.propertyName + " · " + data.equipmentLabel;
     byId("rent-access-code-label").textContent = data.codeLabel;
     byId("rent-access-code-value").textContent = data.accessCode;
-    byId("rent-success-instructions").textContent = data.instructions;
+    var instructionsEl = byId("rent-success-instructions");
+    if (instructionsEl) {
+      if (data.instructions) {
+        instructionsEl.textContent = data.instructions;
+        instructionsEl.hidden = false;
+      } else {
+        instructionsEl.textContent = "";
+        instructionsEl.hidden = true;
+      }
+    }
     byId("rent-success-access").hidden = false;
   }
 

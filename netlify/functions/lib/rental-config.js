@@ -80,8 +80,7 @@ function buildRentalAccessDetails(cart) {
       equipmentLabel: equipmentLabel,
       codeLabel: "Kayak lock code",
       accessCode: getKayakLockCode(),
-      instructions:
-        "The kayaks are at a separate storage area (not the equipment shed). Please lock up when you're done.",
+      instructions: "",
     };
   }
 
