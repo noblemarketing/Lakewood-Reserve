@@ -162,7 +162,7 @@
       "</h2>" +
       '<p class="rent-product-card__desc">Available for guests staying at ' +
       escapeHtml(property.name) +
-      " only.</p>" +
+      " only. You may be charged if any equipment is damaged or not returned and stored correctly.</p>" +
       "</header>" +
       buildDurationSection(property) +
       '<div class="rent-qty-row">' +
