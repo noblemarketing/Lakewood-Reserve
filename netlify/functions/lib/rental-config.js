@@ -5,40 +5,34 @@
  * Edit prices here (amounts in cents). SHED_CODE comes from env only — never put it in this file.
  */
 
-const DURATIONS = [
-  { id: "one_hour", label: "1 hour" },
-  { id: "half_day", label: "Half day" },
-  { id: "full_day", label: "Full day" },
-];
+const DURATIONS = [{ id: "full_weekend", label: "Full weekend" }];
 
 /** Property and pricing catalog (amounts in cents). */
 const PROPERTIES = [
   {
     id: "anchor-28",
     name: "Anchor Twenty Eight",
+    staySubtext: "Option to rent kayaks",
     equipment: {
       id: "kayaks",
       label: "Kayaks",
       maxQuantity: 4,
       // Prices in cents — change these as needed
       prices: {
-        one_hour: 1500,
-        half_day: 3500,
-        full_day: 5500,
+        full_weekend: 5000,
       },
     },
   },
   {
     id: "apex",
     name: "The Apex",
+    staySubtext: "Option to rent paddle boards",
     equipment: {
       id: "paddle-boards",
       label: "Paddle Boards",
       maxQuantity: 4,
       prices: {
-        one_hour: 2000,
-        half_day: 4500,
-        full_day: 7000,
+        full_weekend: 5000,
       },
     },
   },
@@ -80,6 +74,7 @@ function getPublicCatalog() {
       return {
         id: property.id,
         name: property.name,
+        staySubtext: property.staySubtext,
         equipment: {
           id: property.equipment.id,
           label: property.equipment.label,

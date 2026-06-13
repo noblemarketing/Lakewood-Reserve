@@ -6,6 +6,7 @@ const {
   getUnitPriceCents,
   getDurationLabel,
 } = require("./lib/rental-config");
+const { isValidWaiverAcceptance, WAIVER_VERSION } = require("./lib/rental-liability-waiver");
 
 function jsonResponse(statusCode, body) {
   return {
@@ -76,6 +77,14 @@ exports.handler = async function (event) {
     return jsonResponse(400, { error: "Select at least one rental item" });
   }
 
+  if (!isValidWaiverAcceptance(payload)) {
+    return jsonResponse(400, {
+      error: "You must read and accept the equipment rental liability agreement before payment",
+    });
+  }
+
+  const acceptedAt = new Date().toISOString();
+
   const validatedItems = [];
   for (let i = 0; i < rawItems.length; i += 1) {
     const valid = validateCartItem(rawItems[i]);
@@ -141,6 +150,9 @@ exports.handler = async function (event) {
       cancel_url: siteUrl + "/rent/",
       metadata: {
         cart: JSON.stringify(metadataCart),
+        liability_waiver_accepted: "true",
+        liability_waiver_version: WAIVER_VERSION,
+        liability_waiver_accepted_at: acceptedAt,
       },
     });
 

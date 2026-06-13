@@ -37,7 +37,7 @@
           <p class="eyebrow">Guest equipment rental</p>
           <h1 id="rent-title">Rent lake gear</h1>
           <p class="rent-checkout-lead">
-            Select the home you’re staying in, then choose gear for that property only. Your shed unlock code is sent by text after payment.
+            Select the home you’re staying in, then choose gear for that property only. Kayaks are available only at Anchor Twenty Eight; paddle boards are available only at The Apex. Your shed unlock code is sent by text after payment.
           </p>
           <ol class="rent-steps" id="rent-steps" aria-label="Checkout steps">
             <li class="rent-steps__item rent-steps__item--current" data-rent-step="stay">
@@ -63,7 +63,7 @@
               <fieldset class="rent-stay-fieldset">
                 <legend class="rent-stay-legend">Which home are you staying in?</legend>
                 <p class="rent-stay-note">
-                  Equipment is tied to each property. You can only rent gear for the home where you’re staying.
+                  Equipment is tied to each property. You can only rent gear for the home where you’re staying. Kayaks are available only at Anchor Twenty Eight; paddle boards are available only at The Apex.
                 </p>
                 <div class="rent-stay-options" id="rent-stay-options"></div>
               </fieldset>
@@ -92,6 +92,21 @@
               <div class="rent-order-total">
                 <span>Total</span>
                 <strong id="rent-grand-total">$0.00</strong>
+              </div>
+              <div class="rent-liability" id="rent-liability" hidden>
+                <h3 class="rent-liability__title" id="rent-liability-title">Safety &amp; liability agreement</h3>
+                <p class="rent-liability__intro">Read the full agreement below. You must accept before continuing to payment.</p>
+                <div
+                  class="rent-liability__document"
+                  id="rent-liability-document"
+                  tabindex="0"
+                  role="document"
+                  aria-labelledby="rent-liability-title"
+                ></div>
+                <label class="rent-liability__accept" for="rent-liability-checkbox">
+                  <input type="checkbox" id="rent-liability-checkbox" name="rent-liability-accepted" value="yes" required>
+                  <span id="rent-liability-label">I agree to the liability waiver</span>
+                </label>
               </div>
               <ul class="rent-order-trust">
                 <li>Secure payment via Stripe</li>

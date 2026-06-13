@@ -66,8 +66,8 @@
           '<span class="rent-stay-option__name">' +
           escapeHtml(property.name) +
           "</span>" +
-          '<span class="rent-stay-option__gear">Includes ' +
-          escapeHtml(property.equipment.label.toLowerCase()) +
+          '<span class="rent-stay-option__gear">' +
+          escapeHtml(property.staySubtext || "Option to rent gear") +
           "</span>" +
           "</span>" +
           "</span>" +
@@ -105,6 +105,38 @@
       .join("");
   }
 
+  function buildDurationSection(property) {
+    if (catalog.durations.length === 1) {
+      var duration = catalog.durations[0];
+      var price = property.equipment.prices[duration.id];
+      var inputId = "rent-duration-" + property.id + "-" + duration.id;
+      return (
+        '<div class="rent-duration-fixed">' +
+        '<p class="rent-field-label">Rental period</p>' +
+        '<input type="hidden" id="' +
+        inputId +
+        '" data-rent-duration value="' +
+        duration.id +
+        '">' +
+        '<p class="rent-duration-fixed__summary">' +
+        escapeHtml(duration.label) +
+        " · " +
+        formatMoney(price) +
+        " each</p>" +
+        "</div>"
+      );
+    }
+
+    return (
+      '<fieldset class="rent-duration-picker">' +
+      '<legend class="rent-field-label">Rental duration</legend>' +
+      '<div class="rent-duration-options">' +
+      buildDurationOptions(property) +
+      "</div>" +
+      "</fieldset>"
+    );
+  }
+
   function renderEquipmentCard(property) {
     var imageSrc =
       PROPERTY_IMAGES[property.id] || "/assets/images/cabins/the-apex-cover.png";
@@ -132,12 +164,7 @@
       escapeHtml(property.name) +
       " only.</p>" +
       "</header>" +
-      '<fieldset class="rent-duration-picker">' +
-      '<legend class="rent-field-label">Rental duration</legend>' +
-      '<div class="rent-duration-options">' +
-      buildDurationOptions(property) +
-      "</div>" +
-      "</fieldset>" +
+      buildDurationSection(property) +
       '<div class="rent-qty-row">' +
       '<span class="rent-field-label" id="rent-qty-label-' +
       property.id +
@@ -160,7 +187,9 @@
   function getSelectedDurationId() {
     if (!activeCard) return "";
     var selected = activeCard.root.querySelector("[data-rent-duration]:checked");
-    return selected ? selected.value : "";
+    if (selected) return selected.value;
+    var fixed = activeCard.root.querySelector('input[type="hidden"][data-rent-duration]');
+    return fixed ? fixed.value : "";
   }
 
   function getQuantity() {
@@ -190,6 +219,59 @@
       return d.id === durationId;
     });
     return match ? match.label : durationId;
+  }
+
+  function renderLiabilityWaiver(waiver) {
+    if (!waiver) return;
+
+    var titleEl = byId("rent-liability-title");
+    var documentEl = byId("rent-liability-document");
+    var labelEl = byId("rent-liability-label");
+
+    if (titleEl) titleEl.textContent = waiver.title || "Safety & liability agreement";
+    if (labelEl) labelEl.textContent = waiver.acceptanceLabel || "I agree to the liability waiver";
+
+    if (!documentEl) return;
+
+    documentEl.innerHTML = (waiver.sections || [])
+      .map(function (section) {
+        var paragraphs = (section.paragraphs || [])
+          .map(function (paragraph) {
+            return "<p>" + escapeHtml(paragraph) + "</p>";
+          })
+          .join("");
+        return (
+          "<section>" +
+          "<h4>" +
+          escapeHtml(section.heading || "") +
+          "</h4>" +
+          paragraphs +
+          "</section>"
+        );
+      })
+      .join("");
+  }
+
+  function isLiabilityAccepted() {
+    var checkbox = byId("rent-liability-checkbox");
+    return Boolean(checkbox && checkbox.checked);
+  }
+
+  function resetLiabilityAcceptance() {
+    var checkbox = byId("rent-liability-checkbox");
+    if (checkbox) checkbox.checked = false;
+  }
+
+  function updateLiabilityVisibility(hasItems) {
+    var liabilityEl = byId("rent-liability");
+    if (!liabilityEl) return;
+    liabilityEl.hidden = !hasItems;
+    if (!hasItems) resetLiabilityAcceptance();
+  }
+
+  function canProceedToPayment(grandTotal) {
+    if (!selectedPropertyId || grandTotal <= 0) return false;
+    return isLiabilityAccepted();
   }
 
   function updateOrderLines(orderLines) {
@@ -266,7 +348,8 @@
     }
 
     byId("rent-grand-total").textContent = formatMoney(grandTotal);
-    byId("rent-now-btn").disabled = !selectedPropertyId || grandTotal <= 0;
+    updateLiabilityVisibility(grandTotal > 0);
+    byId("rent-now-btn").disabled = !canProceedToPayment(grandTotal);
     byId("rent-error").hidden = true;
     updateOrderLines(orderLines);
   }
@@ -310,6 +393,7 @@
     byId("rent-selected-stay-name").textContent = property.name;
     byId("rent-property-grid").innerHTML = renderEquipmentCard(property);
     bindEquipmentEvents(property);
+    resetLiabilityAcceptance();
     setActiveStep("gear");
     updateTotals();
   }
@@ -324,6 +408,7 @@
       input.checked = false;
     });
     byId("rent-stay-continue").disabled = true;
+    resetLiabilityAcceptance();
     setActiveStep("stay");
     updateTotals();
   }
@@ -347,6 +432,11 @@
 
     byId("rent-change-stay").addEventListener("click", resetToStaySelection);
     byId("rent-now-btn").addEventListener("click", startCheckout);
+
+    var liabilityCheckbox = byId("rent-liability-checkbox");
+    if (liabilityCheckbox) {
+      liabilityCheckbox.addEventListener("change", updateTotals);
+    }
   }
 
   function collectItems() {
@@ -373,6 +463,14 @@
       return;
     }
 
+    if (!isLiabilityAccepted()) {
+      errorEl.textContent =
+        "You must read and accept the equipment rental liability agreement before payment.";
+      errorEl.hidden = false;
+      byId("rent-liability").scrollIntoView({ behavior: "smooth", block: "nearest" });
+      return;
+    }
+
     btn.disabled = true;
     btn.textContent = "Redirecting…";
     errorEl.hidden = true;
@@ -382,7 +480,11 @@
       var response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: items }),
+        body: JSON.stringify({
+          items: items,
+          liabilityAccepted: true,
+          liabilityVersion: catalog.liabilityWaiver && catalog.liabilityWaiver.version,
+        }),
       });
 
       var data = await response.json();
@@ -409,6 +511,7 @@
       return;
     }
     stayOptions.innerHTML = renderStayOptions();
+    renderLiabilityWaiver(data.liabilityWaiver);
     byId("rent-loading").hidden = true;
     byId("rent-stay-form").hidden = false;
     byId("rent-summary").hidden = false;
