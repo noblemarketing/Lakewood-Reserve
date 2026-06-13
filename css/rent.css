@@ -845,17 +845,6 @@
   justify-content: center;
 }
 
-.rent-footer-minimal .footer-nav-layout {
-  grid-template-columns: 1fr;
-  justify-items: center;
-  text-align: center;
-}
-
-.rent-footer-minimal .footer-nav-group,
-.rent-footer-minimal .footer-book-btn {
-  display: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .rent-product-card,
   .rent-duration-option,
