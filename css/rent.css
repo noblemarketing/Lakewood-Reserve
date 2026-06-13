@@ -4,6 +4,12 @@
   background: var(--contact-form-page-bg);
 }
 
+/* Unlisted rent pages must not rely on scroll-animations.js for visibility */
+.page-rent .section-fade {
+  opacity: 1;
+  transform: none;
+}
+
 .rent-checkout {
   padding-block: clamp(2rem, 5vw, 3.5rem);
 }

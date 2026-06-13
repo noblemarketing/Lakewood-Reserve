@@ -403,12 +403,26 @@
 
   function initCatalog(data) {
     catalog = data;
-    byId("rent-stay-options").innerHTML = renderStayOptions();
+    var stayOptions = byId("rent-stay-options");
+    if (!stayOptions) {
+      showLoadError("Page setup error. Please refresh or contact support.");
+      return;
+    }
+    stayOptions.innerHTML = renderStayOptions();
     byId("rent-loading").hidden = true;
     byId("rent-stay-form").hidden = false;
     byId("rent-summary").hidden = false;
     bindStayForm();
     updateTotals();
+  }
+
+  function showLoadError(message) {
+    var loading = byId("rent-loading");
+    loading.hidden = false;
+    loading.textContent = message;
+    byId("rent-stay-form").hidden = true;
+    byId("rent-equipment-section").hidden = true;
+    byId("rent-summary").hidden = true;
   }
 
   async function loadCatalog() {
@@ -418,8 +432,9 @@
       var data = await response.json();
       initCatalog(data);
     } catch (err) {
-      byId("rent-loading").textContent =
-        "Unable to load rental options. Please refresh or try again later.";
+      showLoadError(
+        "Unable to load rental options. Please refresh or try again later."
+      );
     }
   }
 
