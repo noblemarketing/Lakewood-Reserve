@@ -1,0 +1,217 @@
+/* Equipment rental page — uses site tokens from variables.css */
+
+.page-rent {
+  background: var(--color-white);
+}
+
+.rent-hero {
+  padding-block: clamp(3rem, 8vw, 4.5rem);
+  background: var(--color-bg);
+  text-align: center;
+}
+
+.rent-hero .section-inner {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rent-hero .eyebrow {
+  margin: 0;
+}
+
+.rent-hero h1 {
+  margin: 0;
+}
+
+.rent-hero-lead {
+  margin: 0 auto;
+  max-width: 42ch;
+  font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+  line-height: 1.6;
+  color: #4a524f;
+}
+
+.rent-section {
+  padding-block: clamp(2rem, 5vw, 3rem);
+}
+
+.rent-grid {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+}
+
+@media (min-width: 900px) {
+  .rent-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.rent-property-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+  background: var(--color-white);
+  border: 1px solid #d9d6d0;
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 14px rgba(28, 35, 32, 0.06);
+}
+
+.rent-property-card h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  text-align: left;
+}
+
+.rent-property-equipment {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  text-align: left;
+}
+
+.rent-fields {
+  display: grid;
+  gap: 1rem;
+}
+
+.rent-field {
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.rent-field label {
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #4a524f;
+}
+
+.rent-field select {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #d9d6d0;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-dark);
+}
+
+.rent-field select:focus-visible {
+  outline: 2px solid var(--btn-solid-bg);
+  outline-offset: 2px;
+}
+
+.rent-line-total {
+  margin: 0;
+  padding-top: 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  text-align: left;
+}
+
+.rent-summary {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(1.5rem, 4vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 1.75rem);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(28, 35, 32, 0.08);
+}
+
+.rent-summary-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.rent-summary-row strong {
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.rent-summary-note {
+  margin: 0;
+  max-width: none;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #6a6f70;
+  text-align: left;
+}
+
+.rent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.rent-error {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #8b3a3a;
+  text-align: left;
+}
+
+.rent-loading {
+  margin: 0;
+  text-align: center;
+  color: #6a6f70;
+}
+
+.rent-success-panel {
+  max-width: 36rem;
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(28, 35, 32, 0.08);
+}
+
+.rent-success-panel h1 {
+  margin-bottom: 0.75rem;
+}
+
+.rent-success-panel p {
+  margin: 0 auto;
+  max-width: 32ch;
+  text-align: center;
+}
+
+.rent-success-panel .btn {
+  margin-top: 1.5rem;
+}
+
+.rent-header-minimal .nav-links-desktop,
+.rent-header-minimal .nav-toggle,
+.rent-header-minimal .btn-book,
+.rent-header-minimal .mobile-menu {
+  display: none;
+}
+
+.rent-header-minimal .site-nav {
+  justify-content: center;
+}
+
+.rent-footer-minimal .footer-nav-layout {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+}
+
+.rent-footer-minimal .footer-nav-group,
+.rent-footer-minimal .footer-book-btn {
+  display: none;
+}

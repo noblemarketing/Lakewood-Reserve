@@ -12,3 +12,10 @@ Desktop.ini
 # Logs / temp
 *.log
 .cache/
+
+# Dependencies / secrets
+node_modules/
+.env
+.env.local
+.env.*.local
+.netlify/
