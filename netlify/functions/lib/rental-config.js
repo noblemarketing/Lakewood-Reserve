@@ -38,20 +38,30 @@ const PROPERTIES = [
   },
 ];
 
+function readEnvValue(names) {
+  for (let i = 0; i < names.length; i += 1) {
+    const value = process.env[names[i]];
+    if (value && String(value).trim()) {
+      return String(value).trim();
+    }
+  }
+  return "";
+}
+
 function getShedCode() {
-  const code = process.env.SHED_CODE;
-  if (!code || !String(code).trim()) {
+  const code = readEnvValue(["SHED_CODE", "shed_code"]);
+  if (!code) {
     throw new Error("SHED_CODE environment variable is not configured");
   }
-  return String(code).trim();
+  return code;
 }
 
 function getKayakLockCode() {
-  const code = process.env.KAYAKKEYCODE;
-  if (!code || !String(code).trim()) {
+  const code = readEnvValue(["KAYAKKEYCODE", "KAYAK_LOCK_CODE", "kayakkeycode"]);
+  if (!code) {
     throw new Error("KAYAKKEYCODE environment variable is not configured");
   }
-  return String(code).trim();
+  return code;
 }
 
 /** Access details after verified payment — property-specific codes from env only. */

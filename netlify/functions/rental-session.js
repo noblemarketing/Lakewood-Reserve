@@ -68,6 +68,15 @@ exports.handler = async function (event) {
     return jsonResponse(200, access);
   } catch (err) {
     console.error("Access code config error for session:", sessionId, err.message);
-    return jsonResponse(500, { error: "Access code not configured" });
+    var userMessage =
+      "Your payment was received, but the access code is not set up yet. Please contact Lakewood Reserve for your code.";
+    if (err.message.indexOf("KAYAK") !== -1) {
+      userMessage =
+        "Your payment was received, but the kayak lock code is not configured yet. Please contact Lakewood Reserve for your code.";
+    } else if (err.message.indexOf("SHED") !== -1) {
+      userMessage =
+        "Your payment was received, but the shed code is not configured yet. Please contact Lakewood Reserve for your code.";
+    }
+    return jsonResponse(500, { error: userMessage, paid: true });
   }
 };

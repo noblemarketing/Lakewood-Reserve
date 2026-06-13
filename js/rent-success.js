@@ -6,11 +6,19 @@
   }
 
   function showError(message) {
-    byId("rent-success-lead").hidden = true;
-    byId("rent-success-access").hidden = true;
+    var lead = byId("rent-success-lead");
+    var access = byId("rent-success-access");
     var errorEl = byId("rent-success-error");
-    errorEl.textContent = message;
-    errorEl.hidden = false;
+
+    if (lead) {
+      lead.textContent = "Your payment was received.";
+      lead.hidden = false;
+    }
+    if (access) access.hidden = true;
+    if (errorEl) {
+      errorEl.textContent = message;
+      errorEl.hidden = false;
+    }
   }
 
   function showAccess(data) {

@@ -870,6 +870,14 @@
   color: #6a6f70;
 }
 
+.rent-success-access[hidden] {
+  display: none !important;
+}
+
+.rent-success-panel .rent-error {
+  margin-top: 0.5rem;
+}
+
 .rent-success-panel .btn {
   margin-top: 1.5rem;
 }
