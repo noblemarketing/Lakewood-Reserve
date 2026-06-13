@@ -12,11 +12,11 @@ const PROPERTIES = [
   {
     id: "anchor-28",
     name: "Anchor Twenty Eight",
-    staySubtext: "Option to rent kayaks",
+    staySubtext: "Option to rent kayaks (2 available)",
     equipment: {
       id: "kayaks",
       label: "Kayaks",
-      maxQuantity: 4,
+      maxQuantity: 2,
       // Prices in cents — change these as needed
       prices: {
         full_weekend: 5000,
@@ -26,11 +26,11 @@ const PROPERTIES = [
   {
     id: "apex",
     name: "The Apex",
-    staySubtext: "Option to rent paddle boards",
+    staySubtext: "Option to rent paddle boards (2 available)",
     equipment: {
       id: "paddle-boards",
       label: "Paddle Boards",
-      maxQuantity: 4,
+      maxQuantity: 2,
       prices: {
         full_weekend: 5000,
       },

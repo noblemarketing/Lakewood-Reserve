@@ -31,17 +31,17 @@ function validateCartItem(item) {
   const durationId = String(item.durationId || "").trim();
   const quantity = Number(item.quantity);
 
-  if (!propertyId || !durationId || !Number.isInteger(quantity) || quantity < 1 || quantity > 4) {
+  if (!propertyId || !durationId || !Number.isInteger(quantity) || quantity < 1) {
     return null;
   }
 
   const property = getPropertyById(propertyId);
   if (!property) return null;
 
+  if (quantity > property.equipment.maxQuantity) return null;
+
   const unitAmount = getUnitPriceCents(propertyId, durationId);
   if (unitAmount == null || unitAmount < 50) return null;
-
-  if (quantity > property.equipment.maxQuantity) return null;
 
   return {
     propertyId,
