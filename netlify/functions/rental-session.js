@@ -2,14 +2,15 @@
 
 const Stripe = require("stripe");
 const { buildRentalAccessDetails } = require("./lib/rental-config");
+const { getCorsHeaders, handlePreflight } = require("./lib/cors");
 
-function jsonResponse(statusCode, body, extraHeaders) {
+function jsonResponse(statusCode, body, event) {
   return {
     statusCode,
     headers: {
       "Content-Type": "application/json",
       "Cache-Control": "no-store",
-      ...(extraHeaders || {}),
+      ...(event ? getCorsHeaders(event) : {}),
     },
     body: JSON.stringify(body),
   };
@@ -30,13 +31,16 @@ function isValidSessionId(sessionId) {
 }
 
 exports.handler = async function (event) {
+  const preflight = handlePreflight(event);
+  if (preflight) return preflight;
+
   if (event.httpMethod !== "GET") {
-    return jsonResponse(405, { error: "Method not allowed" });
+    return jsonResponse(405, { error: "Method not allowed" }, event);
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
-    return jsonResponse(500, { error: "Payment service is not configured" });
+    return jsonResponse(500, { error: "Payment service is not configured" }, event);
   }
 
   const sessionId = String(
@@ -44,7 +48,7 @@ exports.handler = async function (event) {
   ).trim();
 
   if (!isValidSessionId(sessionId)) {
-    return jsonResponse(400, { error: "Invalid session" });
+    return jsonResponse(400, { error: "Invalid session" }, event);
   }
 
   const stripe = new Stripe(secretKey);
@@ -54,18 +58,18 @@ exports.handler = async function (event) {
     session = await stripe.checkout.sessions.retrieve(sessionId);
   } catch (err) {
     console.error("Stripe session retrieve error:", err.message);
-    return jsonResponse(404, { error: "Payment session not found" });
+    return jsonResponse(404, { error: "Payment session not found" }, event);
   }
 
   if (session.payment_status !== "paid") {
-    return jsonResponse(402, { error: "Payment not completed" });
+    return jsonResponse(402, { error: "Payment not completed" }, event);
   }
 
   const cart = parseCartMetadata(session.metadata && session.metadata.cart);
 
   try {
     const access = buildRentalAccessDetails(cart);
-    return jsonResponse(200, access);
+    return jsonResponse(200, access, event);
   } catch (err) {
     console.error("Access code config error for session:", sessionId, err.message);
     var userMessage =
@@ -77,6 +81,6 @@ exports.handler = async function (event) {
       userMessage =
         "Your payment was received, but the shed code is not configured yet. Please contact Lakewood Reserve for your code.";
     }
-    return jsonResponse(500, { error: userMessage, paid: true });
+    return jsonResponse(500, { error: userMessage, paid: true }, event);
   }
 };

@@ -7,11 +7,15 @@ const {
   getDurationLabel,
 } = require("./lib/rental-config");
 const { isValidWaiverAcceptance, WAIVER_VERSION } = require("./lib/rental-liability-waiver");
+const { getCorsHeaders, handlePreflight } = require("./lib/cors");
 
-function jsonResponse(statusCode, body) {
+function jsonResponse(statusCode, body, event) {
   return {
     statusCode,
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(event ? getCorsHeaders(event) : {}),
+    },
     body: JSON.stringify(body),
   };
 }
@@ -66,31 +70,38 @@ function validateCartItem(item) {
 }
 
 exports.handler = async function (event) {
+  const preflight = handlePreflight(event);
+  if (preflight) return preflight;
+
   if (event.httpMethod !== "POST") {
-    return jsonResponse(405, { error: "Method not allowed" });
+    return jsonResponse(405, { error: "Method not allowed" }, event);
   }
 
   const secretKey = process.env.STRIPE_SECRET_KEY;
   if (!secretKey) {
-    return jsonResponse(500, { error: "Payment service is not configured" });
+    return jsonResponse(500, { error: "Payment service is not configured" }, event);
   }
 
   let payload;
   try {
     payload = JSON.parse(event.body || "{}");
   } catch (err) {
-    return jsonResponse(400, { error: "Invalid JSON body" });
+    return jsonResponse(400, { error: "Invalid JSON body" }, event);
   }
 
   const rawItems = Array.isArray(payload.items) ? payload.items : [];
   if (!rawItems.length) {
-    return jsonResponse(400, { error: "Select at least one rental item" });
+    return jsonResponse(400, { error: "Select at least one rental item" }, event);
   }
 
   if (!isValidWaiverAcceptance(payload)) {
-    return jsonResponse(400, {
-      error: "You must read and accept the equipment rental liability agreement before payment",
-    });
+    return jsonResponse(
+      400,
+      {
+        error: "You must read and accept the equipment rental liability agreement before payment",
+      },
+      event
+    );
   }
 
   const acceptedAt = new Date().toISOString();
@@ -99,7 +110,7 @@ exports.handler = async function (event) {
   for (let i = 0; i < rawItems.length; i += 1) {
     const valid = validateCartItem(rawItems[i]);
     if (!valid) {
-      return jsonResponse(400, { error: "Invalid rental selection" });
+      return jsonResponse(400, { error: "Invalid rental selection" }, event);
     }
     validatedItems.push(valid);
   }
@@ -108,7 +119,7 @@ exports.handler = async function (event) {
     return item.propertyId;
   });
   if (new Set(propertyIds).size > 1) {
-    return jsonResponse(400, { error: "All items must be for the same property" });
+    return jsonResponse(400, { error: "All items must be for the same property" }, event);
   }
 
   const lineItems = validatedItems.map(function (item) {
@@ -146,7 +157,7 @@ exports.handler = async function (event) {
   try {
     siteUrl = getSiteUrl();
   } catch (err) {
-    return jsonResponse(500, { error: "Site URL is not configured" });
+    return jsonResponse(500, { error: "Site URL is not configured" }, event);
   }
 
   const stripe = new Stripe(secretKey);
@@ -165,9 +176,9 @@ exports.handler = async function (event) {
       },
     });
 
-    return jsonResponse(200, { url: session.url });
+    return jsonResponse(200, { url: session.url }, event);
   } catch (err) {
     console.error("Stripe checkout session error:", err.message);
-    return jsonResponse(500, { error: "Unable to start checkout" });
+    return jsonResponse(500, { error: "Unable to start checkout" }, event);
   }
 };

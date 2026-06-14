@@ -52,13 +52,12 @@
     }
 
     try {
-      var response = await fetch(
+      var data = await RentApi.fetch(
         "/api/rental-session?session_id=" + encodeURIComponent(sessionId)
       );
-      var data = await response.json();
 
-      if (!response.ok || !data.accessCode) {
-        throw new Error(data.error || "Unable to load access code");
+      if (!data.accessCode) {
+        throw new Error("Unable to load access code");
       }
 
       showAccess(data);

@@ -479,7 +479,7 @@
     setActiveStep("pay");
 
     try {
-      var response = await fetch("/api/checkout", {
+      var data = await RentApi.fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -489,9 +489,8 @@
         }),
       });
 
-      var data = await response.json();
-      if (!response.ok || !data.url) {
-        throw new Error(data.error || "Checkout failed");
+      if (!data.url) {
+        throw new Error("Checkout failed");
       }
 
       window.location.href = data.url;
@@ -532,9 +531,7 @@
 
   async function loadCatalog() {
     try {
-      var response = await fetch("/api/rental-catalog");
-      if (!response.ok) throw new Error("Catalog unavailable");
-      var data = await response.json();
+      var data = await RentApi.fetch("/api/rental-catalog");
       initCatalog(data);
     } catch (err) {
       showLoadError(
