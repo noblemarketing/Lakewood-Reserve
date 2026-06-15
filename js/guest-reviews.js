@@ -50,6 +50,8 @@
   ];
 
   var DESKTOP_QUERY = window.matchMedia("(min-width: 768px)");
+  var REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var AUTO_ROTATE_MS = 6000;
 
   function escapeHtml(value) {
     return String(value)
@@ -120,6 +122,8 @@
   function initCarousel(root, reviews) {
     var index = 0;
     var isProgrammaticScroll = false;
+    var autoRotateTimer = null;
+    var resumeTimer = null;
     var viewport = root.querySelector(".guest-reviews-viewport");
     var slides = root.querySelectorAll(".guest-reviews-slide");
     var dotButtons = root.querySelectorAll(".guest-reviews-dot");
@@ -134,6 +138,39 @@
 
     function canScroll() {
       return reviews.length > getSlidesPerView();
+    }
+
+    function shouldAutoRotate() {
+      return canScroll() && !REDUCED_MOTION_QUERY.matches && !document.hidden;
+    }
+
+    function stopAutoRotate() {
+      if (autoRotateTimer) {
+        window.clearInterval(autoRotateTimer);
+        autoRotateTimer = null;
+      }
+      if (resumeTimer) {
+        window.clearTimeout(resumeTimer);
+        resumeTimer = null;
+      }
+    }
+
+    function startAutoRotate() {
+      stopAutoRotate();
+      if (!shouldAutoRotate()) return;
+      autoRotateTimer = window.setInterval(advance, AUTO_ROTATE_MS);
+    }
+
+    function pauseAutoRotate(resumeAfterMs) {
+      stopAutoRotate();
+      if (!shouldAutoRotate()) return;
+      if (typeof resumeAfterMs === "number") {
+        resumeTimer = window.setTimeout(startAutoRotate, resumeAfterMs);
+      }
+    }
+
+    function resetAutoRotate() {
+      pauseAutoRotate(AUTO_ROTATE_MS);
     }
 
     function getSlideOffset(i) {
@@ -216,8 +253,8 @@
 
     function updateNav() {
       var scrollable = canScroll();
-      prevBtn.disabled = scrollable && index <= 0;
-      nextBtn.disabled = scrollable && index >= maxIndex();
+      prevBtn.disabled = false;
+      nextBtn.disabled = false;
       prevBtn.hidden = !scrollable;
       nextBtn.hidden = !scrollable;
       if (dotsWrap) dotsWrap.hidden = reviews.length <= 1;
@@ -250,27 +287,46 @@
       refresh(smooth);
     }
 
+    function advance() {
+      if (!canScroll()) return;
+      if (index >= maxIndex()) goTo(0);
+      else goTo(index + 1);
+    }
+
+    function retreat() {
+      if (!canScroll()) return;
+      if (index <= 0) goTo(maxIndex());
+      else goTo(index - 1);
+    }
+
     prevBtn.addEventListener("click", function () {
-      goTo(index - 1);
+      retreat();
+      resetAutoRotate();
     });
     nextBtn.addEventListener("click", function () {
-      goTo(index + 1);
+      advance();
+      resetAutoRotate();
     });
 
     root.querySelector(".guest-reviews-dots").addEventListener("click", function (e) {
       var dot = e.target.closest(".guest-reviews-dot");
       if (!dot || !root.contains(dot)) return;
       var idx = parseInt(dot.getAttribute("data-index"), 10);
-      if (!isNaN(idx)) goTo(scrollIndexForReview(idx));
+      if (!isNaN(idx)) {
+        goTo(scrollIndexForReview(idx));
+        resetAutoRotate();
+      }
     });
 
     root.addEventListener("keydown", function (e) {
       if (e.key === "ArrowLeft") {
         e.preventDefault();
-        goTo(index - 1);
+        retreat();
+        resetAutoRotate();
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        goTo(index + 1);
+        advance();
+        resetAutoRotate();
       }
     });
 
@@ -280,7 +336,10 @@
       function () {
         if (isProgrammaticScroll) return;
         window.clearTimeout(scrollTimer);
-        scrollTimer = window.setTimeout(syncIndexFromScroll, 80);
+        scrollTimer = window.setTimeout(function () {
+          syncIndexFromScroll();
+          resetAutoRotate();
+        }, 80);
       },
       { passive: true }
     );
@@ -292,11 +351,51 @@
         var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
         if (Math.abs(delta) < 12) return;
         e.preventDefault();
-        if (delta > 0) goTo(index + 1);
-        else goTo(index - 1);
+        if (delta > 0) advance();
+        else retreat();
+        resetAutoRotate();
       },
       { passive: false }
     );
+
+    root.addEventListener("mouseenter", function () {
+      pauseAutoRotate();
+    });
+    root.addEventListener("mouseleave", function () {
+      startAutoRotate();
+    });
+    root.addEventListener("focusin", function () {
+      pauseAutoRotate();
+    });
+    root.addEventListener("focusout", function (e) {
+      if (!root.contains(e.relatedTarget)) startAutoRotate();
+    });
+    viewport.addEventListener(
+      "touchstart",
+      function () {
+        pauseAutoRotate(AUTO_ROTATE_MS * 2);
+      },
+      { passive: true }
+    );
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stopAutoRotate();
+      else startAutoRotate();
+    });
+
+    function bindMotionPreference(query) {
+      var onChange = function () {
+        if (query.matches) stopAutoRotate();
+        else startAutoRotate();
+      };
+      if (typeof query.addEventListener === "function") {
+        query.addEventListener("change", onChange);
+      } else if (typeof query.addListener === "function") {
+        query.addListener(onChange);
+      }
+    }
+
+    bindMotionPreference(REDUCED_MOTION_QUERY);
 
     if (typeof DESKTOP_QUERY.addEventListener === "function") {
       DESKTOP_QUERY.addEventListener("change", function () {
@@ -310,8 +409,10 @@
 
     window.addEventListener("resize", function () {
       refresh(false);
+      startAutoRotate();
     });
     refresh(false);
+    startAutoRotate();
   }
 
   function buildCarousel(reviews, showPropertyLabel) {
