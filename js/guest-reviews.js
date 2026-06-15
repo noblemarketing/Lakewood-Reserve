@@ -38,14 +38,14 @@
         "We loved our stay here. It is in a very quiet and peaceful part of PA. The cabin was clean and the hosts were very communicative and had great information about the surrounding area. If you are looking for a quiet retreat we would definitely recommend!",
     },
     {
-      property: "cascade",
-      propertyLabel: "The Cascade",
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
       name: "Audrey",
       location: "",
       rating: 5,
       dateLabel: "Recent stay",
       text:
-        "The amenities at The Cascade are incredible, and we loved how private the whole experience felt. From the thoughtful details inside to the outdoor spaces, everything was set up for a peaceful, restorative stay. We felt completely tucked away and could truly unwind.",
+        "The amenities at Anchor Twenty Eight are incredible, and we loved how private the whole experience felt. From the thoughtful details inside to the outdoor spaces, everything was set up for a peaceful, restorative stay. We felt completely tucked away and could truly unwind.",
     },
   ];
 
