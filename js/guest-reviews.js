@@ -133,11 +133,17 @@
     var live = root.querySelector(".guest-reviews-live");
 
     function maxIndex() {
-      return Math.max(0, reviews.length - getSlidesPerView());
+      return Math.max(0, reviews.length - 1);
     }
 
     function canScroll() {
-      return reviews.length > getSlidesPerView();
+      return reviews.length > 1;
+    }
+
+    function normalizeIndex(i) {
+      var len = reviews.length;
+      if (!len) return 0;
+      return ((i % len) + len) % len;
     }
 
     function shouldAutoRotate() {
@@ -181,12 +187,10 @@
     function updateActive() {
       var perView = getSlidesPerView();
       for (var i = 0; i < slides.length; i += 1) {
-        var visible = canScroll() ? i >= index && i < index + perView : true;
-        var focused =
-          perView > 1 && canScroll()
-            ? visible
-            : i === index;
-        slides[i].classList.toggle("is-active", focused);
+        var visible =
+          canScroll() && i >= index && i < Math.min(index + perView, slides.length);
+        if (!canScroll()) visible = true;
+        slides[i].classList.toggle("is-active", i === index);
         slides[i].setAttribute("aria-hidden", visible ? "false" : "true");
       }
     }
@@ -219,7 +223,7 @@
       var closest = 0;
       var minDist = Infinity;
 
-      for (var i = 0; i <= maxIndex(); i += 1) {
+      for (var i = 0; i < reviews.length; i += 1) {
         var dist = Math.abs(getSlideOffset(i) - left);
         if (dist < minDist) {
           minDist = dist;
@@ -236,16 +240,12 @@
     }
 
     function scrollIndexForReview(reviewIndex) {
-      if (!canScroll()) return reviewIndex;
       return Math.max(0, Math.min(reviewIndex, maxIndex()));
     }
 
     function updateDots() {
-      var perView = getSlidesPerView();
       for (var d = 0; d < dotButtons.length; d += 1) {
-        var on = canScroll()
-          ? d >= index && d < index + perView
-          : d === index;
+        var on = d === index;
         dotButtons[d].classList.toggle("is-active", on);
         dotButtons[d].setAttribute("aria-selected", on ? "true" : "false");
       }
@@ -268,8 +268,7 @@
     }
 
     function refresh(smooth) {
-      if (canScroll() && index > maxIndex()) index = maxIndex();
-      if (!canScroll() && index > reviews.length - 1) index = reviews.length - 1;
+      index = Math.max(0, Math.min(maxIndex(), index));
       updateScrollPosition(smooth);
       updateActive();
       updateDots();
@@ -279,24 +278,18 @@
 
     function goTo(i, smooth) {
       if (!reviews.length) return;
-      if (canScroll()) {
-        index = Math.max(0, Math.min(maxIndex(), i));
-      } else {
-        index = Math.max(0, Math.min(reviews.length - 1, i));
-      }
+      index = canScroll() ? normalizeIndex(i) : 0;
       refresh(smooth);
     }
 
     function advance() {
       if (!canScroll()) return;
-      if (index >= maxIndex()) goTo(0);
-      else goTo(index + 1);
+      goTo(index + 1);
     }
 
     function retreat() {
       if (!canScroll()) return;
-      if (index <= 0) goTo(maxIndex());
-      else goTo(index - 1);
+      goTo(index - 1);
     }
 
     prevBtn.addEventListener("click", function () {
