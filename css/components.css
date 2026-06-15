@@ -2133,8 +2133,17 @@ select.hero-booking-input {
 .guest-reviews-viewport {
   grid-column: 2;
   grid-row: 1;
-  overflow: hidden;
-  touch-action: pan-y pinch-zoom;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x pan-y;
+}
+
+.guest-reviews-viewport::-webkit-scrollbar {
+  display: none;
 }
 
 .guest-reviews-track {
@@ -2142,14 +2151,15 @@ select.hero-booking-input {
   margin: 0;
   padding: 0.35rem 0 0.75rem;
   list-style: none;
-  transition: transform 0.45s ease;
-  will-change: transform;
+  will-change: scroll-position;
 }
 
 .guest-reviews-slide {
   flex: 0 0 100%;
   padding: 0 0.55rem;
   box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .guest-review-card {
@@ -2260,6 +2270,12 @@ select.hero-booking-input {
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.guest-reviews-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .guest-reviews-btn:hover {
   background: #3d342c;
   box-shadow: 0 3px 10px rgba(28, 35, 32, 0.22);
@@ -2314,7 +2330,7 @@ select.hero-booking-input {
 
 @media (min-width: 768px) {
   .guest-reviews-slide {
-    flex: 0 0 33.333%;
+    flex: 0 0 50%;
   }
 
   .guest-reviews-carousel {
@@ -2323,7 +2339,10 @@ select.hero-booking-input {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .guest-reviews-track,
+  .guest-reviews-viewport {
+    scroll-behavior: auto;
+  }
+
   .guest-review-card {
     transition: none;
   }

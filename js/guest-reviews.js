@@ -114,14 +114,14 @@
   }
 
   function getSlidesPerView() {
-    return DESKTOP_QUERY.matches ? 3 : 1;
+    return DESKTOP_QUERY.matches ? 2 : 1;
   }
 
   function initCarousel(root, reviews) {
     var index = 0;
-    var track = root.querySelector(".guest-reviews-track");
+    var isProgrammaticScroll = false;
     var viewport = root.querySelector(".guest-reviews-viewport");
-    var slides = track.querySelectorAll(".guest-reviews-slide");
+    var slides = root.querySelectorAll(".guest-reviews-slide");
     var dotButtons = root.querySelectorAll(".guest-reviews-dot");
     var dotsWrap = root.querySelector(".guest-reviews-dots");
     var prevBtn = root.querySelector(".guest-reviews-btn--prev");
@@ -136,29 +136,79 @@
       return reviews.length > getSlidesPerView();
     }
 
+    function getSlideOffset(i) {
+      var slide = slides[i];
+      return slide ? slide.offsetLeft : 0;
+    }
+
     function updateActive() {
       var perView = getSlidesPerView();
       for (var i = 0; i < slides.length; i += 1) {
-        slides[i].classList.toggle("is-active", i === index);
         var visible = canScroll() ? i >= index && i < index + perView : true;
+        var focused =
+          perView > 1 && canScroll()
+            ? visible
+            : i === index;
+        slides[i].classList.toggle("is-active", focused);
         slides[i].setAttribute("aria-hidden", visible ? "false" : "true");
       }
     }
 
-    function updateTransform() {
+    function updateScrollPosition(smooth) {
       if (!canScroll()) {
-        track.style.transform = "translateX(0)";
+        isProgrammaticScroll = true;
+        viewport.scrollLeft = 0;
+        window.setTimeout(function () {
+          isProgrammaticScroll = false;
+        }, 0);
         return;
       }
-      var slide = slides[0];
-      if (!slide) return;
-      var offset = index * slide.offsetWidth;
-      track.style.transform = "translateX(-" + offset + "px)";
+
+      var offset = getSlideOffset(index);
+      isProgrammaticScroll = true;
+      viewport.scrollTo({
+        left: offset,
+        behavior: smooth === false ? "auto" : "smooth",
+      });
+      window.setTimeout(function () {
+        isProgrammaticScroll = false;
+      }, smooth === false ? 0 : 450);
+    }
+
+    function syncIndexFromScroll() {
+      if (isProgrammaticScroll || !canScroll()) return;
+
+      var left = viewport.scrollLeft;
+      var closest = 0;
+      var minDist = Infinity;
+
+      for (var i = 0; i <= maxIndex(); i += 1) {
+        var dist = Math.abs(getSlideOffset(i) - left);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
+      }
+
+      if (closest !== index) {
+        index = closest;
+        updateActive();
+        updateDots();
+        announce();
+      }
+    }
+
+    function scrollIndexForReview(reviewIndex) {
+      if (!canScroll()) return reviewIndex;
+      return Math.max(0, Math.min(reviewIndex, maxIndex()));
     }
 
     function updateDots() {
+      var perView = getSlidesPerView();
       for (var d = 0; d < dotButtons.length; d += 1) {
-        var on = d === index;
+        var on = canScroll()
+          ? d >= index && d < index + perView
+          : d === index;
         dotButtons[d].classList.toggle("is-active", on);
         dotButtons[d].setAttribute("aria-selected", on ? "true" : "false");
       }
@@ -166,6 +216,8 @@
 
     function updateNav() {
       var scrollable = canScroll();
+      prevBtn.disabled = scrollable && index <= 0;
+      nextBtn.disabled = scrollable && index >= maxIndex();
       prevBtn.hidden = !scrollable;
       nextBtn.hidden = !scrollable;
       if (dotsWrap) dotsWrap.hidden = reviews.length <= 1;
@@ -178,24 +230,24 @@
         "Review " + (index + 1) + " of " + reviews.length + " by " + reviews[index].name;
     }
 
-    function refresh() {
+    function refresh(smooth) {
       if (canScroll() && index > maxIndex()) index = maxIndex();
       if (!canScroll() && index > reviews.length - 1) index = reviews.length - 1;
-      updateTransform();
+      updateScrollPosition(smooth);
       updateActive();
       updateDots();
       updateNav();
       announce();
     }
 
-    function goTo(i) {
+    function goTo(i, smooth) {
       if (!reviews.length) return;
       if (canScroll()) {
         index = Math.max(0, Math.min(maxIndex(), i));
       } else {
         index = Math.max(0, Math.min(reviews.length - 1, i));
       }
-      refresh();
+      refresh(smooth);
     }
 
     prevBtn.addEventListener("click", function () {
@@ -209,7 +261,7 @@
       var dot = e.target.closest(".guest-reviews-dot");
       if (!dot || !root.contains(dot)) return;
       var idx = parseInt(dot.getAttribute("data-index"), 10);
-      if (!isNaN(idx)) goTo(idx);
+      if (!isNaN(idx)) goTo(scrollIndexForReview(idx));
     });
 
     root.addEventListener("keydown", function (e) {
@@ -222,36 +274,44 @@
       }
     });
 
-    var touchStartX = null;
+    var scrollTimer;
     viewport.addEventListener(
-      "touchstart",
-      function (e) {
-        if (!e.changedTouches.length) return;
-        touchStartX = e.changedTouches[0].clientX;
+      "scroll",
+      function () {
+        if (isProgrammaticScroll) return;
+        window.clearTimeout(scrollTimer);
+        scrollTimer = window.setTimeout(syncIndexFromScroll, 80);
       },
       { passive: true }
     );
+
     viewport.addEventListener(
-      "touchend",
+      "wheel",
       function (e) {
-        if (touchStartX == null || !e.changedTouches.length) return;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        touchStartX = null;
-        if (Math.abs(dx) < 40) return;
-        if (dx > 0) goTo(index - 1);
-        else goTo(index + 1);
+        if (!canScroll()) return;
+        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (Math.abs(delta) < 12) return;
+        e.preventDefault();
+        if (delta > 0) goTo(index + 1);
+        else goTo(index - 1);
       },
-      { passive: true }
+      { passive: false }
     );
 
     if (typeof DESKTOP_QUERY.addEventListener === "function") {
-      DESKTOP_QUERY.addEventListener("change", refresh);
+      DESKTOP_QUERY.addEventListener("change", function () {
+        refresh(false);
+      });
     } else if (typeof DESKTOP_QUERY.addListener === "function") {
-      DESKTOP_QUERY.addListener(refresh);
+      DESKTOP_QUERY.addListener(function () {
+        refresh(false);
+      });
     }
 
-    window.addEventListener("resize", refresh);
-    refresh();
+    window.addEventListener("resize", function () {
+      refresh(false);
+    });
+    refresh(false);
   }
 
   function buildCarousel(reviews, showPropertyLabel) {
