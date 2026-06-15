@@ -2,7 +2,7 @@
   "use strict";
 
   var PROPERTY_IMAGES = {
-    "anchor-28": "/assets/images/cabins/anchor-twenty-eight-cover.png",
+    "anchor-28": "/assets/images/cabins/anchor-twenty-eight-cover.jpg",
     apex: "/assets/images/cabins/the-apex-cover.png",
   };
 
