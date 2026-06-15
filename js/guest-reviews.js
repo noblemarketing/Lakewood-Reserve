@@ -28,6 +28,16 @@
         "Our stay at The Apex was wonderful from beginning to end. What a gem in the heart of the Raystown region! The design and amenities clearly show intention and thought and we left incredibly rested and refreshed. We loved how nature and beauty surrounded you, both indoors and outdoors. We also enjoyed the short walk to the lake, paddleboarding, and hiking on a nearby trail. We are already looking forward to a return trip.",
     },
     {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Dove",
+      location: "",
+      rating: 5,
+      dateLabel: "Recent stay",
+      text:
+        "We loved our stay here. It is in a very quiet and peaceful part of PA. The cabin was clean and the hosts were very communicative and had great information about the surrounding area. If you are looking for a quiet retreat we would definitely recommend!",
+    },
+    {
       property: "cascade",
       propertyLabel: "The Cascade",
       name: "Audrey",
