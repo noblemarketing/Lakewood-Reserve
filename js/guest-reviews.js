@@ -33,9 +33,19 @@
       name: "Dove",
       location: "",
       rating: 5,
-      dateLabel: "Recent stay",
+      dateLabel: "3 weeks ago",
       text:
         "We loved our stay here. It is in a very quiet and peaceful part of PA. The cabin was clean and the hosts were very communicative and had great information about the surrounding area. If you are looking for a quiet retreat we would definitely recommend!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Ryan",
+      location: "",
+      rating: 5,
+      dateLabel: "1 week ago",
+      text:
+        "The Apex was beautiful close enough to Raystown Lake. It was quiet and peaceful. Nice place to stay.",
     },
     {
       property: "anchor-28",
@@ -46,6 +56,35 @@
       dateLabel: "Recent stay",
       text:
         "The amenities at Anchor Twenty Eight are incredible, and we loved how private the whole experience felt. From the thoughtful details inside to the outdoor spaces, everything was set up for a peaceful, restorative stay. We felt completely tucked away and could truly unwind.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Lauren",
+      location: "",
+      rating: 5,
+      dateLabel: "Recent stay",
+      text:
+        "We had such a great stay here with our family. It was exactly as pictured. We came with our two young kids and it ended up being the perfect mix of adventure and downtime. The space itself is really impressive. It feels simple and minimal in a very intentional way, but somehow still has every essential you could possibly need. That's not easy to pull off. Everything felt thoughtful and polished. It was so clean and exactly how it was described in the listing (maybe even better!) Our kids loved being outside and having space to explore. We cooked hot dogs and hamburgers over the fire which has an awesome grill to put over the pit. The location felt private and peaceful, but close enough to everything we wanted to do. It gave us some really good family time without needing to plan every second. Dan, Aubrey, and their team were great. Super helpful and responsive! We would love to come back",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Walter",
+      location: "",
+      rating: 5,
+      dateLabel: "2 weeks ago",
+      text: "The house was excelent, will go back again.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Nicole",
+      location: "",
+      rating: 5,
+      dateLabel: "Recent stay",
+      text:
+        "We loved our stay! It was such a nice little getaway house and so close to the lake. It was easy to get in and out of and very close to a Boat launch that not busy. The house was very clean and described perfectly in the listing. We will definitely be looking to rebook in the future!",
     },
   ];
 
