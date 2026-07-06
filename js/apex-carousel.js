@@ -21,6 +21,14 @@
       .replace(/</g, "&lt;");
   }
 
+  function getHeicFallbackSrc() {
+    var body = document.body;
+    if (body && body.classList.contains("page-anchor")) {
+      return "/assets/images/cabins/anchor-twenty-eight-cover.jpg";
+    }
+    return "/assets/images/cabins/the-apex-cover.png";
+  }
+
   function buildSlide(src, altBase, index, total, eagerFirst) {
     var lower = src.toLowerCase();
     var alt = altBase + " — photo " + (index + 1) + " of " + total;
@@ -37,7 +45,9 @@
         '<source type="image/heic" srcset="' +
         escapeAttr(src) +
         '">' +
-        '<img src="/assets/images/cabins/the-apex-cover.png" alt="' +
+        '<img src="' +
+        escapeAttr(getHeicFallbackSrc()) +
+        '" alt="' +
         escapeAttr(alt) +
         '" width="1920" height="1080" loading="' +
         loading +
