@@ -84,7 +84,17 @@
       rating: 5,
       dateLabel: "July 2026",
       text:
-        "We loved our stay! It was such a nice little getaway house and so close to the lake. It was easy to get in and out of and very close to a Boat launch that not busy. The house was very clean and described perfectly in the listing. We will definitely be looking to rebook in the future!",
+        "We loved our stay! It was such a nice little getaway house and so close to the lake. It was easy to get in and out and very close to a Boat launch that not busy. The house was very clean and described perfectly in the listing. We will definitely be looking to rebook in the future!",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Phillip",
+      location: "",
+      rating: 5,
+      dateLabel: "July 2026",
+      text:
+        "Great location near a boat launch on raystow, secluded and private cabin.",
     },
   ];
 
