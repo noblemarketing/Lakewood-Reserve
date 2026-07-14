@@ -101,6 +101,7 @@
   var DESKTOP_QUERY = window.matchMedia("(min-width: 768px)");
   var REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
   var AUTO_ROTATE_MS = 6000;
+  var SCROLL_SETTLE_MS = 480;
 
   function escapeHtml(value) {
     return String(value)
@@ -126,9 +127,9 @@
     return trimmed ? trimmed.charAt(0).toUpperCase() : "?";
   }
 
-  function renderReviewCard(review, index, showPropertyLabel) {
+  function renderReviewCard(review, logicalIndex, physicalIndex, showPropertyLabel) {
     var rating = 5;
-    var avatarColor = AVATAR_COLORS[index % AVATAR_COLORS.length];
+    var avatarColor = AVATAR_COLORS[logicalIndex % AVATAR_COLORS.length];
     var propertyHtml =
       showPropertyLabel && review.propertyLabel
         ? '<p class="guest-review-card-property">' +
@@ -139,8 +140,12 @@
       ? '<p class="guest-review-card-date">' + escapeHtml(review.dateLabel) + "</p>"
       : "";
     return (
-      '<li class="guest-reviews-slide" role="group" aria-roledescription="slide">' +
-      '<article class="guest-review-card">' +
+      '<li class="guest-reviews-slide" role="group" aria-roledescription="slide" data-logical-index="' +
+      logicalIndex +
+      '" data-physical-index="' +
+      physicalIndex +
+      '">' +
+      '<article class="guest-review-card" tabindex="0">' +
       '<div class="guest-review-card-stars" aria-label="Rated ' +
       rating +
       ' out of 5">' +
@@ -150,6 +155,7 @@
       "<p>" +
       escapeHtml(review.text) +
       "</p>" +
+      '<span class="guest-review-card-more" hidden>Read more</span>' +
       "</blockquote>" +
       '<footer class="guest-review-card-footer">' +
       '<span class="guest-review-avatar" style="background-color:' +
@@ -172,35 +178,46 @@
     return DESKTOP_QUERY.matches ? 2 : 1;
   }
 
+  function buildLoopSlides(reviews) {
+    if (reviews.length <= 1) return reviews.slice();
+    return reviews.concat(reviews, reviews);
+  }
+
   function initCarousel(root, reviews) {
-    var index = 0;
+    var loopEnabled = reviews.length > 1;
+    var setSize = reviews.length;
+    var physicalIndex = loopEnabled ? setSize : 0;
     var isProgrammaticScroll = false;
     var autoRotateTimer = null;
     var resumeTimer = null;
+    var settleTimer = null;
+    var hasExpandedCard = false;
     var viewport = root.querySelector(".guest-reviews-viewport");
+    var track = root.querySelector(".guest-reviews-track");
     var slides = root.querySelectorAll(".guest-reviews-slide");
+    var cards = root.querySelectorAll(".guest-review-card");
     var dotButtons = root.querySelectorAll(".guest-reviews-dot");
     var dotsWrap = root.querySelector(".guest-reviews-dots");
     var prevBtn = root.querySelector(".guest-reviews-btn--prev");
     var nextBtn = root.querySelector(".guest-reviews-btn--next");
     var live = root.querySelector(".guest-reviews-live");
 
-    function maxIndex() {
-      return Math.max(0, reviews.length - 1);
+    function logicalFromPhysical(i) {
+      if (!setSize) return 0;
+      return ((i % setSize) + setSize) % setSize;
     }
 
     function canScroll() {
-      return reviews.length > 1;
-    }
-
-    function normalizeIndex(i) {
-      var len = reviews.length;
-      if (!len) return 0;
-      return ((i % len) + len) % len;
+      return loopEnabled;
     }
 
     function shouldAutoRotate() {
-      return canScroll() && !REDUCED_MOTION_QUERY.matches && !document.hidden;
+      return (
+        canScroll() &&
+        !hasExpandedCard &&
+        !REDUCED_MOTION_QUERY.matches &&
+        !document.hidden
+      );
     }
 
     function stopAutoRotate() {
@@ -237,68 +254,26 @@
       return slide ? slide.offsetLeft : 0;
     }
 
+    function collapseAllCards() {
+      for (var i = 0; i < cards.length; i += 1) {
+        setCardExpanded(cards[i], false);
+      }
+      hasExpandedCard = false;
+    }
+
     function updateActive() {
       var perView = getSlidesPerView();
       for (var i = 0; i < slides.length; i += 1) {
-        var visible =
-          canScroll() && i >= index && i < Math.min(index + perView, slides.length);
-        if (!canScroll()) visible = true;
-        slides[i].classList.toggle("is-active", i === index);
+        var visible = !canScroll() || (i >= physicalIndex && i < physicalIndex + perView);
+        slides[i].classList.toggle("is-active", i === physicalIndex);
         slides[i].setAttribute("aria-hidden", visible ? "false" : "true");
       }
     }
 
-    function updateScrollPosition(smooth) {
-      if (!canScroll()) {
-        isProgrammaticScroll = true;
-        viewport.scrollLeft = 0;
-        window.setTimeout(function () {
-          isProgrammaticScroll = false;
-        }, 0);
-        return;
-      }
-
-      var offset = getSlideOffset(index);
-      isProgrammaticScroll = true;
-      viewport.scrollTo({
-        left: offset,
-        behavior: smooth === false ? "auto" : "smooth",
-      });
-      window.setTimeout(function () {
-        isProgrammaticScroll = false;
-      }, smooth === false ? 0 : 450);
-    }
-
-    function syncIndexFromScroll() {
-      if (isProgrammaticScroll || !canScroll()) return;
-
-      var left = viewport.scrollLeft;
-      var closest = 0;
-      var minDist = Infinity;
-
-      for (var i = 0; i < reviews.length; i += 1) {
-        var dist = Math.abs(getSlideOffset(i) - left);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = i;
-        }
-      }
-
-      if (closest !== index) {
-        index = closest;
-        updateActive();
-        updateDots();
-        announce();
-      }
-    }
-
-    function scrollIndexForReview(reviewIndex) {
-      return Math.max(0, Math.min(reviewIndex, maxIndex()));
-    }
-
     function updateDots() {
+      var logical = logicalFromPhysical(physicalIndex);
       for (var d = 0; d < dotButtons.length; d += 1) {
-        var on = d === index;
+        var on = d === logical;
         dotButtons[d].classList.toggle("is-active", on);
         dotButtons[d].setAttribute("aria-selected", on ? "true" : "false");
       }
@@ -315,13 +290,98 @@
     }
 
     function announce() {
-      if (!live) return;
+      if (!live || !reviews.length) return;
+      var logical = logicalFromPhysical(physicalIndex);
       live.textContent =
-        "Review " + (index + 1) + " of " + reviews.length + " by " + reviews[index].name;
+        "Review " +
+        (logical + 1) +
+        " of " +
+        reviews.length +
+        " by " +
+        reviews[logical].name;
+    }
+
+    function jumpWithoutAnimation(nextPhysical) {
+      physicalIndex = nextPhysical;
+      isProgrammaticScroll = true;
+      viewport.scrollTo({
+        left: getSlideOffset(physicalIndex),
+        behavior: "auto",
+      });
+      window.requestAnimationFrame(function () {
+        isProgrammaticScroll = false;
+      });
+    }
+
+    function normalizeLoopPosition() {
+      if (!loopEnabled) return;
+      if (physicalIndex >= setSize * 2) {
+        jumpWithoutAnimation(physicalIndex - setSize);
+      } else if (physicalIndex < setSize) {
+        jumpWithoutAnimation(physicalIndex + setSize);
+      }
+    }
+
+    function updateScrollPosition(smooth) {
+      if (!canScroll()) {
+        isProgrammaticScroll = true;
+        viewport.scrollLeft = 0;
+        window.setTimeout(function () {
+          isProgrammaticScroll = false;
+        }, 0);
+        return;
+      }
+
+      var offset = getSlideOffset(physicalIndex);
+      isProgrammaticScroll = true;
+      viewport.scrollTo({
+        left: offset,
+        behavior: smooth === false ? "auto" : "smooth",
+      });
+
+      if (settleTimer) window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(
+        function () {
+          normalizeLoopPosition();
+          isProgrammaticScroll = false;
+          updateActive();
+          updateDots();
+          announce();
+        },
+        smooth === false ? 0 : SCROLL_SETTLE_MS
+      );
+    }
+
+    function syncIndexFromScroll() {
+      if (isProgrammaticScroll || !canScroll()) return;
+
+      var left = viewport.scrollLeft;
+      var closest = 0;
+      var minDist = Infinity;
+
+      for (var i = 0; i < slides.length; i += 1) {
+        var dist = Math.abs(getSlideOffset(i) - left);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
+      }
+
+      if (closest !== physicalIndex) {
+        physicalIndex = closest;
+        normalizeLoopPosition();
+        updateActive();
+        updateDots();
+        announce();
+      }
     }
 
     function refresh(smooth) {
-      index = Math.max(0, Math.min(maxIndex(), index));
+      if (!loopEnabled) {
+        physicalIndex = 0;
+      } else if (physicalIndex < setSize || physicalIndex >= setSize * 2) {
+        physicalIndex = setSize + logicalFromPhysical(physicalIndex);
+      }
       updateScrollPosition(smooth);
       updateActive();
       updateDots();
@@ -329,20 +389,106 @@
       announce();
     }
 
-    function goTo(i, smooth) {
+    function goToPhysical(nextPhysical, smooth) {
       if (!reviews.length) return;
-      index = canScroll() ? normalizeIndex(i) : 0;
+      if (!canScroll()) {
+        physicalIndex = 0;
+        refresh(false);
+        return;
+      }
+      collapseAllCards();
+      physicalIndex = nextPhysical;
       refresh(smooth);
+    }
+
+    function goToLogical(logicalIndex, smooth) {
+      if (!canScroll()) {
+        goToPhysical(0, false);
+        return;
+      }
+      var currentLogical = logicalFromPhysical(physicalIndex);
+      var delta = logicalIndex - currentLogical;
+      goToPhysical(physicalIndex + delta, smooth);
     }
 
     function advance() {
       if (!canScroll()) return;
-      goTo(index + 1);
+      goToPhysical(physicalIndex + 1, true);
     }
 
     function retreat() {
       if (!canScroll()) return;
-      goTo(index - 1);
+      goToPhysical(physicalIndex - 1, true);
+    }
+
+    function markExpandableCards() {
+      for (var i = 0; i < cards.length; i += 1) {
+        var card = cards[i];
+        var textEl = card.querySelector(".guest-review-card-text p");
+        var moreEl = card.querySelector(".guest-review-card-more");
+        if (!textEl) continue;
+
+        card.classList.remove("is-expanded");
+        var overflows = textEl.scrollHeight > textEl.clientHeight + 1;
+        card.classList.toggle("is-expandable", overflows);
+        card.setAttribute("aria-expanded", "false");
+        if (overflows) {
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", "Expand review");
+        } else {
+          card.removeAttribute("role");
+          card.removeAttribute("aria-label");
+        }
+        if (moreEl) {
+          moreEl.hidden = !overflows;
+          moreEl.textContent = "Read more";
+        }
+      }
+    }
+
+    function setCardExpanded(card, expanded) {
+      if (!card || !card.classList.contains("is-expandable")) return;
+      var moreEl = card.querySelector(".guest-review-card-more");
+      card.classList.toggle("is-expanded", expanded);
+      card.setAttribute("aria-expanded", expanded ? "true" : "false");
+      card.setAttribute("aria-label", expanded ? "Collapse review" : "Expand review");
+      if (moreEl) moreEl.textContent = expanded ? "Show less" : "Read more";
+    }
+
+    function toggleCard(card) {
+      if (!card || !card.classList.contains("is-expandable")) return;
+      var willExpand = !card.classList.contains("is-expanded");
+
+      for (var i = 0; i < cards.length; i += 1) {
+        if (cards[i] !== card) setCardExpanded(cards[i], false);
+      }
+
+      setCardExpanded(card, willExpand);
+      hasExpandedCard = willExpand;
+
+      if (willExpand) {
+        stopAutoRotate();
+      } else {
+        startAutoRotate();
+      }
+    }
+
+    if (track) {
+      track.addEventListener("click", function (e) {
+        var card = e.target.closest(".guest-review-card");
+        if (!card || !root.contains(card)) return;
+        toggleCard(card);
+        resetAutoRotate();
+      });
+
+      track.addEventListener("keydown", function (e) {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        var card = e.target.closest(".guest-review-card");
+        if (!card || !root.contains(card)) return;
+        e.preventDefault();
+        toggleCard(card);
+        resetAutoRotate();
+      });
     }
 
     prevBtn.addEventListener("click", function () {
@@ -359,12 +505,13 @@
       if (!dot || !root.contains(dot)) return;
       var idx = parseInt(dot.getAttribute("data-index"), 10);
       if (!isNaN(idx)) {
-        goTo(scrollIndexForReview(idx));
+        goToLogical(idx, true);
         resetAutoRotate();
       }
     });
 
     root.addEventListener("keydown", function (e) {
+      if (e.target.closest(".guest-review-card")) return;
       if (e.key === "ArrowLeft") {
         e.preventDefault();
         retreat();
@@ -408,13 +555,13 @@
       pauseAutoRotate();
     });
     root.addEventListener("mouseleave", function () {
-      startAutoRotate();
+      if (!hasExpandedCard) startAutoRotate();
     });
     root.addEventListener("focusin", function () {
       pauseAutoRotate();
     });
     root.addEventListener("focusout", function (e) {
-      if (!root.contains(e.relatedTarget)) startAutoRotate();
+      if (!root.contains(e.relatedTarget) && !hasExpandedCard) startAutoRotate();
     });
     viewport.addEventListener(
       "touchstart",
@@ -426,13 +573,13 @@
 
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) stopAutoRotate();
-      else startAutoRotate();
+      else if (!hasExpandedCard) startAutoRotate();
     });
 
     function bindMotionPreference(query) {
       var onChange = function () {
         if (query.matches) stopAutoRotate();
-        else startAutoRotate();
+        else if (!hasExpandedCard) startAutoRotate();
       };
       if (typeof query.addEventListener === "function") {
         query.addEventListener("change", onChange);
@@ -446,25 +593,33 @@
     if (typeof DESKTOP_QUERY.addEventListener === "function") {
       DESKTOP_QUERY.addEventListener("change", function () {
         refresh(false);
+        markExpandableCards();
       });
     } else if (typeof DESKTOP_QUERY.addListener === "function") {
       DESKTOP_QUERY.addListener(function () {
         refresh(false);
+        markExpandableCards();
       });
     }
 
     window.addEventListener("resize", function () {
+      collapseAllCards();
       refresh(false);
+      markExpandableCards();
       startAutoRotate();
     });
+
     refresh(false);
+    markExpandableCards();
     startAutoRotate();
   }
 
   function buildCarousel(reviews, showPropertyLabel) {
-    var slidesHtml = reviews
-      .map(function (review, index) {
-        return renderReviewCard(review, index, showPropertyLabel);
+    var loopSlides = buildLoopSlides(reviews);
+    var slidesHtml = loopSlides
+      .map(function (review, physicalIndex) {
+        var logicalIndex = physicalIndex % reviews.length;
+        return renderReviewCard(review, logicalIndex, physicalIndex, showPropertyLabel);
       })
       .join("");
 

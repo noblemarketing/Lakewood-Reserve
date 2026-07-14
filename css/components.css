@@ -2148,6 +2148,7 @@ select.hero-booking-input {
 
 .guest-reviews-track {
   display: flex;
+  align-items: flex-start;
   margin: 0;
   padding: 0.35rem 0 0.75rem;
   list-style: none;
@@ -2155,7 +2156,9 @@ select.hero-booking-input {
 }
 
 .guest-reviews-slide {
+  position: relative;
   flex: 0 0 100%;
+  min-height: clamp(280px, 38vw, 340px);
   padding: 0 0.55rem;
   box-sizing: border-box;
   scroll-snap-align: start;
@@ -2164,10 +2167,11 @@ select.hero-booking-input {
 
 .guest-review-card {
   display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   gap: clamp(0.85rem, 2vw, 1.1rem);
   justify-items: center;
   text-align: center;
-  min-height: clamp(240px, 34vw, 320px);
+  height: clamp(280px, 38vw, 340px);
   padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 2.5vw, 1.75rem);
   background: #f5f0ea;
   border-radius: var(--radius-md);
@@ -2175,6 +2179,23 @@ select.hero-booking-input {
   transform: scale(0.94);
   opacity: 0.82;
   transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
+}
+
+.guest-review-card.is-expandable {
+  cursor: pointer;
+}
+
+.guest-review-card.is-expandable:focus-visible {
+  outline: 2px solid #4a3f35;
+  outline-offset: 3px;
+}
+
+.guest-review-card.is-expanded {
+  height: auto;
+  min-height: clamp(280px, 38vw, 340px);
+  transform: scale(1);
+  opacity: 1;
+  box-shadow: 0 10px 28px rgba(28, 35, 32, 0.12);
 }
 
 .guest-reviews-slide.is-active .guest-review-card {
@@ -2204,6 +2225,12 @@ select.hero-booking-input {
   margin: 0;
   padding: 0;
   border: 0;
+  width: 100%;
+  min-height: 0;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 0.45rem;
 }
 
 .guest-review-card-text p {
@@ -2215,6 +2242,25 @@ select.hero-booking-input {
   line-height: 1.65;
   color: #2A2D2E;
   text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+}
+
+.guest-review-card.is-expanded .guest-review-card-text p {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.guest-review-card-more {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #4a3f35;
 }
 
 .guest-review-card-footer {
