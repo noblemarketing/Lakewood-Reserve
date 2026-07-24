@@ -2827,6 +2827,10 @@ select.hero-booking-input {
     align-items: center;
     text-align: center;
   }
+
+  .footer-legal-meta {
+    justify-items: center;
+  }
 }
 
 .legal-page {
