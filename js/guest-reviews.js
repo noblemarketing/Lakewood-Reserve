@@ -429,7 +429,14 @@
         if (!textEl) continue;
 
         card.classList.remove("is-expanded");
-        var overflows = textEl.scrollHeight > textEl.clientHeight + 1;
+        // Measure full content height, then restore the collapsed clamp.
+        var previousMaxHeight = textEl.style.maxHeight;
+        textEl.style.maxHeight = "none";
+        var fullHeight = textEl.scrollHeight;
+        textEl.style.maxHeight = previousMaxHeight;
+        var collapsedHeight = textEl.clientHeight;
+        var overflows = fullHeight > collapsedHeight + 1;
+
         card.classList.toggle("is-expandable", overflows);
         card.setAttribute("aria-expanded", "false");
         if (overflows) {
@@ -611,6 +618,12 @@
 
     refresh(false);
     markExpandableCards();
+    window.requestAnimationFrame(markExpandableCards);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        markExpandableCards();
+      });
+    }
     startAutoRotate();
   }
 
