@@ -2158,7 +2158,6 @@ select.hero-booking-input {
 .guest-reviews-slide {
   position: relative;
   flex: 0 0 100%;
-  min-height: clamp(280px, 38vw, 340px);
   padding: 0 0.55rem;
   box-sizing: border-box;
   scroll-snap-align: start;
@@ -2167,11 +2166,12 @@ select.hero-booking-input {
 
 .guest-review-card {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto;
   gap: clamp(0.85rem, 2vw, 1.1rem);
   justify-items: center;
   text-align: center;
-  height: clamp(280px, 38vw, 340px);
+  height: auto;
+  min-height: 0;
   padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 2.5vw, 1.75rem);
   background: #f5f0ea;
   border-radius: var(--radius-md);
@@ -2192,7 +2192,6 @@ select.hero-booking-input {
 
 .guest-review-card.is-expanded {
   height: auto;
-  min-height: clamp(280px, 38vw, 340px);
   transform: scale(1);
   opacity: 1;
   box-shadow: 0 10px 28px rgba(28, 35, 32, 0.12);
@@ -2226,7 +2225,6 @@ select.hero-booking-input {
   padding: 0;
   border: 0;
   width: 100%;
-  min-height: 0;
   display: grid;
   align-content: start;
   justify-items: center;
@@ -2242,16 +2240,15 @@ select.hero-booking-input {
   line-height: 1.65;
   color: #2A2D2E;
   text-align: center;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  display: block;
   overflow: hidden;
+  /* Mobile max ≈ Audrey's review length (~8 lines); longer reviews get Show more */
+  max-height: calc(1.65em * 8);
 }
 
 .guest-review-card.is-expanded .guest-review-card-text p {
-  display: block;
-  -webkit-line-clamp: unset;
   overflow: visible;
+  max-height: none;
 }
 
 .guest-review-card-more {
@@ -2389,6 +2386,10 @@ select.hero-booking-input {
 
   .guest-reviews-carousel {
     max-width: min(1280px, 100%);
+  }
+
+  .guest-review-card-text p {
+    max-height: calc(1.65em * 5);
   }
 }
 
