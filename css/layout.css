@@ -245,7 +245,8 @@ body.page-explore {
 
 .memory-collage-cta {
   position: relative;
-  min-height: clamp(300px, 44vw, 460px);
+  /* ~half the previous visual height (padding no longer stacks on min-height) */
+  min-height: clamp(190px, 26vw, 334px);
   isolation: isolate;
 }
 
@@ -272,15 +273,17 @@ body.page-explore {
 }
 
 .memory-collage-content {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  min-height: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: clamp(0.65rem, 2vw, 1rem);
+  padding-inline: 4%;
+  box-sizing: border-box;
 }
 
 .memory-collage-content h2 {
@@ -288,6 +291,10 @@ body.page-explore {
   font-size: clamp(1.35rem, 4.1vw, 2.15rem);
   max-width: 28ch;
   margin-bottom: 0;
+}
+
+main > section.memory-collage-cta {
+  padding-block: 0;
 }
 
 .site-footer {
