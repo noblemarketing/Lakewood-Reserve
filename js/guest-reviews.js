@@ -422,28 +422,53 @@
     }
 
     function markExpandableCards() {
+      var anyExpanded = false;
+
       for (var i = 0; i < cards.length; i += 1) {
         var card = cards[i];
         var textEl = card.querySelector(".guest-review-card-text p");
         var moreEl = card.querySelector(".guest-review-card-more");
         if (!textEl) continue;
 
+        var wasExpanded = card.classList.contains("is-expanded");
         card.classList.remove("is-expanded");
-        var overflows = textEl.scrollHeight > textEl.clientHeight + 1;
+
+        // Measure full content height against the collapsed clamp.
+        var previousMaxHeight = textEl.style.maxHeight;
+        textEl.style.maxHeight = "none";
+        var fullHeight = textEl.scrollHeight;
+        textEl.style.maxHeight = previousMaxHeight;
+        var collapsedHeight = textEl.clientHeight;
+        var overflows = fullHeight > collapsedHeight + 1;
+
         card.classList.toggle("is-expandable", overflows);
-        card.setAttribute("aria-expanded", "false");
-        if (overflows) {
-          card.setAttribute("role", "button");
-          card.setAttribute("aria-label", "Expand review");
-        } else {
+
+        if (!overflows) {
           card.removeAttribute("role");
           card.removeAttribute("aria-label");
+          card.setAttribute("aria-expanded", "false");
+          if (moreEl) {
+            moreEl.hidden = true;
+            moreEl.textContent = "Read more";
+          }
+          continue;
         }
-        if (moreEl) {
-          moreEl.hidden = !overflows;
-          moreEl.textContent = "Read more";
+
+        card.setAttribute("role", "button");
+        if (wasExpanded) {
+          setCardExpanded(card, true);
+          anyExpanded = true;
+        } else {
+          card.setAttribute("aria-expanded", "false");
+          card.setAttribute("aria-label", "Expand review");
+          if (moreEl) {
+            moreEl.hidden = false;
+            moreEl.textContent = "Read more";
+          }
         }
       }
+
+      hasExpandedCard = anyExpanded;
     }
 
     function setCardExpanded(card, expanded) {
@@ -611,6 +636,12 @@
 
     refresh(false);
     markExpandableCards();
+    window.requestAnimationFrame(markExpandableCards);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        markExpandableCards();
+      });
+    }
     startAutoRotate();
   }
 
