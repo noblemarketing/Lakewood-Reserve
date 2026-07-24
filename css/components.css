@@ -2242,8 +2242,8 @@ select.hero-booking-input {
   text-align: center;
   display: block;
   overflow: hidden;
-  /* Mobile max ≈ Audrey's review length (~8 lines); longer reviews get Show more */
-  max-height: calc(1.65em * 8);
+  /* Mobile max ≈ Audrey's full review; longer reviews get Show more */
+  max-height: calc(1.65em * 10);
 }
 
 .guest-review-card.is-expanded .guest-review-card-text p {
