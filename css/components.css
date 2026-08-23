@@ -1,11 +1,31 @@
 .hero-media {
-  background-image:
-    linear-gradient(105deg, rgba(246, 201, 130, 0.18), rgba(23, 28, 30, 0.38)),
-    url("../assets/images/hero/hero-raystown.png");
-  background-size: cover;
-  background-position: 50% 46%;
-  animation: hero-pan 20s ease-in-out infinite alternate;
+  overflow: hidden;
+  background-color: #171c1e;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 46%;
   filter: saturate(0.92) contrast(0.97) brightness(1.06);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+
+  .hero-media {
+    background-image:
+      linear-gradient(105deg, rgba(246, 201, 130, 0.18), rgba(23, 28, 30, 0.38)),
+      url("../assets/images/hero/hero-raystown.png");
+    background-size: cover;
+    background-position: 50% 46%;
+  }
 }
 
 .hero-overlay {
@@ -1377,15 +1397,6 @@ body.cabin-detail-page .cabin-info ul {
 
   .amenity-copy {
     max-width: 34ch;
-  }
-}
-
-@keyframes hero-pan {
-  0% {
-    transform: scale(1.04) translateY(0);
-  }
-  100% {
-    transform: scale(1.09) translateY(-0.8%);
   }
 }
 
@@ -3484,6 +3495,57 @@ select.hero-booking-input {
 body.page-apex .property-glance,
 body.page-anchor .property-glance {
   text-align: left;
+}
+
+.explore-map-section {
+  background: #e8e0ce;
+  text-align: center;
+}
+
+.explore-map-lead {
+  max-width: 42rem;
+  margin: 0 auto var(--space-lg);
+}
+
+.explore-map-viewport {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  background: #ede6d4;
+}
+
+.explore-map-sizer {
+  position: relative;
+  width: max(100%, 58rem);
+  aspect-ratio: 1600 / 1067;
+}
+
+.explore-map-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #ede7d6;
+}
+
+.explore-map-hint {
+  display: none;
+  margin: var(--space-sm) auto 0;
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c5a52;
+}
+
+@media (max-width: 899px) {
+  .explore-map-hint {
+    display: block;
+  }
 }
 
 .section-fade {

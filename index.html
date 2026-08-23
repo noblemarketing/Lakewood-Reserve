@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="/css/variables.css">
   <link rel="stylesheet" href="/css/typography.css">
   <link rel="stylesheet" href="/css/layout.css">
-  <link rel="stylesheet" href="/css/components.css?v=19">
+  <link rel="stylesheet" href="/css/components.css?v=20">
 
   <link rel="icon" type="image/png" href="/assets/icons/footer-mark-asset-1.png">
 </head>
@@ -64,7 +64,20 @@
 
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-media" role="img" aria-label="Aerial view of Raystown Lake and forested shoreline"></div>
+      <div class="hero-media">
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster="/assets/images/hero/hero-raystown.png"
+          aria-label="Aerial video of Raystown Lake and forested shoreline"
+        >
+          <source src="/assets/videos/HeroRaystown.mp4" type="video/mp4">
+        </video>
+      </div>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <p class="eyebrow">Raystown Lake, Pennsylvania</p>

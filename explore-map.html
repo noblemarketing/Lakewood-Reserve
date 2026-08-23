@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lakewood Reserve — Explore Raystown Lake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EEE3;
+    --paper-deep:#EAE4D4;
+    --pine:#2C4432;
+    --pine-soft:#3E5A44;
+    --ink:#4A463A;
+    --sage:#A8B79B;
+    --sage-faint:#C2CDB4;
+    --lake:#9FBECB;
+    --lake-deep:#7FA5B5;
+    --road:#BCAB8E;
+    --contour:#D8CFBB;
+    --white:#FBFAF5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#EDE7D6;margin:0;overflow:hidden;height:100%;}
+  #stage{width:1600px;height:1067px;transform-origin:top left;margin:0 auto;}
+  .poster{
+    position:relative;width:1600px;height:1067px;overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 650px at 50% 46%, #EDE7D6 0%, rgba(237,231,214,0) 70%),
+      var(--paper);
+    font-family:'EB Garamond',serif;color:var(--ink);
+    box-shadow:0 20px 60px rgba(60,50,30,.35);
+  }
+  .poster::after{ /* paper grain */
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.055'/></feComponentTransfer></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+  }
+  svg.mapbg{position:absolute;inset:0;width:1600px;height:1067px;}
+
+  /* ---------- title block ---------- */
+  .titleblock{position:absolute;left:58px;top:38px;width:600px;z-index:5;}
+  .titleblock h1{
+    font-family:'Raleway',sans-serif;font-weight:200;color:var(--pine);
+    font-size:74px;letter-spacing:.15em;line-height:1.08;
+  }
+  .rule{display:flex;align-items:center;gap:14px;margin:14px 0 12px;}
+  .rule::before,.rule::after{content:"";flex:1;height:1.5px;background:var(--pine);opacity:.85;}
+  .rule svg{width:46px;height:26px;flex:none;}
+  .loc{
+    font-family:'Cormorant Garamond',serif;font-weight:600;color:var(--pine);
+    font-size:30px;letter-spacing:.42em;text-align:center;margin-right:-.42em;
+  }
+  .tag{
+    font-family:'EB Garamond',serif;font-style:italic;color:#6B6A55;
+    font-size:31px;margin-top:14px;letter-spacing:.01em;
+  }
+  .intro{
+    margin-top:22px;font-family:'Jost',sans-serif;font-weight:400;
+    font-size:17.5px;line-height:1.6;color:#585647;max-width:420px;
+  }
+
+  /* ---------- medallions ---------- */
+  .stop{position:absolute;z-index:6;display:flex;align-items:center;gap:20px;}
+  .medal{
+    border-radius:50%;flex:none;position:relative;
+    box-shadow:0 10px 22px rgba(70,60,35,.28), 0 2px 6px rgba(70,60,35,.18);
+    border:7px solid var(--white);background:var(--white);
+  }
+  .medal svg{display:block;border-radius:50%;}
+  .medal img.photo{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;border-radius:50%;z-index:2;
+  }
+  .credit{
+    position:absolute;right:58px;bottom:7px;z-index:5;
+    font-family:'Jost',sans-serif;font-weight:300;font-size:11px;
+    color:#8B8470;letter-spacing:.04em;
+  }
+  .stop .info h3{
+    font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--pine);
+    font-size:24.5px;letter-spacing:.055em;line-height:1.08;text-transform:uppercase;
+  }
+  .stop .info .dist{
+    font-family:'Jost',sans-serif;font-weight:400;font-size:18px;color:#55534A;
+    margin-top:7px;letter-spacing:.02em;
+  }
+  .stop .info .time{
+    font-family:'Jost',sans-serif;font-weight:400;font-size:18px;color:#55534A;
+    margin-top:3px;display:flex;align-items:center;gap:8px;
+  }
+  .stop .info .time svg{width:21px;height:16px;flex:none;}
+  .stop.rightside{flex-direction:row;}
+  .stop.leftlabel{flex-direction:row;}
+  .info{max-width:230px;}
+
+  /* ---------- footer ---------- */
+  .footer{
+    position:absolute;left:58px;right:58px;bottom:26px;z-index:5;
+    border-top:1.5px solid var(--pine);padding-top:16px;
+    display:flex;align-items:center;gap:26px;
+  }
+  .footer .trees{width:64px;height:58px;flex:none;}
+  .script{
+    font-family:'Dancing Script',cursive;font-weight:600;color:var(--pine);
+    font-size:40px;white-space:nowrap;
+  }
+  .footer .div{width:1.5px;height:52px;background:var(--pine);opacity:.6;flex:none;}
+  .facts{
+    font-family:'Jost',sans-serif;font-weight:500;font-size:16.5px;color:#4E4C40;
+    letter-spacing:.10em;text-transform:uppercase;line-height:1.55;
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+<div class="poster">
+
+  <!-- ==================== MAP BACKGROUND ==================== -->
+  <svg class="mapbg" viewBox="0 0 1600 1067" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <g id="pine">
+        <path d="M0 0 L7 14 L2.6 14 L9 27 L3.6 27 L11 41 L-11 41 L-3.6 27 L-9 27 L-2.6 14 L-7 14 Z" fill="#9DB08E"/>
+        <rect x="-1.5" y="41" width="3" height="6" fill="#9C8F72"/>
+      </g>
+      <g id="blob">
+        <ellipse cx="0" cy="0" rx="16" ry="12" fill="#B4C2A3"/>
+        <ellipse cx="12" cy="5" rx="12" ry="9" fill="#A8B79B"/>
+        <ellipse cx="-12" cy="6" rx="11" ry="8" fill="#AFBEA0"/>
+      </g>
+      <g id="mass">
+        <ellipse cx="0" cy="0" rx="85" ry="52" fill="#C9D3B6"/>
+        <ellipse cx="70" cy="22" rx="62" ry="38" fill="#C4CFB0"/>
+        <ellipse cx="-66" cy="26" rx="55" ry="34" fill="#CCD6BA"/>
+        <ellipse cx="18" cy="40" rx="66" ry="34" fill="#C6D1B2"/>
+        <ellipse cx="-30" cy="-28" rx="48" ry="26" fill="#CFD8BE"/>
+      </g>
+      <g id="tree2">
+        <circle cx="0" cy="0" r="9" fill="#93A883"/>
+        <circle cx="7" cy="3" r="7" fill="#9DB08E"/>
+        <circle cx="-7" cy="3" r="6.5" fill="#8CA07C"/>
+        <rect x="-1.3" y="8" width="2.6" height="6" fill="#9C8F72"/>
+      </g>
+    </defs>
+
+    <!-- watercolor forest masses (beneath everything else) -->
+    <g opacity=".55">
+      <use href="#mass" transform="translate(600,300) scale(1.25)"/>
+      <use href="#mass" transform="translate(920,190) scale(1.05) rotate(12)"/>
+      <use href="#mass" transform="translate(1250,330) scale(1.15) rotate(-8)"/>
+      <use href="#mass" transform="translate(1000,540) scale(1.35) rotate(5)"/>
+      <use href="#mass" transform="translate(1180,770) scale(1.1) rotate(-14)"/>
+      <use href="#mass" transform="translate(560,470) scale(.9) rotate(-10)"/>
+      <use href="#mass" transform="translate(520,800) scale(1.05) rotate(8)"/>
+      <use href="#mass" transform="translate(860,900) scale(.85) rotate(-6)"/>
+      <use href="#mass" transform="translate(1420,540) scale(.8) rotate(15)"/>
+      <use href="#mass" transform="translate(1380,150) scale(.7) rotate(-12)"/>
+    </g>
+
+    <!-- contour squiggles -->
+    <g stroke="#D8CFBB" stroke-width="1.4" opacity=".8">
+      <path d="M180 260 Q320 200 470 250 T760 235 T1060 190 T1380 250"/>
+      <path d="M140 380 Q300 320 480 370 T820 350 T1160 300 T1460 380"/>
+      <path d="M120 520 Q260 470 420 505 T700 520 T1020 470 T1400 520"/>
+      <path d="M150 660 Q300 610 470 650 T790 665 T1120 610 T1440 660"/>
+      <path d="M190 800 Q340 755 520 790 T860 805 T1180 760 T1420 810"/>
+      <path d="M260 930 Q420 890 610 920 T960 930 T1260 895"/>
+      <path d="M420 150 Q560 110 720 145 T1020 130 T1300 160"/>
+      <path d="M980 560 Q1080 530 1180 560 T1380 570"/>
+      <path d="M540 430 Q620 400 720 425"/>
+    </g>
+    <g stroke="#DCD3BF" stroke-width="1.1" opacity=".75" fill="none">
+      <path d="M200 320 Q330 265 470 308 T750 296 T1040 252 T1360 310"/>
+      <path d="M130 450 Q290 395 460 438 T790 425 T1130 372 T1440 450"/>
+      <path d="M140 590 Q290 540 450 578 T740 592 T1070 540 T1430 590"/>
+      <path d="M170 730 Q320 682 490 720 T830 736 T1150 685 T1430 736"/>
+      <path d="M225 868 Q380 824 560 858 T920 868 T1220 828"/>
+      <path d="M480 96 Q620 62 780 92 T1080 78 T1340 106"/>
+      <ellipse cx="1330" cy="450" rx="80" ry="34" transform="rotate(-14 1330 450)"/>
+      <ellipse cx="1330" cy="450" rx="52" ry="20" transform="rotate(-14 1330 450)"/>
+      <ellipse cx="470" cy="250" rx="70" ry="28" transform="rotate(10 470 250)"/>
+      <ellipse cx="470" cy="250" rx="44" ry="16" transform="rotate(10 470 250)"/>
+      <ellipse cx="620" cy="740" rx="64" ry="26" transform="rotate(-8 620 740)"/>
+      <ellipse cx="1060" cy="880" rx="72" ry="28" transform="rotate(6 1060 880)"/>
+      <ellipse cx="1060" cy="880" rx="46" ry="16" transform="rotate(6 1060 880)"/>
+    </g>
+
+    <!-- streams -->
+    <g stroke="#AECAD4" stroke-width="3" stroke-linecap="round" opacity=".85">
+      <path d="M560 1000 Q620 900 700 850 Q740 820 760 770"/>
+      <path d="M1030 120 Q1010 210 1060 280"/>
+      <path d="M420 300 Q520 360 610 420 Q660 460 700 480"/>
+      <path d="M1330 640 Q1250 660 1190 630"/>
+      <path d="M900 1000 Q880 940 850 900"/>
+    </g>
+
+    <!-- Raystown Lake : winding SW -> NE -->
+    <path d="M755 770 Q735 715 765 665 Q800 610 780 560 Q760 505 810 465 Q865 425 855 375 Q848 330 900 300 Q955 268 975 300 Q995 330 1045 318 Q1100 305 1108 262 Q1114 228 1150 215"
+          stroke="#8FB2C1" stroke-width="34" stroke-linecap="round" opacity=".55"/>
+    <path d="M755 770 Q735 715 765 665 Q800 610 780 560 Q760 505 810 465 Q865 425 855 375 Q848 330 900 300 Q955 268 975 300 Q995 330 1045 318 Q1100 305 1108 262 Q1114 228 1150 215"
+          stroke="#A8C4D0" stroke-width="22" stroke-linecap="round" opacity=".9"/>
+    <!-- lake arms -->
+    <g stroke="#A8C4D0" stroke-width="13" stroke-linecap="round" opacity=".85">
+      <path d="M780 560 Q820 555 850 575"/>
+      <path d="M855 375 Q820 360 795 335"/>
+      <path d="M1045 318 Q1050 355 1030 385"/>
+    </g>
+    <!-- river into Saxton -->
+    <path d="M755 770 Q720 830 660 860 Q600 890 585 950" stroke="#A8C4D0" stroke-width="10" stroke-linecap="round" opacity=".85"/>
+    <text x="985" y="415" font-family="EB Garamond, serif" font-size="24" fill="#4A463A" letter-spacing=".04em">Raystown</text>
+    <text x="1002" y="443" font-family="EB Garamond, serif" font-size="24" fill="#4A463A" letter-spacing=".04em">Lake</text>
+    <text x="640" y="940" font-family="EB Garamond, serif" font-size="19" fill="#6B6A55" font-style="italic" transform="rotate(-45 640 940)">Juniata River</text>
+
+    <!-- roads -->
+    <g stroke="#BCAB8E" stroke-width="4" stroke-linecap="round" opacity=".9" fill="none">
+      <path d="M470 1010 Q560 900 620 810 Q690 705 660 620 Q635 545 690 470 Q740 405 720 330 Q705 275 745 210 Q775 165 770 110"/>
+      <path d="M430 620 Q560 640 660 620 Q800 585 930 620 Q1080 660 1210 620 Q1330 585 1450 620"/>
+      <path d="M930 620 Q980 540 1060 500 Q1150 455 1190 380 Q1230 305 1310 270"/>
+    </g>
+    <!-- Weaver Falls Rd : links the Reserve and the boat launch along the west shore -->
+    <path d="M572 948 Q625 872 668 815 Q706 764 724 730 Q748 675 757 632" stroke="#BCAB8E" stroke-width="3" stroke-linecap="round" opacity=".9" fill="none"/>
+    <!-- route shields -->
+    <g font-family="Jost, sans-serif" font-weight="500" text-anchor="middle">
+      <g transform="translate(700,300)">
+        <path d="M-24 -17 H24 Q28 -17 28 -12 V8 Q28 13 20 16 L0 24 L-20 16 Q-28 13 -28 8 V-12 Q-28 -17 -24 -17 Z" fill="#FBFAF5" stroke="#4A463A" stroke-width="2.5"/>
+        <text y="9" font-size="21" fill="#4A463A">26</text>
+      </g>
+      <g transform="translate(1105,635)">
+        <path d="M-27 -17 H27 Q31 -17 31 -12 V8 Q31 13 22 16 L0 24 L-22 16 Q-31 13 -31 8 V-12 Q-31 -17 -27 -17 Z" fill="#FBFAF5" stroke="#4A463A" stroke-width="2.5"/>
+        <text y="8" font-size="20" fill="#4A463A">994</text>
+      </g>
+      <g transform="translate(560,690)">
+        <path d="M-27 -17 H27 Q31 -17 31 -12 V8 Q31 13 22 16 L0 24 L-22 16 Q-31 13 -31 8 V-12 Q-31 -17 -27 -17 Z" fill="#FBFAF5" stroke="#4A463A" stroke-width="2.5"/>
+        <text y="8" font-size="20" fill="#4A463A">913</text>
+      </g>
+    </g>
+
+    <!-- forests -->
+    <g opacity=".75">
+      <use href="#blob" transform="translate(560,300) scale(1.6)"/>
+      <use href="#blob" transform="translate(640,250) scale(1.2)"/>
+      <use href="#blob" transform="translate(500,380) scale(1.3)"/>
+      <use href="#blob" transform="translate(930,520) scale(1.7)"/>
+      <use href="#blob" transform="translate(1010,560) scale(1.2)"/>
+      <use href="#blob" transform="translate(1180,470) scale(1.5)"/>
+      <use href="#blob" transform="translate(1120,720) scale(1.4)"/>
+      <use href="#blob" transform="translate(950,760) scale(1.2)"/>
+      <use href="#blob" transform="translate(700,900) scale(1.4)"/>
+      <use href="#blob" transform="translate(480,760) scale(1.2)"/>
+      <use href="#blob" transform="translate(1250,180) scale(1.2)"/>
+      <use href="#blob" transform="translate(880,170) scale(1.3)"/>
+      <use href="#blob" transform="translate(1420,470) scale(1.1)"/>
+      <use href="#blob" transform="translate(1330,860) scale(1.2)"/>
+      <use href="#blob" transform="translate(600,540) scale(1.1)"/>
+      <use href="#blob" transform="translate(840,420) scale(1.0)"/>
+    </g>
+    <g opacity=".9">
+      <use href="#pine" transform="translate(600,330)"/>
+      <use href="#pine" transform="translate(628,345) scale(.8)"/>
+      <use href="#pine" transform="translate(520,420) scale(.9)"/>
+      <use href="#pine" transform="translate(965,545)"/>
+      <use href="#pine" transform="translate(992,562) scale(.75)"/>
+      <use href="#pine" transform="translate(1210,500) scale(.95)"/>
+      <use href="#pine" transform="translate(1150,745) scale(.85)"/>
+      <use href="#pine" transform="translate(730,925) scale(.9)"/>
+      <use href="#pine" transform="translate(760,940) scale(.7)"/>
+      <use href="#pine" transform="translate(905,195) scale(.85)"/>
+      <use href="#pine" transform="translate(1275,205) scale(.8)"/>
+      <use href="#pine" transform="translate(500,790) scale(.8)"/>
+      <use href="#pine" transform="translate(645,462) scale(.75)"/>
+      <use href="#pine" transform="translate(870,450) scale(.7)"/>
+      <use href="#pine" transform="translate(1395,505) scale(.8)"/>
+      <use href="#pine" transform="translate(1305,890) scale(.75)"/>
+      <use href="#pine" transform="translate(1360,320) scale(.7)"/>
+      <use href="#tree2" transform="translate(660,285) scale(1.1)"/>
+      <use href="#tree2" transform="translate(545,350)"/>
+      <use href="#tree2" transform="translate(1000,510) scale(1.2)"/>
+      <use href="#tree2" transform="translate(1240,455)"/>
+      <use href="#tree2" transform="translate(1100,700) scale(1.1)"/>
+      <use href="#tree2" transform="translate(675,905) scale(1.1)"/>
+      <use href="#tree2" transform="translate(455,745)"/>
+      <use href="#tree2" transform="translate(852,185)"/>
+      <use href="#tree2" transform="translate(1225,155)"/>
+      <use href="#tree2" transform="translate(1435,435)"/>
+      <use href="#tree2" transform="translate(1352,832)"/>
+      <use href="#tree2" transform="translate(628,565) scale(.9)"/>
+      <use href="#tree2" transform="translate(838,392) scale(.9)"/>
+    </g>
+    <text x="905" y="700" font-family="EB Garamond, serif" font-size="22" fill="#6B6A55" letter-spacing=".05em">Rothrock &amp; Trough Creek</text>
+    <text x="945" y="726" font-family="EB Garamond, serif" font-size="22" fill="#6B6A55" letter-spacing=".05em">wild lands</text>
+
+    <!-- ============ callout lines & dots ============ -->
+    <g stroke="#4A463A" stroke-width="1.6" fill="#4A463A">
+      <!-- Trough Creek (top-center medal at 790,150) -->
+      <path d="M868 205 Q905 265 928 322" fill="none"/><circle cx="930" cy="326" r="5"/>
+      <!-- Seven Points (top-right medal at 1270,235) -->
+      <path d="M1192 258 Q1150 290 1116 322" fill="none"/><circle cx="1112" cy="326" r="5"/>
+      <!-- Hawn's (right medal at 1300,520) -->
+      <path d="M1222 512 Q1160 495 1102 478" fill="none"/><circle cx="1097" cy="476" r="5"/>
+      <!-- EBT (right-lower medal at 1275,775) -->
+      <path d="M1197 762 Q1140 740 1088 716" fill="none"/><circle cx="1083" cy="714" r="5"/>
+      <!-- Resort (left medal at 123,550) -->
+      <path d="M445 542 Q515 524 578 510" fill="none"/><circle cx="583" cy="508" r="5"/>
+      <!-- Tatman (left medal at 147,720) -->
+      <path d="M465 708 Q525 678 586 648" fill="none"/><circle cx="591" cy="646" r="5"/>
+      <!-- Allegrippis (left medal at 170,887) -->
+      <path d="M480 872 Q550 842 620 812" fill="none"/><circle cx="625" cy="810" r="5"/>
+      <!-- Weaver Falls (medal at 837,863) — launch sits on Weaver Falls Rd, west shore, same road as the Reserve -->
+      <path d="M788 802 Q758 772 728 738" fill="none"/><circle cx="724" cy="733" r="5"/>
+    </g>
+
+    <!-- ============ Lakewood Reserve pin ============ -->
+    <g transform="translate(760,565)">
+      <ellipse cx="0" cy="66" rx="20" ry="6" fill="#4A463A" opacity=".18"/>
+      <path d="M0 62 C-30 26 -34 12 -34 -6 A34 34 0 1 1 34 -6 C34 12 30 26 0 62 Z" fill="#2C4432"/>
+      <circle cx="0" cy="-6" r="24" fill="#FBFAF5" opacity=".14"/>
+      <!-- pine + wave mark -->
+      <path d="M0 -26 L8 -12 L3 -12 L11 2 L4 2 L13 16 L-13 16 L-4 2 L-11 2 L-3 -12 L-8 -12 Z" fill="#FBFAF5"/>
+      <path d="M-14 22 Q-7 17 0 22 Q7 27 14 22" stroke="#FBFAF5" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+    <text x="760" y="670" text-anchor="middle" font-family="Raleway, sans-serif" font-weight="300" font-size="29" letter-spacing=".24em" fill="#2C4432">LAKEWOOD RESERVE</text>
+    <text x="760" y="700" text-anchor="middle" font-family="Jost, sans-serif" font-weight="400" font-size="18" letter-spacing=".22em" fill="#4A463A">SAXTON, PA</text>
+  </svg>
+
+  <!-- ==================== TITLE ==================== -->
+  <header class="titleblock">
+    <h1>LAKEWOOD<br>RESERVE</h1>
+    <div class="rule">
+      <svg viewBox="0 0 46 26" fill="none"><path d="M23 3 L28 12 L24.7 12 L30 21 L16 21 L21.3 12 L18 12 Z" fill="#2C4432"/><path d="M4 22 Q13.5 17 23 22 Q32.5 27 42 22" stroke="#2C4432" stroke-width="1.8" fill="none" stroke-linecap="round" transform="translate(0,-1)"/></svg>
+    </div>
+    <div class="loc">SAXTON, PA</div>
+    <p class="tag">Adventure on the Water. Peace in the Pines.</p>
+    <p class="intro">Set on the quiet southern reach of Raystown Lake&mdash;Pennsylvania&rsquo;s largest&mdash;Lakewood Reserve puts beaches, waterfalls, trails, and marinas minutes away, with a private wooded retreat to come home to.</p>
+  </header>
+
+  <!-- ==================== STOPS ==================== -->
+
+  <!-- Top-center : Trough Creek State Park -->
+  <div class="stop" style="left:697px;top:57px;">
+    <div class="medal" style="width:186px;height:186px;">
+      <svg viewBox="0 0 200 200" width="172" height="172">
+        <rect width="200" height="200" fill="#8FA68C"/>
+        <path d="M0 0 H200 V80 Q150 60 100 78 Q50 96 0 74 Z" fill="#5F7A63"/>
+        <path d="M0 0 H70 Q95 40 80 90 L60 160 H0 Z" fill="#6E6A58"/>
+        <path d="M130 0 H200 V150 L150 120 Q120 60 130 0 Z" fill="#7A755F"/>
+        <path d="M84 0 Q92 60 78 110 Q70 140 82 165" stroke="#F4F6F2" stroke-width="22" fill="none" stroke-linecap="round" opacity=".95"/>
+        <path d="M96 0 Q102 55 92 105" stroke="#DDE7E4" stroke-width="8" fill="none" opacity=".8"/>
+        <ellipse cx="95" cy="176" rx="80" ry="26" fill="#9DB6BD"/>
+        <ellipse cx="90" cy="170" rx="46" ry="12" fill="#F4F6F2" opacity=".55"/>
+        <g fill="#43584A"><path d="M160 90 L172 112 L166 112 L177 132 L143 132 L154 112 L148 112 Z"/><path d="M28 118 L38 136 L33 136 L42 152 L14 152 L23 136 L18 136 Z"/></g>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Trough Creek<br>State Park</h3>
+      <div class="dist">12.4 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 20 MIN</div>
+    </div>
+  </div>
+
+  <!-- Top-right : Seven Points Marina -->
+  <div class="stop" style="left:1178px;top:152px;">
+    <div class="medal" style="width:166px;height:166px;">
+      <img class="photo" alt="Raystown Lake at Seven Points" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raystown%20Lake%20-%20panoramio%20%2810%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="152" height="152">
+        <rect width="200" height="200" fill="#CFE0E4"/>
+        <path d="M0 60 Q60 30 120 52 Q165 68 200 50 V0 H0 Z" fill="#AFC6BB"/>
+        <rect y="110" width="200" height="90" fill="#8FB2C1"/>
+        <path d="M0 110 H200" stroke="#7FA5B5" stroke-width="3"/>
+        <!-- showboat -->
+        <g transform="translate(52,58)">
+          <path d="M0 52 L96 52 L88 68 L10 68 Z" fill="#FBFAF5"/>
+          <rect x="12" y="34" width="70" height="18" rx="2" fill="#FBFAF5"/>
+          <rect x="18" y="20" width="52" height="14" rx="2" fill="#F0EDE2"/>
+          <g fill="#7FA5B5"><rect x="18" y="38" width="8" height="8"/><rect x="32" y="38" width="8" height="8"/><rect x="46" y="38" width="8" height="8"/><rect x="60" y="38" width="8" height="8"/><rect x="24" y="23" width="7" height="8"/><rect x="38" y="23" width="7" height="8"/><rect x="52" y="23" width="7" height="8"/></g>
+          <circle cx="92" cy="58" r="14" fill="#B8483F"/><circle cx="92" cy="58" r="9" fill="none" stroke="#FBFAF5" stroke-width="2"/><path d="M92 46 V70 M80 58 H104 M84 50 L100 66 M100 50 L84 66" stroke="#FBFAF5" stroke-width="2"/>
+          <rect x="26" y="6" width="6" height="14" fill="#5A564A"/>
+          <path d="M32 2 Q42 -2 40 6 Q50 4 46 12" stroke="#C9C4B2" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+        <!-- dock + small boats -->
+        <rect x="0" y="140" width="86" height="8" fill="#9C8F72"/>
+        <g fill="#9C8F72"><rect x="8" y="148" width="5" height="14"/><rect x="44" y="148" width="5" height="14"/><rect x="76" y="148" width="5" height="14"/></g>
+        <path d="M110 152 Q126 146 142 152 L138 162 H114 Z" fill="#FBFAF5"/>
+        <path d="M150 168 Q168 162 186 168 L182 178 H154 Z" fill="#E8E3D2"/>
+        <g stroke="#FBFAF5" stroke-width="2.4" opacity=".7"><path d="M20 176 Q30 172 40 176"/><path d="M60 188 Q72 184 84 188"/><path d="M120 184 Q132 180 144 184"/></g>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Seven Points<br>Marina</h3>
+      <div class="dist">27.0 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 40 MIN</div>
+    </div>
+  </div>
+
+  <!-- Right-middle : Hawn's Overlook -->
+  <div class="stop" style="left:1222px;top:438px;">
+    <div class="medal" style="width:166px;height:166px;">
+      <img class="photo" alt="View of Raystown Lake from Ridenour Overlook" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/A%20view%20of%20Raystown%20Lake%20from%20Ridenour%20Overlook.jpg?width=900">
+      <svg viewBox="0 0 200 200" width="152" height="152">
+        <rect width="200" height="200" fill="#DCE4DE"/>
+        <circle cx="150" cy="42" r="20" fill="#F2E7C8"/>
+        <path d="M0 92 Q50 58 105 82 Q158 104 200 78 V200 H0 Z" fill="#93A8A0"/>
+        <path d="M0 122 Q55 92 112 114 Q162 132 200 112 V200 H0 Z" fill="#6F8A7D"/>
+        <path d="M0 152 Q60 124 120 146 Q168 162 200 146 V200 H0 Z" fill="#4E6A57"/>
+        <!-- lake ribbon below -->
+        <path d="M18 178 Q52 158 92 170 Q134 182 168 168" stroke="#8FB2C1" stroke-width="13" fill="none" stroke-linecap="round"/>
+        <path d="M18 178 Q52 158 92 170 Q134 182 168 168" stroke="#A8C4D0" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <g fill="#2C4432"><path d="M22 148 L32 164 L27 164 L36 180 L8 180 L17 164 L12 164 Z"/><path d="M182 140 L191 156 L186.5 156 L195 171 L169 171 L177.5 156 L173 156 Z"/></g>
+        <path d="M60 38 Q70 32 80 38 M120 26 Q130 20 140 26" stroke="#FBFAF5" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Hawn&rsquo;s + Ridenour<br>Overlooks</h3>
+      <div class="dist">29.5 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 45 MIN</div>
+    </div>
+  </div>
+
+  <!-- Right-lower : East Broad Top Railroad -->
+  <div class="stop" style="left:1197px;top:695px;">
+    <div class="medal" style="width:166px;height:166px;">
+      <img class="photo" alt="East Broad Top Railroad locomotive" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/East%20Broad%20Top%20Railroad%203%20%28first%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="152" height="152">
+        <rect width="200" height="200" fill="#C8D2C0"/>
+        <path d="M0 70 Q60 44 120 62 Q166 76 200 60 V0 H0 Z" fill="#9DB08E"/>
+        <!-- smoke -->
+        <g fill="#EFEBDD"><circle cx="66" cy="44" r="11"/><circle cx="80" cy="30" r="14"/><circle cx="99" cy="20" r="16"/></g>
+        <!-- locomotive -->
+        <g transform="translate(20,64)">
+          <rect x="96" y="10" width="52" height="58" rx="4" fill="#26382C"/>
+          <rect x="102" y="18" width="18" height="16" rx="2" fill="#DCE4DE"/>
+          <path d="M0 46 H96 V68 H0 Q-2 56 0 46 Z" fill="#31463A"/>
+          <rect x="0" y="34" width="96" height="14" rx="6" fill="#26382C"/>
+          <rect x="36" y="10" width="14" height="26" fill="#26382C"/>
+          <rect x="33" y="6" width="20" height="7" rx="2" fill="#B8483F"/>
+          <circle cx="70" cy="26" r="10" fill="#26382C"/><circle cx="70" cy="26" r="5" fill="#CBB57B"/>
+          <path d="M-14 68 L4 46 V68 Z" fill="#B8483F"/>
+          <circle cx="26" cy="76" r="13" fill="#1C2A21" stroke="#CBB57B" stroke-width="2.5"/>
+          <circle cx="62" cy="76" r="13" fill="#1C2A21" stroke="#CBB57B" stroke-width="2.5"/>
+          <circle cx="116" cy="78" r="10" fill="#1C2A21" stroke="#CBB57B" stroke-width="2.5"/>
+          <circle cx="140" cy="78" r="10" fill="#1C2A21" stroke="#CBB57B" stroke-width="2.5"/>
+        </g>
+        <rect y="158" width="200" height="8" fill="#8A7E64"/>
+        <g fill="#6E6350"><rect x="4" y="166" width="16" height="6"/><rect x="34" y="166" width="16" height="6"/><rect x="64" y="166" width="16" height="6"/><rect x="94" y="166" width="16" height="6"/><rect x="124" y="166" width="16" height="6"/><rect x="154" y="166" width="16" height="6"/><rect x="182" y="166" width="16" height="6"/></g>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>East Broad Top<br>Railroad</h3>
+      <div class="dist">22.1 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 35 MIN</div>
+    </div>
+  </div>
+
+  <!-- Left 1 : Lake Raystown Resort -->
+  <div class="stop" style="left:48px;top:475px;">
+    <div class="medal" style="width:150px;height:150px;">
+      <img class="photo" alt="Raystown Lake shoreline" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raystown%20Lake%20-%20panoramio%20%2817%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="136" height="136">
+        <rect width="200" height="200" fill="#CFE0E4"/>
+        <circle cx="46" cy="40" r="18" fill="#F2E7C8"/>
+        <path d="M0 84 Q60 60 130 80 Q170 90 200 80 V0 H200 Z" fill="#AFC6BB" opacity="0"/>
+        <path d="M0 96 Q70 74 140 92 Q175 100 200 92 V200 H0 Z" fill="#9DB08E" opacity=".5"/>
+        <!-- waterslide -->
+        <path d="M150 24 Q110 30 108 62 Q106 92 140 96 Q168 100 164 124 Q160 146 118 148" stroke="#3E8E9E" stroke-width="17" fill="none" stroke-linecap="round"/>
+        <path d="M150 24 Q110 30 108 62 Q106 92 140 96 Q168 100 164 124 Q160 146 118 148" stroke="#5FB0BE" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <g stroke="#8A7E64" stroke-width="6"><path d="M112 70 V150"/><path d="M158 108 V152"/></g>
+        <!-- pool -->
+        <ellipse cx="96" cy="164" rx="82" ry="24" fill="#8FB2C1"/>
+        <ellipse cx="96" cy="160" rx="66" ry="16" fill="#A8C4D0"/>
+        <path d="M108 152 Q116 146 124 152 M70 158 Q78 152 86 158" stroke="#F4F6F2" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+        <circle cx="118" cy="150" r="6" fill="#F2C9A0"/>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Lake Raystown Resort &amp; Waterpark</h3>
+      <div class="dist">11.2 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 18 MIN</div>
+    </div>
+  </div>
+
+  <!-- Left 2 : Tatman Run Beach -->
+  <div class="stop" style="left:72px;top:645px;">
+    <div class="medal" style="width:150px;height:150px;">
+      <img class="photo" alt="Raystown Lake near Tatman Run" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raystown%20Lake%20-%20panoramio%20%2815%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="136" height="136">
+        <rect width="200" height="200" fill="#CFE0E4"/>
+        <path d="M0 64 Q56 40 116 58 Q164 72 200 56 V0 H0 Z" fill="#AFC6BB"/>
+        <rect y="98" width="200" height="52" fill="#8FB2C1"/>
+        <path d="M0 150 Q50 138 100 150 Q150 162 200 150 V200 H0 Z" fill="#E4D3A8"/>
+        <g stroke="#F4F6F2" stroke-width="3" opacity=".8"><path d="M24 116 Q34 112 44 116"/><path d="M120 128 Q132 124 144 128"/><path d="M70 108 Q80 104 90 108"/></g>
+        <!-- umbrella -->
+        <g transform="translate(64,120)">
+          <path d="M0 22 V64" stroke="#8A7E64" stroke-width="5"/>
+          <path d="M-34 22 Q0 -14 34 22 Z" fill="#B8483F"/>
+          <path d="M-12 22 Q0 -8 12 22 Z" fill="#FBFAF5"/>
+        </g>
+        <ellipse cx="120" cy="180" rx="20" ry="7" fill="#B8483F" opacity=".85"/>
+        <path d="M148 168 Q160 162 172 168 L168 178 H152 Z" fill="#FBFAF5"/>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Tatman Run<br>Beach</h3>
+      <div class="dist">10.6 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 17 MIN</div>
+    </div>
+  </div>
+
+  <!-- Left 3 : Allegrippis Trails -->
+  <div class="stop" style="left:95px;top:812px;">
+    <div class="medal" style="width:150px;height:150px;">
+      <img class="photo" alt="Raystown Lake from the Allegrippis side" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raystown%20lake%20August%202016%20-%20panoramio%20-%20Ron%20Shawley%20%2835%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="136" height="136">
+        <rect width="200" height="200" fill="#B7C6A6"/>
+        <path d="M0 0 H200 V70 Q140 52 84 72 Q36 88 0 70 Z" fill="#7F9878"/>
+        <g fill="#43584A"><path d="M30 40 L44 64 L37 64 L48 86 L12 86 L23 64 L16 64 Z"/><path d="M168 34 L180 56 L174 56 L184 76 L152 76 L162 56 L156 56 Z"/><path d="M104 22 L114 40 L109 40 L118 58 L90 58 L99 40 L94 40 Z"/></g>
+        <!-- singletrack ribbon -->
+        <path d="M-10 192 Q42 162 72 170 Q112 180 130 152 Q148 124 190 120" stroke="#B9A280" stroke-width="20" fill="none" stroke-linecap="round"/>
+        <path d="M-10 192 Q42 162 72 170 Q112 180 130 152 Q148 124 190 120" stroke="#CBB794" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <!-- cyclist -->
+        <g transform="translate(94,116)">
+          <circle cx="-16" cy="26" r="12" fill="none" stroke="#2C3A2F" stroke-width="4"/>
+          <circle cx="18" cy="26" r="12" fill="none" stroke="#2C3A2F" stroke-width="4"/>
+          <path d="M-16 26 L-2 8 L14 10 L18 26 M-2 8 L2 26" stroke="#2C3A2F" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <path d="M-4 6 Q4 -6 12 -2 L14 10" stroke="#B8483F" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="14" cy="-8" r="6" fill="#2C3A2F"/>
+        </g>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Allegrippis<br>Trails</h3>
+      <div class="dist">28.4 MILES</div>
+      <div class="time"><svg viewBox="0 0 24 18" fill="#55534A"><path d="M3 10 L5 4 Q5.5 3 7 3 H15 Q16.5 3 17 4 L19 10 H21 Q22 10 22 11 V14 H19.5 A2.5 2.5 0 0 1 14.5 14 H9.5 A2.5 2.5 0 0 1 4.5 14 H2 V11 Q2 10 3 10 Z M6.5 5 L5.4 9 H18.6 L17.5 5 Q17.3 4.5 16.7 4.5 H7.3 Q6.7 4.5 6.5 5 Z"/><circle cx="7" cy="14" r="1.6"/><circle cx="17" cy="14" r="1.6"/></svg> 42 MIN</div>
+    </div>
+  </div>
+
+  <!-- Bottom-center : Weaver Falls Boat Launch -->
+  <div class="stop" style="left:762px;top:788px;">
+    <div class="medal" style="width:150px;height:150px;">
+      <img class="photo" alt="Raystown Lake near Weaver Falls" onerror="this.remove()" src="https://commons.wikimedia.org/wiki/Special:FilePath/Raystown%20Lake%20-%20panoramio%20%282%29.jpg?width=700">
+      <svg viewBox="0 0 200 200" width="136" height="136">
+        <rect width="200" height="200" fill="#D7E1DC"/>
+        <path d="M0 66 Q56 40 118 60 Q166 74 200 58 V0 H0 Z" fill="#9DB08E"/>
+        <g fill="#43584A"><path d="M36 34 L48 56 L42 56 L52 76 L20 76 L30 56 L24 56 Z"/><path d="M164 30 L174 48 L169 48 L178 66 L150 66 L159 48 L154 48 Z"/></g>
+        <rect y="104" width="200" height="96" fill="#8FB2C1"/>
+        <path d="M0 104 H200" stroke="#7FA5B5" stroke-width="3"/>
+        <!-- ramp -->
+        <path d="M56 78 L104 78 L150 140 L20 140 Z" fill="#A9A08A" opacity="0"/>
+        <path d="M62 76 H110 L140 150 H50 Z" fill="#B0A78E"/>
+        <path d="M62 76 H110 L140 150 H50 Z" fill="none" stroke="#9C8F72" stroke-width="3"/>
+        <!-- fishing boat -->
+        <g transform="translate(120,120)">
+          <path d="M-30 14 Q0 6 34 12 L26 28 H-22 Z" fill="#FBFAF5"/>
+          <path d="M-30 14 Q0 6 34 12" stroke="#C9C4B2" stroke-width="3" fill="none"/>
+          <circle cx="2" cy="4" r="7" fill="#2C4432"/>
+          <path d="M8 2 Q26 -12 38 -16" stroke="#5A564A" stroke-width="2.4" fill="none"/>
+        </g>
+        <g stroke="#F4F6F2" stroke-width="3" opacity=".75"><path d="M28 128 Q38 124 48 128"/><path d="M60 168 Q72 164 84 168"/><path d="M130 176 Q142 172 154 176"/></g>
+      </svg>
+    </div>
+    <div class="info">
+      <h3>Weaver Falls<br>Boat Launch</h3>
+      <div class="dist" style="max-width:220px;">MINUTES</div>
+      <div class="time" style="display:block;">FROM YOUR DOOR</div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <svg class="trees" viewBox="0 0 64 58" fill="none">
+      <path d="M22 4 L32 22 L27 22 L38 40 L30 40 L41 54 L3 54 L14 40 L6 40 L17 22 L12 22 Z" fill="#4E6A57"/>
+      <path d="M44 16 L51 29 L47.5 29 L55 41 L49 41 L57 52 L31 52 L39 41 L33 41 L40.5 29 L37 29 Z" fill="#7F9878"/>
+      <rect x="20" y="54" width="4" height="4" fill="#8A7E64"/><rect x="42" y="52" width="3.4" height="5" fill="#8A7E64"/>
+    </svg>
+    <div class="script">The Crown Jewel of Pennsylvania</div>
+    <div class="div"></div>
+    <div class="facts">An 8,300-acre lake with 118 miles<br>of shoreline&mdash;and endless ways to explore.</div>
+  </footer>
+
+  <div class="credit">Photos: Wikimedia Commons &mdash; Ron Shawley (CC BY 3.0), Ridenour Overlook view (CC), East Broad Top Railroad (public domain)</div>
+
+</div>
+</div>
+<script>
+  (function(){
+    var stage=document.getElementById('stage');
+    function fit(){
+      var w=document.documentElement.clientWidth||window.innerWidth;
+      var inFrame=window.parent!==window;
+      var s=inFrame?(w/1600):Math.min(w/1600,1);
+      stage.style.transform='scale('+s+')';
+      var h=(1067*s)+'px';
+      document.body.style.height=h;
+      document.documentElement.style.height=h;
+    }
+    fit();
+    window.addEventListener('resize',fit);
+  })();
+</script>
+</body>
+</html>
