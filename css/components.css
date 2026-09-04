@@ -2787,6 +2787,23 @@ select.hero-booking-input {
   color: rgba(253, 250, 245, 0.72);
 }
 
+.footer-credit {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(253, 250, 245, 0.72);
+}
+
+.footer-credit a {
+  color: rgba(253, 250, 245, 0.9);
+  font-weight: 500;
+}
+
+.footer-credit a:hover {
+  color: #fdfaf5;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
 .footer-legal-links {
   display: flex;
   flex-wrap: wrap;
