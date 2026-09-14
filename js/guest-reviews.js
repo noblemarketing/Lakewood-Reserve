@@ -288,9 +288,6 @@
   function renderReviewCard(review, hiddenCopy) {
     var rating = 5;
     var preview = previewFromText(review.text);
-    var locationHtml = review.location
-      ? '<p class="guest-review-card-location">' + escapeHtml(review.location) + "</p>"
-      : "";
     var propertyHtml = review.propertyLabel
       ? '<p class="guest-review-card-property">' +
         escapeHtml(review.propertyLabel) +
@@ -331,7 +328,6 @@
       '<cite class="guest-review-card-name">' +
       escapeHtml(review.name) +
       "</cite>" +
-      locationHtml +
       dateHtml +
       propertyHtml +
       "</footer>" +
