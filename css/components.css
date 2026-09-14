@@ -1092,6 +1092,22 @@ body.page-anchor main > section.listing-meta-strip {
   align-items: start;
 }
 
+@media (min-width: 768px) {
+  .listing-highlights {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(var(--container-max), 92%);
+    max-width: none;
+    gap: 1.25rem 1.35rem;
+    align-items: start;
+  }
+
+  .listing-highlights li {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    gap: 0.6rem;
+  }
+}
+
 .listing-highlights__icon {
   width: 2.35rem;
   height: 2.35rem;
