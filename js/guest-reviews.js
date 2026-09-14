@@ -4,8 +4,6 @@
   var STAR_PATH =
     "M12 2.5l2.9 6.1 6.8.6-5.1 4.5 1.5 6.6L12 17.8l-6.1 3.5 1.5-6.6-5.1-4.5 6.8-.6L12 2.5z";
 
-  var AVATAR_COLORS = ["#8b7ab8", "#d4849a", "#6b9e9a", "#c4a56a", "#7a8fc4"];
-
   var REVIEWS = [
     {
       property: "apex",
@@ -252,10 +250,9 @@
     },
   ];
 
-  var DESKTOP_QUERY = window.matchMedia("(min-width: 768px)");
+  var PREVIEW_LIMIT = 150;
+  var PX_PER_SEC = 28;
   var REDUCED_MOTION_QUERY = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var AUTO_ROTATE_MS = 6000;
-  var SCROLL_SETTLE_MS = 480;
 
   function escapeHtml(value) {
     return String(value)
@@ -276,14 +273,21 @@
     return stars;
   }
 
-  function getInitial(name) {
-    var trimmed = String(name || "").trim();
-    return trimmed ? trimmed.charAt(0).toUpperCase() : "?";
+  function previewFromText(text) {
+    var full = String(text || "").trim();
+    if (full.length <= PREVIEW_LIMIT) {
+      return { preview: full, truncated: false, full: full };
+    }
+    return {
+      preview: full.slice(0, PREVIEW_LIMIT).replace(/\s+$/, "") + "...",
+      truncated: true,
+      full: full,
+    };
   }
 
-  function renderReviewCard(review, logicalIndex, physicalIndex, showPropertyLabel) {
+  function renderReviewCard(review, hiddenCopy) {
     var rating = 5;
-    var avatarColor = AVATAR_COLORS[logicalIndex % AVATAR_COLORS.length];
+    var preview = previewFromText(review.text);
     var locationHtml = review.location
       ? '<p class="guest-review-card-location">' + escapeHtml(review.location) + "</p>"
       : "";
@@ -295,13 +299,23 @@
     var dateHtml = review.dateLabel
       ? '<p class="guest-review-card-date">' + escapeHtml(review.dateLabel) + "</p>"
       : "";
+    var moreHtml = preview.truncated
+      ? '<button type="button" class="guest-review-card-more">Read more</button>'
+      : "";
     return (
-      '<li class="guest-reviews-slide" role="group" aria-roledescription="slide" data-logical-index="' +
-      logicalIndex +
-      '" data-physical-index="' +
-      physicalIndex +
-      '">' +
-      '<article class="guest-review-card" tabindex="0">' +
+      '<li class="guest-reviews-slide">' +
+      '<article class="guest-review-card' +
+      (preview.truncated ? " is-expandable" : "") +
+      '"' +
+      (hiddenCopy ? " aria-hidden=\"true\"" : "") +
+      (preview.truncated
+        ? ' data-preview="' +
+          escapeHtml(preview.preview) +
+          '" data-full="' +
+          escapeHtml(preview.full) +
+          '"'
+        : "") +
+      ">" +
       '<div class="guest-review-card-stars" aria-label="Rated ' +
       rating +
       ' out of 5">' +
@@ -309,16 +323,11 @@
       "</div>" +
       '<blockquote class="guest-review-card-text">' +
       "<p>" +
-      escapeHtml(review.text) +
+      escapeHtml(preview.preview) +
       "</p>" +
-      '<span class="guest-review-card-more" hidden>Read more</span>' +
+      moreHtml +
       "</blockquote>" +
       '<footer class="guest-review-card-footer">' +
-      '<span class="guest-review-avatar" style="background-color:' +
-      avatarColor +
-      '" aria-hidden="true">' +
-      escapeHtml(getInitial(review.name)) +
-      "</span>" +
       '<cite class="guest-review-card-name">' +
       escapeHtml(review.name) +
       "</cite>" +
@@ -331,412 +340,104 @@
     );
   }
 
-  function getSlidesPerView() {
-    return DESKTOP_QUERY.matches ? 2 : 1;
+  function renderSet(reviews, hiddenCopy) {
+    return (
+      '<ul class="guest-reviews-set" role="' +
+      (hiddenCopy ? "presentation" : "list") +
+      '"' +
+      (hiddenCopy ? " aria-hidden=\"true\"" : "") +
+      ">" +
+      reviews
+        .map(function (review) {
+          return renderReviewCard(review, hiddenCopy);
+        })
+        .join("") +
+      "</ul>"
+    );
   }
 
-  function buildLoopSlides(reviews) {
-    if (reviews.length <= 1) return reviews.slice();
-    return reviews.concat(reviews, reviews);
+  function buildMarquee(reviews) {
+    var loop = reviews.length > 1;
+    return (
+      '<div class="guest-reviews-marquee" role="region" aria-label="Guest reviews">' +
+      '<div class="guest-reviews-viewport">' +
+      '<div class="guest-reviews-track">' +
+      renderSet(reviews, false) +
+      (loop ? renderSet(reviews, true) : "") +
+      "</div>" +
+      "</div>" +
+      "</div>"
+    );
   }
 
-  function initCarousel(root, reviews) {
-    var loopEnabled = reviews.length > 1;
-    var setSize = reviews.length;
-    var physicalIndex = loopEnabled ? setSize : 0;
-    var isProgrammaticScroll = false;
-    var autoRotateTimer = null;
-    var resumeTimer = null;
-    var settleTimer = null;
-    var hasExpandedCard = false;
-    var viewport = root.querySelector(".guest-reviews-viewport");
+  function initMarquee(root) {
     var track = root.querySelector(".guest-reviews-track");
-    var slides = root.querySelectorAll(".guest-reviews-slide");
-    var cards = root.querySelectorAll(".guest-review-card");
-    var dotButtons = root.querySelectorAll(".guest-reviews-dot");
-    var dotsWrap = root.querySelector(".guest-reviews-dots");
-    var prevBtn = root.querySelector(".guest-reviews-btn--prev");
-    var nextBtn = root.querySelector(".guest-reviews-btn--next");
-    var live = root.querySelector(".guest-reviews-live");
+    var firstSet = root.querySelector(".guest-reviews-set");
+    if (!track || !firstSet) return;
 
-    function logicalFromPhysical(i) {
-      if (!setSize) return 0;
-      return ((i % setSize) + setSize) % setSize;
-    }
+    var reduced = REDUCED_MOTION_QUERY.matches;
+    var looping = root.querySelectorAll(".guest-reviews-set").length > 1;
 
-    function canScroll() {
-      return loopEnabled;
-    }
-
-    function shouldAutoRotate() {
-      return (
-        canScroll() &&
-        !hasExpandedCard &&
-        !REDUCED_MOTION_QUERY.matches &&
-        !document.hidden
-      );
-    }
-
-    function stopAutoRotate() {
-      if (autoRotateTimer) {
-        window.clearInterval(autoRotateTimer);
-        autoRotateTimer = null;
-      }
-      if (resumeTimer) {
-        window.clearTimeout(resumeTimer);
-        resumeTimer = null;
-      }
-    }
-
-    function startAutoRotate() {
-      stopAutoRotate();
-      if (!shouldAutoRotate()) return;
-      autoRotateTimer = window.setInterval(advance, AUTO_ROTATE_MS);
-    }
-
-    function pauseAutoRotate(resumeAfterMs) {
-      stopAutoRotate();
-      if (!shouldAutoRotate()) return;
-      if (typeof resumeAfterMs === "number") {
-        resumeTimer = window.setTimeout(startAutoRotate, resumeAfterMs);
-      }
-    }
-
-    function resetAutoRotate() {
-      pauseAutoRotate(AUTO_ROTATE_MS);
-    }
-
-    function getSlideOffset(i) {
-      var slide = slides[i];
-      return slide ? slide.offsetLeft : 0;
-    }
-
-    function collapseAllCards() {
-      for (var i = 0; i < cards.length; i += 1) {
-        setCardExpanded(cards[i], false);
-      }
-      hasExpandedCard = false;
-    }
-
-    function updateActive() {
-      var perView = getSlidesPerView();
-      for (var i = 0; i < slides.length; i += 1) {
-        var visible = !canScroll() || (i >= physicalIndex && i < physicalIndex + perView);
-        slides[i].classList.toggle("is-active", i === physicalIndex);
-        slides[i].setAttribute("aria-hidden", visible ? "false" : "true");
-      }
-    }
-
-    function updateDots() {
-      var logical = logicalFromPhysical(physicalIndex);
-      for (var d = 0; d < dotButtons.length; d += 1) {
-        var on = d === logical;
-        dotButtons[d].classList.toggle("is-active", on);
-        dotButtons[d].setAttribute("aria-selected", on ? "true" : "false");
-      }
-    }
-
-    function updateNav() {
-      var scrollable = canScroll();
-      prevBtn.disabled = false;
-      nextBtn.disabled = false;
-      prevBtn.hidden = !scrollable;
-      nextBtn.hidden = !scrollable;
-      if (dotsWrap) dotsWrap.hidden = reviews.length <= 1;
-      root.classList.toggle("guest-reviews-carousel--static", !scrollable);
-    }
-
-    function announce() {
-      if (!live || !reviews.length) return;
-      var logical = logicalFromPhysical(physicalIndex);
-      live.textContent =
-        "Review " +
-        (logical + 1) +
-        " of " +
-        reviews.length +
-        " by " +
-        reviews[logical].name;
-    }
-
-    function jumpWithoutAnimation(nextPhysical) {
-      physicalIndex = nextPhysical;
-      isProgrammaticScroll = true;
-      viewport.scrollTo({
-        left: getSlideOffset(physicalIndex),
-        behavior: "auto",
-      });
-      window.requestAnimationFrame(function () {
-        isProgrammaticScroll = false;
-      });
-    }
-
-    function normalizeLoopPosition() {
-      if (!loopEnabled) return;
-      if (physicalIndex >= setSize * 2) {
-        jumpWithoutAnimation(physicalIndex - setSize);
-      } else if (physicalIndex < setSize) {
-        jumpWithoutAnimation(physicalIndex + setSize);
-      }
-    }
-
-    function updateScrollPosition(smooth) {
-      if (!canScroll()) {
-        isProgrammaticScroll = true;
-        viewport.scrollLeft = 0;
-        window.setTimeout(function () {
-          isProgrammaticScroll = false;
-        }, 0);
+    function setDuration() {
+      if (!looping || reduced) {
+        track.style.animationDuration = "0s";
         return;
       }
-
-      var offset = getSlideOffset(physicalIndex);
-      isProgrammaticScroll = true;
-      viewport.scrollTo({
-        left: offset,
-        behavior: smooth === false ? "auto" : "smooth",
-      });
-
-      if (settleTimer) window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(
-        function () {
-          normalizeLoopPosition();
-          isProgrammaticScroll = false;
-          updateActive();
-          updateDots();
-          announce();
-        },
-        smooth === false ? 0 : SCROLL_SETTLE_MS
-      );
+      var styles = window.getComputedStyle(track);
+      var gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      var distance = firstSet.offsetWidth + gap;
+      var seconds = Math.max(24, distance / PX_PER_SEC);
+      track.style.setProperty("--guest-reviews-distance", "-" + distance + "px");
+      track.style.animationDuration = seconds + "s";
     }
 
-    function syncIndexFromScroll() {
-      if (isProgrammaticScroll || !canScroll()) return;
-
-      var left = viewport.scrollLeft;
-      var closest = 0;
-      var minDist = Infinity;
-
-      for (var i = 0; i < slides.length; i += 1) {
-        var dist = Math.abs(getSlideOffset(i) - left);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = i;
-        }
-      }
-
-      if (closest !== physicalIndex) {
-        physicalIndex = closest;
-        normalizeLoopPosition();
-        updateActive();
-        updateDots();
-        announce();
-      }
+    function anyExpanded() {
+      return Boolean(root.querySelector(".guest-review-card.is-expanded"));
     }
 
-    function refresh(smooth) {
-      if (!loopEnabled) {
-        physicalIndex = 0;
-      } else if (physicalIndex < setSize || physicalIndex >= setSize * 2) {
-        physicalIndex = setSize + logicalFromPhysical(physicalIndex);
-      }
-      updateScrollPosition(smooth);
-      updateActive();
-      updateDots();
-      updateNav();
-      announce();
-    }
-
-    function goToPhysical(nextPhysical, smooth) {
-      if (!reviews.length) return;
-      if (!canScroll()) {
-        physicalIndex = 0;
-        refresh(false);
-        return;
-      }
-      collapseAllCards();
-      physicalIndex = nextPhysical;
-      refresh(smooth);
-    }
-
-    function goToLogical(logicalIndex, smooth) {
-      if (!canScroll()) {
-        goToPhysical(0, false);
-        return;
-      }
-      var currentLogical = logicalFromPhysical(physicalIndex);
-      var delta = logicalIndex - currentLogical;
-      goToPhysical(physicalIndex + delta, smooth);
-    }
-
-    function advance() {
-      if (!canScroll()) return;
-      goToPhysical(physicalIndex + 1, true);
-    }
-
-    function retreat() {
-      if (!canScroll()) return;
-      goToPhysical(physicalIndex - 1, true);
-    }
-
-    function markExpandableCards() {
-      for (var i = 0; i < cards.length; i += 1) {
-        var card = cards[i];
-        var textEl = card.querySelector(".guest-review-card-text p");
-        var moreEl = card.querySelector(".guest-review-card-more");
-        if (!textEl) continue;
-
-        card.classList.remove("is-expanded");
-        var overflows = textEl.scrollHeight > textEl.clientHeight + 1;
-        card.classList.toggle("is-expandable", overflows);
-        card.setAttribute("aria-expanded", "false");
-        if (overflows) {
-          card.setAttribute("role", "button");
-          card.setAttribute("aria-label", "Expand review");
-        } else {
-          card.removeAttribute("role");
-          card.removeAttribute("aria-label");
-        }
-        if (moreEl) {
-          moreEl.hidden = !overflows;
-          moreEl.textContent = "Read more";
-        }
-      }
+    function syncPaused() {
+      root.classList.toggle("is-paused", anyExpanded());
     }
 
     function setCardExpanded(card, expanded) {
       if (!card || !card.classList.contains("is-expandable")) return;
+      var textEl = card.querySelector(".guest-review-card-text p");
       var moreEl = card.querySelector(".guest-review-card-more");
+      var full = card.getAttribute("data-full") || "";
+      var preview = card.getAttribute("data-preview") || "";
       card.classList.toggle("is-expanded", expanded);
       card.setAttribute("aria-expanded", expanded ? "true" : "false");
-      card.setAttribute("aria-label", expanded ? "Collapse review" : "Expand review");
+      if (textEl) textEl.textContent = expanded ? full : preview;
       if (moreEl) moreEl.textContent = expanded ? "Show less" : "Read more";
     }
 
     function toggleCard(card) {
       if (!card || !card.classList.contains("is-expandable")) return;
       var willExpand = !card.classList.contains("is-expanded");
-
+      var cards = root.querySelectorAll(".guest-review-card.is-expandable");
       for (var i = 0; i < cards.length; i += 1) {
         if (cards[i] !== card) setCardExpanded(cards[i], false);
       }
-
       setCardExpanded(card, willExpand);
-      hasExpandedCard = willExpand;
-
-      if (willExpand) {
-        stopAutoRotate();
-      } else {
-        startAutoRotate();
-      }
+      syncPaused();
     }
 
-    if (track) {
-      track.addEventListener("click", function (e) {
-        var card = e.target.closest(".guest-review-card");
-        if (!card || !root.contains(card)) return;
-        toggleCard(card);
-        resetAutoRotate();
-      });
-
-      track.addEventListener("keydown", function (e) {
-        if (e.key !== "Enter" && e.key !== " ") return;
-        var card = e.target.closest(".guest-review-card");
-        if (!card || !root.contains(card)) return;
-        e.preventDefault();
-        toggleCard(card);
-        resetAutoRotate();
-      });
-    }
-
-    prevBtn.addEventListener("click", function () {
-      retreat();
-      resetAutoRotate();
-    });
-    nextBtn.addEventListener("click", function () {
-      advance();
-      resetAutoRotate();
+    root.querySelectorAll(".guest-review-card.is-expandable").forEach(function (card) {
+      card.setAttribute("aria-expanded", "false");
     });
 
-    root.querySelector(".guest-reviews-dots").addEventListener("click", function (e) {
-      var dot = e.target.closest(".guest-reviews-dot");
-      if (!dot || !root.contains(dot)) return;
-      var idx = parseInt(dot.getAttribute("data-index"), 10);
-      if (!isNaN(idx)) {
-        goToLogical(idx, true);
-        resetAutoRotate();
-      }
-    });
-
-    root.addEventListener("keydown", function (e) {
-      if (e.target.closest(".guest-review-card")) return;
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        retreat();
-        resetAutoRotate();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        advance();
-        resetAutoRotate();
-      }
-    });
-
-    var scrollTimer;
-    viewport.addEventListener(
-      "scroll",
-      function () {
-        if (isProgrammaticScroll) return;
-        window.clearTimeout(scrollTimer);
-        scrollTimer = window.setTimeout(function () {
-          syncIndexFromScroll();
-          resetAutoRotate();
-        }, 80);
-      },
-      { passive: true }
-    );
-
-    viewport.addEventListener(
-      "wheel",
-      function (e) {
-        if (!canScroll()) return;
-        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        if (Math.abs(delta) < 12) return;
-        e.preventDefault();
-        if (delta > 0) advance();
-        else retreat();
-        resetAutoRotate();
-      },
-      { passive: false }
-    );
-
-    root.addEventListener("mouseenter", function () {
-      pauseAutoRotate();
-    });
-    root.addEventListener("mouseleave", function () {
-      if (!hasExpandedCard) startAutoRotate();
-    });
-    root.addEventListener("focusin", function () {
-      pauseAutoRotate();
-    });
-    root.addEventListener("focusout", function (e) {
-      if (!root.contains(e.relatedTarget) && !hasExpandedCard) startAutoRotate();
-    });
-    viewport.addEventListener(
-      "touchstart",
-      function () {
-        pauseAutoRotate(AUTO_ROTATE_MS * 2);
-      },
-      { passive: true }
-    );
-
-    document.addEventListener("visibilitychange", function () {
-      if (document.hidden) stopAutoRotate();
-      else if (!hasExpandedCard) startAutoRotate();
+    root.addEventListener("click", function (e) {
+      var card = e.target.closest(".guest-review-card.is-expandable");
+      if (!card || !root.contains(card)) return;
+      e.preventDefault();
+      toggleCard(card);
     });
 
     function bindMotionPreference(query) {
       var onChange = function () {
-        if (query.matches) stopAutoRotate();
-        else if (!hasExpandedCard) startAutoRotate();
+        reduced = query.matches;
+        root.classList.toggle("guest-reviews-marquee--static", reduced || !looping);
+        setDuration();
       };
       if (typeof query.addEventListener === "function") {
         query.addEventListener("change", onChange);
@@ -746,75 +447,17 @@
     }
 
     bindMotionPreference(REDUCED_MOTION_QUERY);
-
-    if (typeof DESKTOP_QUERY.addEventListener === "function") {
-      DESKTOP_QUERY.addEventListener("change", function () {
-        refresh(false);
-        markExpandableCards();
-      });
-    } else if (typeof DESKTOP_QUERY.addListener === "function") {
-      DESKTOP_QUERY.addListener(function () {
-        refresh(false);
-        markExpandableCards();
-      });
-    }
+    root.classList.toggle("guest-reviews-marquee--static", reduced || !looping);
 
     window.addEventListener("resize", function () {
-      collapseAllCards();
-      refresh(false);
-      markExpandableCards();
-      startAutoRotate();
+      setDuration();
     });
 
-    refresh(false);
-    markExpandableCards();
-    startAutoRotate();
-  }
-
-  function buildCarousel(reviews, showPropertyLabel) {
-    var loopSlides = buildLoopSlides(reviews);
-    var slidesHtml = loopSlides
-      .map(function (review, physicalIndex) {
-        var logicalIndex = physicalIndex % reviews.length;
-        return renderReviewCard(review, logicalIndex, physicalIndex, showPropertyLabel);
-      })
-      .join("");
-
-    var dotsHtml = reviews
-      .map(function (review, index) {
-        return (
-          '<button type="button" class="guest-reviews-dot' +
-          (index === 0 ? " is-active" : "") +
-          '" role="tab" data-index="' +
-          index +
-          '" aria-selected="' +
-          (index === 0 ? "true" : "false") +
-          '" aria-label="Show review by ' +
-          escapeHtml(review.name) +
-          '"></button>'
-        );
-      })
-      .join("");
-
-    return (
-      '<div class="guest-reviews-carousel" role="region" aria-roledescription="carousel" aria-label="Guest reviews" tabindex="0">' +
-      '<button type="button" class="guest-reviews-btn guest-reviews-btn--prev" aria-label="Previous review">' +
-      '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14 6 8 12l6 6"/></svg>' +
-      "</button>" +
-      '<div class="guest-reviews-viewport">' +
-      '<ul class="guest-reviews-track" role="list">' +
-      slidesHtml +
-      "</ul>" +
-      "</div>" +
-      '<button type="button" class="guest-reviews-btn guest-reviews-btn--next" aria-label="Next review">' +
-      '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="m10 6 6 6-6 6"/></svg>' +
-      "</button>" +
-      '<div class="guest-reviews-dots" role="tablist" aria-label="Review navigation">' +
-      dotsHtml +
-      "</div>" +
-      '<p class="guest-reviews-live sr-only" aria-live="polite"></p>' +
-      "</div>"
-    );
+    setDuration();
+    window.requestAnimationFrame(setDuration);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(setDuration);
+    }
   }
 
   function initSection(section) {
@@ -832,8 +475,8 @@
       return;
     }
 
-    mount.innerHTML = buildCarousel(reviews, !propertyFilter);
-    initCarousel(mount.querySelector(".guest-reviews-carousel"), reviews);
+    mount.innerHTML = buildMarquee(reviews);
+    initMarquee(mount.querySelector(".guest-reviews-marquee"));
   }
 
   document.querySelectorAll("[data-guest-reviews]").forEach(initSection);
