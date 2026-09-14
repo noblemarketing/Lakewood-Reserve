@@ -228,6 +228,7 @@ body.page-explore {
 .guest-reviews {
   background: var(--color-white);
   color: #2A2D2E;
+  overflow-x: hidden;
 }
 
 .final-cta {
