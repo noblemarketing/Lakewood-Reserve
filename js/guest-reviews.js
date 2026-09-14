@@ -10,6 +10,83 @@
     {
       property: "apex",
       propertyLabel: "The Apex",
+      name: "Nick",
+      location: "",
+      rating: 5,
+      dateLabel: "September 2026",
+      text:
+        "This was everything we needed and more as a getaway for our anniversary. It was the perfect layout for anyone needing to get away and unwind and enjoy the tranquility and stillness of life. From the beautiful picture window allowing us to take in the scenery, to the king sized bed that was like sleeping on a cloud, to the wood-fired hot tub that made enjoy that space even more relaxing. Everything was perfect and I couldn't have been more satisfied with our stay, even more so we will be bringing our kids and coming back!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Jessica",
+      location: "Philadelphia, Pennsylvania",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "What a beautiful space that far exceeded the photos. I absolutely loved it all and am already looking forward to returning. Communication was great, location was private, and everything was absolutely perfect. You can tell a lot of thought went into the design and layout, which is always fun to be able to experience. Incredibly grateful for it all.",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Michelle",
+      location: "",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "Wonderful stay very relaxing beautiful",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Heidi",
+      location: "Philadelphia, Pennsylvania",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "Perfect!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Kendall",
+      location: "Myrtle Beach, South Carolina",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "Absolutely loved our time here!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Chris",
+      location: "",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "This place is everything that you think it would be when you see the pictures. We had such a great time. Very nice and relaxing. We loved the recommendations in the booklet, specifically backwoods smoke shack. Great bbq! I have already recommended this place to so many people. 10/10 experience",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Sofiia",
+      location: "",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "We spent an incredible weekend at this beautiful place. Everything felt private, new, and thoughtfully designed down to the smallest detail. It was so cozy, warm, and beautiful. This is the perfect place to escape everyday life, slow down, and enjoy a peaceful retreat in nature. The aesthetic is absolutely amazing, and the entire space feels incredibly welcoming. We will definitely be coming back again and again!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Kennedy",
+      location: "",
+      rating: 5,
+      dateLabel: "July 2026",
+      text:
+        "Absolutely loved our time here. The location was excellent - peaceful, private, but near lots of awesome fishing spots. The house was clean, had everything we needed, and the amenities were perfect. They were incredibly responsive if we had any issues or any questions. Will definitely be coming back!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
       name: "Andrew",
       location: "",
       rating: 5,
@@ -46,6 +123,83 @@
       dateLabel: "June 2026",
       text:
         "The Apex was beautiful close enough to Raystown Lake. It was quiet and peaceful. Nice place to stay.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Jason",
+      location: "Malvern, Pennsylvania",
+      rating: 5,
+      dateLabel: "September 2026",
+      text:
+        "My family and I had a great time staying at the Tiny House. We had tickets to a Penn State game and decided to stay at Raytown Lake for the weekend. We brought a boat with us and went out on the lake for a day. Two adults and four young kids. The house certainly is tight, but it was enough room for us!",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Matthew",
+      location: "",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "Great secluded spot near the lake!",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Loren",
+      location: "Sterling, Virginia",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "We had a great stay. Cute tiny home.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Devon",
+      location: "Pittsburgh, Pennsylvania",
+      rating: 5,
+      dateLabel: "August 2026",
+      text: "Within 15-30 minutes of most local attractions.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Brian",
+      location: "Fanwood, New Jersey",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "Our stay at Anchor Twenty Eight was delightful. The location is great, private and inviting. The house is just as in the pictures; new, clean, functional and comfortable. It is nicely appointed with all the important \"stuff\". The homeowners were very thoughtful in outfitting the house. We thoroughly enjoyed the screened-in porch; the best part about the house. Coffee in the morning, watching the storms roll through in the afternoons, dinner and a glass of wine in the evenings... and no bugs! A very nice extension to the main living space. Although we were not there to take advantage of Raystown Lake, we were close to the Allegrippis mountain biking trail system which was the activity for the weekend... and only 30 minutes from the house. I'm sure the lake would provide even more options. Given the heat, we were not able to take advantage of the sauna, but I would imagine in the Fall that would be very nice too. We'll be back! Thanks Dan!!",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Elizabeth",
+      location: "Quakertown, Pennsylvania",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "This house is amazing. The photos depict the house and the grounds perfectly. It was nestled in the woods with a firepit and a sauna for your use only. It was fun to sit in the loft, but my favorite part was the large screened in porch. We had a rainy day and the peacefulness of listening to the rain on the roof and watching it in the trees was perfect. Cleanliness and having everything you could need seems to be a top priority for Dan. Even though this house is small, you don't feel squished in it at all. There was much more room than I expected with all the amenities needed. The lake really is only minutes away too. I really enjoyed my stay and will gladly return.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Stephanie",
+      location: "York, Pennsylvania",
+      rating: 5,
+      dateLabel: "August 2026",
+      text:
+        "My family had a wonderful time. We did a lot of fishing around Raystown on this trip. We caught bass, crappie and bluegill at the several spots we visited. Every morning we woke up and took a 3 mile hike. The neighborhood is peaceful and quiet. We also visited nearby Saxton and found a great little coffee shop, grocery store, as well as the tavern restaurant for dinner one night. The house was definitely spacious enough for our family of 4 and we enjoyed eating out on the covered, screened-in porch for breakfast. We are already talking about when we can go back again!",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Lance",
+      location: "Pittsburgh, Pennsylvania",
+      rating: 5,
+      dateLabel: "July 2026",
+      text:
+        "The property was just what my family needed for a weekend away. Waking up to the sound of the birds was fantastic. We have two boys under the age of 12 and they loved the outdoor tree swing and the access to the surrounding forest and lake. The kitchen was equipped with just what we needed and nothing more. The local fresh ground coffee was a wonderful touch. My wife and I sat on the screened in porch to have an early morning cup together. While we didn't use the sauna, I could see it and the fire pit being a great touch for fall/winter visits. We'll be back if the opportunity comes up again. Thanks for the hospitality.",
     },
     {
       property: "anchor-28",
@@ -130,12 +284,14 @@
   function renderReviewCard(review, logicalIndex, physicalIndex, showPropertyLabel) {
     var rating = 5;
     var avatarColor = AVATAR_COLORS[logicalIndex % AVATAR_COLORS.length];
-    var propertyHtml =
-      showPropertyLabel && review.propertyLabel
-        ? '<p class="guest-review-card-property">' +
-          escapeHtml(review.propertyLabel) +
-          "</p>"
-        : "";
+    var locationHtml = review.location
+      ? '<p class="guest-review-card-location">' + escapeHtml(review.location) + "</p>"
+      : "";
+    var propertyHtml = review.propertyLabel
+      ? '<p class="guest-review-card-property">' +
+        escapeHtml(review.propertyLabel) +
+        "</p>"
+      : "";
     var dateHtml = review.dateLabel
       ? '<p class="guest-review-card-date">' + escapeHtml(review.dateLabel) + "</p>"
       : "";
@@ -166,6 +322,7 @@
       '<cite class="guest-review-card-name">' +
       escapeHtml(review.name) +
       "</cite>" +
+      locationHtml +
       dateHtml +
       propertyHtml +
       "</footer>" +
