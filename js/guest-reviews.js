@@ -8,6 +8,36 @@
     {
       property: "apex",
       propertyLabel: "The Apex",
+      name: "Michael",
+      location: "Alburtis, Pennsylvania",
+      rating: 5,
+      dateLabel: "October 2026",
+      text:
+        "Dan created a peaceful stay from the moment we entered the home. There were so many welcoming details inside the house. The outside offered a relaxing hot tub and sauna which we used and loved!! We cooked our dinner over the outside fire pit under an amazing sky of stars. We will definitely be back to visit and enjoy more hiking and hot tub soaking. Thank you.",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Min Woo",
+      location: "Centreville, Virginia",
+      rating: 5,
+      dateLabel: "October 2026",
+      text:
+        "Amazing host and cabin. Would love to come back and stay longer so I can take advantage of other amenities that I didn't have time for!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
+      name: "Claire",
+      location: "Akron, Pennsylvania",
+      rating: 5,
+      dateLabel: "September 2026",
+      text:
+        "We absolutely loved staying here! It was the perfect spot. The views were beautiful, and the property was so well taken care of. Only 3 minutes to the boat ramp was a big plus as well! We can't wait to come back!!",
+    },
+    {
+      property: "apex",
+      propertyLabel: "The Apex",
       name: "Nick",
       location: "",
       rating: 5,
@@ -121,6 +151,16 @@
       dateLabel: "June 2026",
       text:
         "The Apex was beautiful close enough to Raystown Lake. It was quiet and peaceful. Nice place to stay.",
+    },
+    {
+      property: "anchor-28",
+      propertyLabel: "Anchor Twenty Eight",
+      name: "Jeremy",
+      location: "Frederick, Maryland",
+      rating: 5,
+      dateLabel: "October 2026",
+      text:
+        "Wow Dan's place was clean and tranquil. It was perfect for the three of us to get away and have access to the lake for boating this weekend. We loved the front porch, the fire pit and the layout inside. The beds were super comfortable and the whole place felt like home. We'll definitely be back!",
     },
     {
       property: "anchor-28",
